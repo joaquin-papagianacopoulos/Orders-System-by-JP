@@ -1,0 +1,4 @@
+agregar botones abajo para ir viendo el pedido y poder modificarlo
+agregar seccion de ventas, que se pueda modificar una vez hecha la boleta.
+estadistica de cuanto vendiste x dia
+ver el producto por producto vendido en el dia en un pdf
