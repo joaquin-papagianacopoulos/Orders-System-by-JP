@@ -486,6 +486,112 @@ class PedidoApp(MDApp):
             content_cls=content,
             size_hint=(0.8, None)
         ).open()
+            
+    def mostrar_dialogo_simple(self, titulo, texto):
+        """Muestra un diálogo simple con un botón para cerrar."""
+        # Crear el diálogo
+        self.dialog = MDDialog(
+            title=titulo,
+            text=texto,
+            buttons=[
+                MDFlatButton(
+                    text="Cerrar",
+                    on_release=lambda x: self.dialog.dismiss()
+                ),
+            ],
+        )
+        self.dialog.open()
+
+        
+        
+            
+    def generar_productos_por_dia(self):
+        """Genera un PDF con los productos vendidos en el día actual, acumulando cantidades."""
+        try:
+            # Obtener la fecha actual
+            fecha_actual = datetime.now().strftime("%Y-%m-%d")
+            
+            conn = conectar_bd()
+            cursor = conn.cursor()
+            # Consulta SQL para obtener productos vendidos hoy agrupados y sumados
+            consulta = """
+            SELECT producto, SUM(cantidad) as cantidad_total
+            FROM pedidos
+            WHERE fecha = %s
+            GROUP BY producto
+            ORDER BY producto
+            """
+            
+            cursor.execute(consulta, (fecha_actual,))
+            resultados = cursor.fetchall()
+            
+            # Cerrar la conexión a la base de datos
+            conn.close()
+            
+            # Verificar si hay resultados
+            if not resultados:
+                self.mostrar_dialogo_simple("Información", "No hay productos vendidos registrados para hoy.")
+                return
+            
+            # Crear el PDF
+            pdf = FPDF()
+            pdf.add_page()
+            
+            # Configurar márgenes y fuentes
+            pdf.set_margins(10, 10, 10)
+            pdf.set_auto_page_break(True, margin=15)
+            
+            # Título
+            pdf.set_font('Arial', 'B', 16)
+            pdf.cell(0, 10, 'Reporte de Productos por Día', 0, 1, 'C')
+            
+            # Fecha
+            pdf.set_font('Arial', 'B', 12)
+            pdf.cell(0, 10, f'Fecha: {fecha_actual}', 0, 1, 'L')
+            pdf.ln(5)
+            
+            # Crear la tabla
+            # Encabezados
+            pdf.set_fill_color(200, 200, 200)
+            pdf.set_font('Arial', 'B', 11)
+            
+            # Definir anchos de columnas
+            ancho_producto = 120
+            ancho_cantidad = 60
+            altura_celda = 10
+            
+            # Dibujar encabezados
+            pdf.cell(ancho_producto, altura_celda, 'Producto', 1, 0, 'C', 1)
+            pdf.cell(ancho_cantidad, altura_celda, 'Cantidad', 1, 1, 'C', 1)
+            
+            # Dibujar filas de datos
+            pdf.set_font('Arial', '', 10)
+            for producto, cantidad in resultados:
+                pdf.cell(ancho_producto, altura_celda, producto, 1, 0, 'L')
+                pdf.cell(ancho_cantidad, altura_celda, str(cantidad), 1, 1, 'C')
+            
+            # Crear directorio para reportes si no existe
+            directorio = "reportes"
+            if not os.path.exists(directorio):
+                os.makedirs(directorio)
+            
+            # Generar nombre de archivo único
+            timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+            nombre_archivo = f"{directorio}/productos_por_dia_{timestamp}.pdf"
+            
+            # Guardar el PDF
+            pdf.output(nombre_archivo)
+            
+            # Mostrar mensaje de éxito
+            self.mostrar_dialogo_simple("Éxito", f"Reporte generado exitosamente.\nArchivo: {nombre_archivo}")
+            
+        except Exception as e:
+            # Mostrar mensaje de error con detalles para ayudar en la depuración
+            import traceback
+            error_detalle = traceback.format_exc()
+            self.mostrar_dialogo_simple("Error", f"No se pudo generar el reporte: {str(e)}\n\nDetalles: {error_detalle}")
+
+        
 
     def mostrar_detalle_cliente(self, cliente, instance):
         conn = conectar_bd()
@@ -532,7 +638,26 @@ class PedidoApp(MDApp):
             size_hint=(0.8, None)
         )
         dialog.open()
-
+    def agregar_boton_productos_por_dia(self):
+        # Obtener una referencia a la pantalla principal
+        main_screen = self.root  # o self.screen_manager.current_screen si usas ScreenManager
+        
+        # Crear el botón con estilo destacado
+        btn = MDRaisedButton(
+            text="PRODUCTOS POR DÍA",
+            pos_hint={"center_x": 0.5, "center_y": 0.5},  # Centrado en la pantalla
+            size_hint=(0.8, None),
+            height="60dp",  # Más alto para ser más visible
+            md_bg_color=(1, 0, 0, 1),  # Rojo para ser muy visible
+            on_release=lambda x: self.generar_productos_por_dia()
+        )
+        
+        # Añadir directamente a la pantalla principal
+        main_screen.add_widget(btn)
+        print("Botón añadido directamente a la pantalla principal")
+    def on_start(self):
+        # Este método se llama automáticamente cuando la aplicación inicia
+        self.agregar_boton_productos_por_dia()
     def generar_pdf_cliente(self, cliente):
         conn = conectar_bd()
         cursor = conn.cursor()
@@ -832,6 +957,10 @@ class PedidoApp(MDApp):
             
 class ProductosPorDiaPDF(FPDF):
     def header(self):
+        # Configurar márgenes
+        self.set_margins(10, 15, 10)  # (izquierda, arriba, derecha)
+        
+        # Encabezado
         self.set_font('Arial', 'B', 15)
         self.cell(0, 10, 'Reporte de Productos Vendidos por Día', 0, 1, 'C')
         self.ln(5)
@@ -839,6 +968,6 @@ class ProductosPorDiaPDF(FPDF):
     def footer(self):
         self.set_y(-15)
         self.set_font('Arial', 'I', 8)
-        self.cell(0, 10, f'Página {self.page_no()}', 0, 0, 'C')          
+        self.cell(0, 10, f'Página {self.page_no()}', 0, 0, 'C')      
 
 PedidoApp().run()
