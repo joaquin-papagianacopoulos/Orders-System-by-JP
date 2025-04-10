@@ -21,7 +21,18 @@ import csv
 from kivy.uix.filechooser import FileChooserListView
 from kivy.uix.popup import Popup
 from kivy.config import Config
+from kivy.utils import platform
 
+def get_app_dir():
+    """Obtiene el directorio adecuado para almacenar datos de la aplicación"""
+    if platform == 'android':
+        from android.storage import app_storage_path
+        return app_storage_path()
+    return os.path.dirname(os.path.abspath(__file__))
+
+def get_db_path():
+    app_dir = get_app_dir()
+    return os.path.join(app_dir, conectar_bd())
 
 # Evitar que escanee archivos del sistema
 Config.set('kivy', 'log_level', 'warning')
