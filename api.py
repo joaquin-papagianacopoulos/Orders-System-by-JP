@@ -7,6 +7,7 @@ from datetime import datetime, date, timedelta
 import tempfile
 from fpdf import FPDF
 import os
+import requests
 
 app = Flask(__name__)
 CORS(app)  # Permitir solicitudes de diferentes dominios
@@ -16,15 +17,22 @@ DB_CONFIG = {
     'host': 'localhost',
     'user': 'root',
     'password': '',
-    'database': 'distriñulpi'
+    'database': 'distriapp'
 }
+# Prueba de conexión
+response = requests.get("http://localhost:5000/api/ping")
+print(f"Ping: {response.status_code}, {response.json()}")
+
+# Prueba de búsqueda de productos
+response = requests.get("http://localhost:5000/api/productos?buscar=a")
+print(f"Búsqueda: {response.status_code}, {response.json()}")
 def conectar_db():
     try:
         conexion = mysql.connector.connect(
             host="localhost",
             user="root",
             password="",
-            database="distriñulpi"  # Ajusta el nombre de la base de datos si es diferente
+            database="distriapp"  # Ajusta el nombre de la base de datos si es diferente
         )
         return conexion
     except Error as e:
