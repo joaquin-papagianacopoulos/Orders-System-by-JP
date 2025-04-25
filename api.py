@@ -1,8 +1,9 @@
 from flask import Flask, request, jsonify, send_file
 from flask_cors import CORS
 import mysql.connector
+from mysql.connector import Error
 import json
-from datetime import datetime, date
+from datetime import datetime, date, timedelta
 import tempfile
 from fpdf import FPDF
 import os
@@ -17,6 +18,18 @@ DB_CONFIG = {
     'password': '',
     'database': 'distriñulpi'
 }
+def conectar_db():
+    try:
+        conexion = mysql.connector.connect(
+            host="localhost",
+            user="root",
+            password="",
+            database="distriñulpi"  # Ajusta el nombre de la base de datos si es diferente
+        )
+        return conexion
+    except Error as e:
+        print(f"Error al conectar a MySQL: {e}")
+        return None
 
 # Función para conectar a la base de datos
 def get_db_connection():
@@ -77,7 +90,160 @@ def obtener_costo_producto(nombre_producto):
             return jsonify({'costo': 0})
     except Exception as e:
         return jsonify({'error': str(e)}), 500
+# Endpoint para pedidos de hoy
+# Endpoint para pedidos de hoy
+@app.route('/api/pedidos/hoy', methods=['GET'])
+def pedidos_hoy():
+    try:
+        conexion = conectar_db()
+        if conexion is None:
+            return jsonify({"error": "Error de conexión a la base de datos"}), 500
+            
+        cursor = conexion.cursor(dictionary=True)
+        fecha_hoy = datetime.now().strftime('%Y-%m-%d')
+        
+        # Consulta adaptada a tu estructura real de tablas
+        query = """
+        SELECT 
+            id,
+            cliente,
+            producto,
+            cantidad,
+            costo,
+            zona,
+            fecha
+        FROM 
+            pedidos
+        WHERE 
+            fecha = %s
+        ORDER BY 
+            id DESC
+        """
+        
+        cursor.execute(query, (fecha_hoy,))
+        pedidos = cursor.fetchall()
+        
+        # Formatear fechas para JSON
+        for pedido in pedidos:
+            if isinstance(pedido['fecha'], datetime):
+                pedido['fecha'] = pedido['fecha'].strftime('%Y-%m-%d')
+        
+        cursor.close()
+        conexion.close()
+        
+        return jsonify(pedidos)
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
 
+# Endpoint para estadísticas
+@app.route('/api/estadisticas', methods=['GET'])
+def estadisticas():
+    try:
+        conexion = conectar_db()
+        if conexion is None:
+            return jsonify({"error": "Error de conexión a la base de datos"}), 500
+            
+        cursor = conexion.cursor(dictionary=True)
+        fecha_hoy = datetime.now().strftime('%Y-%m-%d')
+        semana_anterior = (datetime.now() - timedelta(days=7)).strftime('%Y-%m-%d')
+        
+        # Objeto para almacenar todas las estadísticas
+        stats = {}
+        
+        # 1. Total de ventas de hoy
+        query_ventas_hoy = """
+        SELECT 
+            COALESCE(SUM(costo), 0) as total_ventas_hoy,
+            COUNT(*) as total_pedidos_hoy
+        FROM 
+            pedidos
+        WHERE 
+            fecha = %s
+        """
+        cursor.execute(query_ventas_hoy, (fecha_hoy,))
+        resultado = cursor.fetchone()
+        stats['ventas_hoy'] = float(resultado['total_ventas_hoy']) if resultado['total_ventas_hoy'] is not None else 0
+        stats['pedidos_hoy'] = resultado['total_pedidos_hoy']
+        
+        # 2. Producto más vendido hoy
+        query_producto_top = """
+        SELECT 
+            producto,
+            SUM(cantidad) as cantidad_total
+        FROM 
+            pedidos
+        WHERE 
+            fecha = %s
+        GROUP BY 
+            producto
+        ORDER BY 
+            cantidad_total DESC
+        LIMIT 1
+        """
+        cursor.execute(query_producto_top, (fecha_hoy,))
+        producto_top = cursor.fetchone()
+        stats['producto_top'] = {
+            'nombre': producto_top['producto'] if producto_top else "Sin ventas hoy",
+            'cantidad': producto_top['cantidad_total'] if producto_top else 0
+        }
+        
+        # 3. Ventas por día en la última semana
+        query_ventas_semana = """
+        SELECT 
+            fecha,
+            COUNT(*) as num_pedidos,
+            SUM(costo) as total_ventas
+        FROM 
+            pedidos
+        WHERE 
+            fecha BETWEEN %s AND %s
+        GROUP BY 
+            fecha
+        ORDER BY 
+            fecha
+        """
+        cursor.execute(query_ventas_semana, (semana_anterior, fecha_hoy))
+        ventas_semana = cursor.fetchall()
+        
+        # Formatear fechas para JSON
+        stats['ventas_semana'] = []
+        for dia in ventas_semana:
+            stats['ventas_semana'].append({
+                'fecha': dia['fecha'].strftime('%Y-%m-%d') if isinstance(dia['fecha'], datetime) else str(dia['fecha']),
+                'pedidos': dia['num_pedidos'],
+                'total': float(dia['total_ventas']) if dia['total_ventas'] is not None else 0
+            })
+        
+        # 4. Zonas con más pedidos hoy
+        query_zonas = """
+        SELECT 
+            zona,
+            COUNT(*) as total_pedidos,
+            SUM(costo) as total_ventas
+        FROM 
+            pedidos
+        WHERE 
+            fecha = %s
+        GROUP BY 
+            zona
+        ORDER BY 
+            total_pedidos DESC
+        """
+        cursor.execute(query_zonas, (fecha_hoy,))
+        stats['zonas'] = []
+        for zona in cursor.fetchall():
+            stats['zonas'].append({
+                'nombre': zona['zona'],
+                'pedidos': zona['total_pedidos'],
+                'total': float(zona['total_ventas']) if zona['total_ventas'] is not None else 0
+            })
+        
+        cursor.close()
+        conexion.close()
+        
+        return jsonify(stats)
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
 @app.route('/api/productos/stock/<nombre_producto>', methods=['GET'])
 def obtener_stock_producto(nombre_producto):
     try:
@@ -190,6 +356,45 @@ def procesar_csv():
         return jsonify({'success': True, 'message': 'Datos CSV procesados correctamente'})
     except Exception as e:
         return jsonify({'success': False, 'error': str(e)}), 500
+    
+# Endpoint para productos del día
+@app.route('/api/productos/dia', methods=['GET'])
+def productos_dia():
+    try:
+        conexion = conectar_db()
+        if conexion is None:
+            return jsonify({"error": "Error de conexión a la base de datos"}), 500
+            
+        cursor = conexion.cursor(dictionary=True)
+        fecha_hoy = datetime.now().strftime('%Y-%m-%d')
+        
+        # Consulta adaptada a tu estructura real de tablas
+        query = """
+        SELECT 
+            p.nombre,
+            SUM(ped.cantidad) as cantidad_vendida,
+            SUM(ped.costo) as total_vendido
+        FROM 
+            productos p
+        INNER JOIN 
+            pedidos ped ON p.nombre = ped.producto
+        WHERE 
+            ped.fecha = %s
+        GROUP BY 
+            p.nombre
+        ORDER BY 
+            cantidad_vendida DESC
+        """
+        
+        cursor.execute(query, (fecha_hoy,))
+        productos = cursor.fetchall()
+        
+        cursor.close()
+        conexion.close()
+        
+        return jsonify(productos)
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
 
 if __name__ == '__main__':
     app.run(host="0.0.0.0", port=5000)
