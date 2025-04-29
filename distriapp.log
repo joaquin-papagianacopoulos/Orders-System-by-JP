@@ -1,0 +1,106 @@
+2025-04-29 19:17:50,568 - database.db_connection - ERROR - Error al conectar a la base de datos: (1045, "Access denied for user 'distriapp_user'@'localhost' (using password: NO)")
+2025-04-29 19:20:30,535 - database.db_connection - ERROR - Error al conectar a la base de datos: (1045, "Access denied for user 'distriapp_user'@'localhost' (using password: NO)")
+2025-04-29 19:22:03,445 - database.db_connection - ERROR - Error al conectar a la base de datos: (1045, "Access denied for user 'distriapp_user'@'localhost' (using password: YES)")
+2025-04-29 19:22:37,927 - database.db_connection - INFO - Conexión a la base de datos establecida con éxito
+2025-04-29 19:22:38,225 - flet - INFO - Assets path configured: C:\Users\joaqu\Desktop\APP_PARA_SULPI\assets
+2025-04-29 19:22:38,228 - flet - INFO - Starting up TCP server on localhost:56534
+2025-04-29 19:22:38,240 - flet - INFO - Flet app has started...
+2025-04-29 19:22:43,832 - flet - INFO - App URL: tcp://localhost:56534
+2025-04-29 19:22:43,832 - flet_desktop - INFO - Starting Flet View app...
+2025-04-29 19:22:43,833 - flet_desktop - INFO - Looking for Flet executable at: C:\Users\joaqu\Desktop\APP_PARA_SULPI\venv\Lib\site-packages\flet_desktop\app\flet\flet.exe
+2025-04-29 19:22:43,834 - flet_desktop - INFO - Flet View found in: C:\Users\joaqu\Desktop\APP_PARA_SULPI\venv\Lib\site-packages\flet_desktop\app\flet\flet.exe
+2025-04-29 19:22:45,076 - flet - INFO - App session started
+2025-04-29 19:46:05,288 - database.db_connection - INFO - Conexión a la base de datos establecida con éxito
+2025-04-29 19:46:05,334 - flet - INFO - Assets path configured: C:\Users\joaqu\Desktop\APP_PARA_SULPI\assets
+2025-04-29 19:46:05,336 - flet - INFO - Starting up TCP server on localhost:57175
+2025-04-29 19:46:05,338 - flet - INFO - Flet app has started...
+2025-04-29 19:46:05,340 - flet - INFO - App URL: tcp://localhost:57175
+2025-04-29 19:46:05,341 - flet_desktop - INFO - Starting Flet View app...
+2025-04-29 19:46:05,343 - flet_desktop - INFO - Looking for Flet executable at: C:\Users\joaqu\Desktop\APP_PARA_SULPI\venv\Lib\site-packages\flet_desktop\app\flet\flet.exe
+2025-04-29 19:46:05,344 - flet_desktop - INFO - Flet View found in: C:\Users\joaqu\Desktop\APP_PARA_SULPI\venv\Lib\site-packages\flet_desktop\app\flet\flet.exe
+2025-04-29 19:46:05,743 - flet - INFO - App session started
+2025-04-29 19:46:23,503 - database.db_connection - INFO - Conexión a la base de datos establecida con éxito
+2025-04-29 19:46:23,547 - flet - INFO - Assets path configured: C:\Users\joaqu\Desktop\APP_PARA_SULPI\assets
+2025-04-29 19:46:23,550 - flet - INFO - Starting up TCP server on localhost:57188
+2025-04-29 19:46:23,551 - flet - INFO - Flet app has started...
+2025-04-29 19:46:23,555 - flet - INFO - App URL: tcp://localhost:57188
+2025-04-29 19:46:23,556 - flet_desktop - INFO - Starting Flet View app...
+2025-04-29 19:46:23,557 - flet_desktop - INFO - Looking for Flet executable at: C:\Users\joaqu\Desktop\APP_PARA_SULPI\venv\Lib\site-packages\flet_desktop\app\flet\flet.exe
+2025-04-29 19:46:23,558 - flet_desktop - INFO - Flet View found in: C:\Users\joaqu\Desktop\APP_PARA_SULPI\venv\Lib\site-packages\flet_desktop\app\flet\flet.exe
+2025-04-29 19:46:23,909 - flet - INFO - App session started
+2025-04-29 19:46:23,929 - __main__ - INFO - Base de datos inicializada correctamente
+2025-04-29 19:50:07,265 - database.db_connection - INFO - Conexión a la base de datos establecida con éxito
+2025-04-29 19:50:07,456 - flet - INFO - Assets path configured: C:\Users\joaqu\Desktop\APP_PARA_SULPI\assets
+2025-04-29 19:50:07,459 - flet - INFO - Starting up TCP server on localhost:57609
+2025-04-29 19:50:07,460 - flet - INFO - Flet app has started...
+2025-04-29 19:50:07,463 - flet - INFO - App URL: tcp://localhost:57609
+2025-04-29 19:50:07,465 - flet_desktop - INFO - Starting Flet View app...
+2025-04-29 19:50:07,466 - flet_desktop - INFO - Looking for Flet executable at: C:\Users\joaqu\Desktop\APP_PARA_SULPI\venv\Lib\site-packages\flet_desktop\app\flet\flet.exe
+2025-04-29 19:50:07,467 - flet_desktop - INFO - Flet View found in: C:\Users\joaqu\Desktop\APP_PARA_SULPI\venv\Lib\site-packages\flet_desktop\app\flet\flet.exe
+2025-04-29 19:50:07,844 - flet - INFO - App session started
+2025-04-29 19:50:07,846 - __main__ - INFO - Base de datos inicializada correctamente
+2025-04-29 19:51:47,725 - database.db_connection - INFO - Conexión a la base de datos establecida con éxito
+2025-04-29 19:51:47,863 - flet - INFO - Assets path configured: C:\Users\joaqu\Desktop\APP_PARA_SULPI\assets
+2025-04-29 19:51:47,866 - flet - INFO - Starting up TCP server on localhost:57727
+2025-04-29 19:51:47,868 - flet - INFO - Flet app has started...
+2025-04-29 19:51:47,872 - flet - INFO - App URL: tcp://localhost:57727
+2025-04-29 19:51:47,872 - flet_desktop - INFO - Starting Flet View app...
+2025-04-29 19:51:47,874 - flet_desktop - INFO - Looking for Flet executable at: C:\Users\joaqu\Desktop\APP_PARA_SULPI\venv\Lib\site-packages\flet_desktop\app\flet\flet.exe
+2025-04-29 19:51:47,874 - flet_desktop - INFO - Flet View found in: C:\Users\joaqu\Desktop\APP_PARA_SULPI\venv\Lib\site-packages\flet_desktop\app\flet\flet.exe
+2025-04-29 19:51:48,247 - flet - INFO - App session started
+2025-04-29 19:51:48,263 - __main__ - INFO - Base de datos inicializada correctamente
+2025-04-29 19:51:59,303 - __main__ - ERROR - Error al buscar clientes: 'Container' object has no attribute 'controls'
+2025-04-29 19:52:03,244 - __main__ - ERROR - Error al procesar CSV: 'Page' object has no attribute 'invoke_async'
+2025-04-29 19:53:05,125 - database.db_connection - INFO - Conexión a la base de datos establecida con éxito
+2025-04-29 19:53:05,131 - flet - INFO - Assets path configured: C:\Users\joaqu\Desktop\APP_PARA_SULPI\assets
+2025-04-29 19:53:06,674 - flet - INFO - Starting Flet web server on port 8551...
+2025-04-29 19:53:06,675 - flet_web.fastapi - INFO - Web renderer configured: WebRenderer.CANVAS_KIT
+2025-04-29 19:53:06,676 - flet_web.fastapi - INFO - Use color emoji: False
+2025-04-29 19:53:06,676 - flet_web.fastapi - INFO - Route URL strategy configured: path
+2025-04-29 19:53:06,953 - flet_web.fastapi - INFO - Starting up Flet App Manager
+2025-04-29 19:54:04,713 - flet_web.fastapi - INFO - Temp dir created for patched index and manifest: C:\Users\joaqu\AppData\Local\Temp\tmpexkvm7kc
+2025-04-29 19:54:04,714 - flet_web.fastapi - INFO - Web root: E:\PYTHON\Lib\site-packages\flet_web\web
+2025-04-29 19:54:04,714 - flet_web.fastapi - INFO - assets_dir does not exist: C:\Users\joaqu\Desktop\APP_PARA_SULPI\assets
+2025-04-29 19:54:04,715 - flet_web.fastapi - INFO - Assets dir: None
+2025-04-29 19:54:04,911 - flet_web.fastapi - INFO - New FletApp: BO3Lw4Z7
+2025-04-29 19:54:04,918 - flet_web.fastapi - INFO - New session created (1 total): APP_PARA_SULPI/main.py_k8v7gZkQlzQuDWog_88f348dd3ed080be5f50f8943a04106bc05d23f8
+2025-04-29 19:54:04,920 - flet_web.fastapi - INFO - Start session: k8v7gZkQlzQuDWog
+2025-04-29 19:54:04,929 - __main__ - INFO - Base de datos inicializada correctamente
+2025-04-29 19:54:08,916 - __main__ - ERROR - Error al buscar clientes: 'Container' object has no attribute 'controls'
+2025-04-29 19:54:09,097 - __main__ - ERROR - Error al buscar clientes: 'Container' object has no attribute 'controls'
+2025-04-29 19:54:09,249 - __main__ - ERROR - Error al buscar clientes: 'Container' object has no attribute 'controls'
+2025-04-29 19:54:09,481 - __main__ - ERROR - Error al buscar clientes: 'Container' object has no attribute 'controls'
+2025-04-29 19:54:09,613 - __main__ - ERROR - Error al buscar clientes: 'Container' object has no attribute 'controls'
+2025-04-29 19:54:09,763 - __main__ - ERROR - Error al buscar clientes: 'Container' object has no attribute 'controls'
+2025-04-29 19:54:09,911 - __main__ - ERROR - Error al buscar clientes: 'Container' object has no attribute 'controls'
+2025-04-29 19:54:10,195 - __main__ - ERROR - Error al buscar clientes: 'Container' object has no attribute 'controls'
+2025-04-29 19:54:10,358 - __main__ - ERROR - Error al buscar clientes: 'Container' object has no attribute 'controls'
+2025-04-29 19:54:10,559 - __main__ - ERROR - Error al buscar clientes: 'Container' object has no attribute 'controls'
+2025-04-29 19:54:10,709 - __main__ - ERROR - Error al buscar clientes: 'Container' object has no attribute 'controls'
+2025-04-29 19:54:11,147 - __main__ - ERROR - Error al buscar clientes: 'Container' object has no attribute 'controls'
+2025-04-29 19:54:11,347 - __main__ - ERROR - Error al buscar clientes: 'Container' object has no attribute 'controls'
+2025-04-29 19:54:11,496 - __main__ - ERROR - Error al buscar clientes: 'Container' object has no attribute 'controls'
+2025-04-29 19:54:11,647 - __main__ - ERROR - Error al buscar clientes: 'Container' object has no attribute 'controls'
+2025-04-29 19:54:13,396 - __main__ - ERROR - Error al buscar productos: 'Container' object has no attribute 'controls'
+2025-04-29 19:54:13,456 - __main__ - ERROR - Error al buscar productos: 'Container' object has no attribute 'controls'
+2025-04-29 19:54:13,624 - __main__ - ERROR - Error al buscar productos: 'Container' object has no attribute 'controls'
+2025-04-29 19:54:13,957 - __main__ - ERROR - Error al buscar productos: 'Container' object has no attribute 'controls'
+2025-04-29 19:54:14,088 - __main__ - ERROR - Error al buscar productos: 'Container' object has no attribute 'controls'
+2025-04-29 19:54:54,949 - flet_web.fastapi - INFO - Session disconnected: APP_PARA_SULPI/main.py_k8v7gZkQlzQuDWog_88f348dd3ed080be5f50f8943a04106bc05d23f8
+2025-04-29 19:55:16,277 - flet_web.fastapi - INFO - New FletApp: XjJKj3Nb
+2025-04-29 19:55:16,284 - flet_web.fastapi - INFO - Existing session requested: k8v7gZkQlzQuDWog
+2025-04-29 19:55:16,284 - flet_web.fastapi - INFO - Session reconnected: APP_PARA_SULPI/main.py_k8v7gZkQlzQuDWog_88f348dd3ed080be5f50f8943a04106bc05d23f8
+2025-04-29 19:55:16,285 - flet_web.fastapi - INFO - Disposing FletApp: BO3Lw4Z7
+2025-04-29 19:55:23,693 - __main__ - ERROR - Error al buscar productos: 'Container' object has no attribute 'controls'
+2025-04-29 19:55:23,758 - __main__ - ERROR - Error al buscar productos: 'Container' object has no attribute 'controls'
+2025-04-29 19:55:39,370 - asyncio - ERROR - Exception in callback _ProactorBasePipeTransport._call_connection_lost()
+handle: <Handle _ProactorBasePipeTransport._call_connection_lost()>
+Traceback (most recent call last):
+  File "E:\PYTHON\Lib\asyncio\events.py", line 89, in _run
+    self._context.run(self._callback, *self._args)
+    ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\PYTHON\Lib\asyncio\proactor_events.py", line 165, in _call_connection_lost
+    self._sock.shutdown(socket.SHUT_RDWR)
+    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+ConnectionResetError: [WinError 10054] Se ha forzado la interrupción de una conexión existente por el host remoto
+2025-04-29 19:55:39,412 - flet_web.fastapi - INFO - Session disconnected: APP_PARA_SULPI/main.py_k8v7gZkQlzQuDWog_88f348dd3ed080be5f50f8943a04106bc05d23f8

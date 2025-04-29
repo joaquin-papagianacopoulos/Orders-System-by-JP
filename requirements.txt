@@ -1,2 +1,15 @@
-flet>=0.10.0
-fpdf>=1.7.2
+# GUI con Flet
+flet>=0.19.0
+
+# Conexión a base de datos MySQL
+pymysql>=1.1.0
+cryptography>=41.0.3  # Para conexiones seguras con PyMySQL
+
+# Generación de reportes PDF
+fpdf2>=2.7.5
+
+# Procesamiento de CSV
+pandas>=2.1.0
+
+# Utilidades
+python-dotenv>=1.0.0  # Para cargar variables de entorno
