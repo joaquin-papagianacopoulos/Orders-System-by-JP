@@ -133,11 +133,12 @@ class DistriAppV3:
         self.page.window_width = 1000
         self.page.window_height = 800
         self.page.padding = 0
-        self.page.bgcolor = ft.colors.BLUE_GREY_50
+        self.page.bgcolor = ft.Colors.BLUE_GREY_50
+        self.page.scroll = ft.ScrollMode.AUTO  # Habilitar scroll en la página
         
         # Tema personalizado
         self.page.theme = ft.Theme(
-        color_scheme_seed=ft.colors.BLUE
+            color_scheme_seed=ft.Colors.BLUE
         )
     
     def initialize_database(self):
@@ -155,48 +156,43 @@ class DistriAppV3:
         self.cliente_field = ft.TextField(
             label="Cliente ✍️",
             hint_text="Nombre del cliente",
-            border_radius=8,
             expand=True,
             on_change=self.search_clientes
         )
         
         self.cliente_dropdown = ft.Container(
             content=ft.ListView(            
-            height=200,
-            visible=False,
-            spacing=2,
-            padding=10,
+                height=200,
+                visible=False,
+                spacing=2,
+                padding=10,
             ),            
-            border=ft.border.all(1, ft.colors.BLUE_200),
-            border_radius=8,
-            padding=5
-
+            padding=5,
+            visible=False  # Inicialmente oculto
         )
         
         self.producto_field = ft.TextField(
             label="Producto 🔍",
             hint_text="Buscar producto",
-            border_radius=8,
             expand=True,
             on_change=self.search_productos
         )
         
         self.producto_dropdown = ft.Container(
             content=ft.ListView(
+
+                spacing=5,
+                visible=False
+            ),
             height=200,
-            spacing=5,
             padding=10,
-            visible=False),
-            border=ft.border.all(1, ft.colors.BLUE_200),
-            border_radius=8,
-            padding=5
+            visible=False  # Inicialmente oculto
         )
         
         self.cantidad_field = ft.TextField(
             label="Cantidad 🔢",
             hint_text="0",
             width=170,
-            border_radius=8,
             keyboard_type=ft.KeyboardType.NUMBER
         )
         
@@ -204,7 +200,6 @@ class DistriAppV3:
             label="Costo 💲",
             hint_text="0.00",
             width=170,
-            border_radius=8,
             keyboard_type=ft.KeyboardType.NUMBER
         )
         
@@ -212,7 +207,6 @@ class DistriAppV3:
             label="📍 Zona",
             width=340,
             options=[ft.dropdown.Option(zona) for zona in ZONAS],
-            border_radius=8
         )
         
         # Botones de acción primarios
@@ -220,8 +214,8 @@ class DistriAppV3:
             "REGISTRAR",
             icon=ft.icons.ADD_CIRCLE,
             style=ft.ButtonStyle(
-                color=ft.colors.WHITE,
-                bgcolor=ft.colors.BLUE,
+                color=ft.Colors.WHITE,
+                bgcolor=ft.Colors.BLUE,
                 padding=15,
                 shape=ft.RoundedRectangleBorder(radius=8),
             ),
@@ -233,8 +227,8 @@ class DistriAppV3:
             "PEDIDOS HOY",
             icon=ft.icons.LIST_ALT,
             style=ft.ButtonStyle(
-                color=ft.colors.WHITE,
-                bgcolor=ft.colors.GREEN,
+                color=ft.Colors.WHITE,
+                bgcolor=ft.Colors.GREEN,
                 padding=15,
                 shape=ft.RoundedRectangleBorder(radius=8),
             ),
@@ -247,8 +241,8 @@ class DistriAppV3:
             "MODIFICAR",
             icon=ft.icons.EDIT,
             style=ft.ButtonStyle(
-                color=ft.colors.WHITE,
-                bgcolor=ft.colors.ORANGE,
+                color=ft.Colors.WHITE,
+                bgcolor=ft.Colors.ORANGE,
                 padding=15,
                 shape=ft.RoundedRectangleBorder(radius=8),
             ),
@@ -260,8 +254,8 @@ class DistriAppV3:
             "SUBIR CSV",
             icon=ft.icons.UPLOAD_FILE,
             style=ft.ButtonStyle(
-                color=ft.colors.WHITE,
-                bgcolor=ft.colors.PURPLE,
+                color=ft.Colors.WHITE,
+                bgcolor=ft.Colors.PURPLE,
                 padding=15,
                 shape=ft.RoundedRectangleBorder(radius=8),
             ),
@@ -273,8 +267,8 @@ class DistriAppV3:
             "ESTADÍSTICAS",
             icon=ft.icons.BAR_CHART,
             style=ft.ButtonStyle(
-                color=ft.colors.WHITE,
-                bgcolor=ft.colors.TEAL,
+                color=ft.Colors.WHITE,
+                bgcolor=ft.Colors.TEAL,
                 padding=15,
                 shape=ft.RoundedRectangleBorder(radius=8),
             ),
@@ -286,8 +280,8 @@ class DistriAppV3:
             "PRODUCTOS",
             icon=ft.icons.INVENTORY,
             style=ft.ButtonStyle(
-                color=ft.colors.WHITE,
-                bgcolor=ft.colors.RED,
+                color=ft.Colors.WHITE,
+                bgcolor=ft.Colors.RED,
                 padding=15,
                 shape=ft.RoundedRectangleBorder(radius=8),
             ),
@@ -319,8 +313,8 @@ class DistriAppV3:
             "Vaciar",
             icon=ft.icons.DELETE,
             style=ft.ButtonStyle(
-                color=ft.colors.WHITE,
-                bgcolor=ft.colors.RED,
+                color=ft.Colors.WHITE,
+                bgcolor=ft.Colors.RED,
                 padding=10,
                 shape=ft.RoundedRectangleBorder(radius=8),
             ),
@@ -332,8 +326,8 @@ class DistriAppV3:
             "Enviar",
             icon=ft.icons.SEND,
             style=ft.ButtonStyle(
-                color=ft.colors.WHITE,
-                bgcolor=ft.colors.GREEN,
+                color=ft.Colors.WHITE,
+                bgcolor=ft.Colors.GREEN,
                 padding=10,
                 shape=ft.RoundedRectangleBorder(radius=8),
             ),
@@ -357,8 +351,8 @@ class DistriAppV3:
         app_bar = ft.AppBar(
             title=ft.Text("DistriApp", size=20, weight=ft.FontWeight.BOLD),
             center_title=True,
-            bgcolor=ft.colors.BLUE,
-            color=ft.colors.WHITE,
+            bgcolor=ft.Colors.BLUE,
+            color=ft.Colors.WHITE,
             actions=[
                 ft.IconButton(
                     icon=ft.icons.SETTINGS,
@@ -380,15 +374,15 @@ class DistriAppV3:
                 ft.Column([
                     # Encabezado de sección
                     ft.Row([
-                        ft.Icon(ft.icons.SHOPPING_CART, color=ft.colors.BLUE),
+                        ft.Icon(ft.icons.SHOPPING_CART, color=ft.Colors.BLUE),
                         ft.Text("Registro de Pedido", size=20, weight=ft.FontWeight.BOLD),
                     ]),
                     
                     # Cliente
                     ft.Container(
                         ft.Column([
-                            self.cliente_field,
-                            self.cliente_dropdown,
+                            [self.cliente_field],
+                            [self.cliente_dropdown],
                         ], spacing=0),
                         padding=ft.padding.only(bottom=10)
                     ),
@@ -396,49 +390,48 @@ class DistriAppV3:
                     # Producto
                     ft.Container(
                         ft.Column([
-                            self.producto_field,
-                            self.producto_dropdown,
+                            [self.producto_field],
+                            [self.producto_dropdown],
                         ], spacing=0),
                         padding=ft.padding.only(bottom=10)
                     ),
                     
                     # Cantidad y Costo
                     ft.Row([
-                        self.cantidad_field,
+                        [self.cantidad_field],
                         ft.Container(width=10),
-                        self.costo_field,
+                        [self.costo_field],
                     ], alignment=ft.MainAxisAlignment.CENTER),
                     
                     # Zona
                     ft.Container(
-                        self.zona_dropdown,
+                        [self.zona_dropdown],
                         padding=ft.padding.only(top=10, bottom=10)
                     ),
                     
                     # Botones de registro
                     ft.Row([
-                        self.btn_registrar,
-                        self.btn_pedidos_hoy,
+                        [self.btn_registrar],
+                        [self.btn_pedidos_hoy],
                     ], alignment=ft.MainAxisAlignment.CENTER),
                     
                     # Botones adicionales
                     ft.Row([
-                        self.btn_modificar,
-                        self.btn_csv,
+                        [self.btn_modificar],
+                        [self.btn_csv],
                     ], alignment=ft.MainAxisAlignment.CENTER, spacing=10),
                     
                     ft.Row([
-                        self.btn_estadisticas,
-                        self.btn_productos,
+                        [self.btn_estadisticas],
+                        [self.btn_productos],
                     ], alignment=ft.MainAxisAlignment.CENTER, spacing=10),
                 ], spacing=15),
                 padding=20,
-                bgcolor=ft.colors.WHITE,
-                border_radius=10,
+                bgcolor=ft.Colors.WHITE,
                 shadow=ft.BoxShadow(
                     spread_radius=1,
                     blur_radius=10,
-                    color=ft.colors.with_opacity(0.3, ft.colors.BLACK)
+                    color=ft.Colors.with_opacity(0.3, ft.Colors.BLACK)
                 ),
                 margin=ft.margin.only(bottom=15)
             ),
@@ -448,50 +441,54 @@ class DistriAppV3:
                 ft.Column([
                     # Encabezado de sección
                     ft.Row([
-                        ft.Icon(ft.icons.LIST, color=ft.colors.BLUE),
+                        ft.Icon(ft.icons.LIST, color=ft.Colors.BLUE),
                         ft.Text("Productos en pedido actual", size=20, weight=ft.FontWeight.BOLD),
                         ft.Container(
-                            self.progress_ring,
+                            [self.progress_ring],
                             alignment=ft.alignment.center_right,
                             expand=True
                         )
                     ]),
                     
                     # Lista de productos con scroll
-                    ft.Container(
-                        self.lista_productos,
+                    ft.Container(ft.ListView(ft.Column(
+                        [self.lista_productos],
+
+                        # Agregamos scroll a la lista de productos
+                        auto_scroll=True),),
                         height=300,
-                        border=ft.border.all(1, ft.colors.GREY_300),
                         border_radius=10,
-                        padding=10
+                        padding=10,
+                        
                     ),
                     
                     # Botones de control
                     ft.Row([
-                        self.btn_editar_orden,
-                        self.btn_vaciar_orden,
-                        self.btn_enviar_orden,
+                        [self.btn_editar_orden],
+                        [self.btn_vaciar_orden],
+                        [self.btn_enviar_orden],
                     ], alignment=ft.MainAxisAlignment.CENTER, spacing=10),
                 ], spacing=15),
                 padding=20,
-                bgcolor=ft.colors.WHITE,
-                border_radius=10,
+                bgcolor=ft.Colors.WHITE,
                 shadow=ft.BoxShadow(
                     spread_radius=1,
                     blur_radius=10,
-                    color=ft.colors.with_opacity(0.3, ft.colors.BLACK)
+                    color=ft.Colors.with_opacity(0.3, ft.Colors.BLACK)
                 )
             ),
-        ], spacing=0, expand=True)
+        ], spacing=10)  # Reducido el espaciado para mejor visualización
         
-        # Construir el layout principal
+        # Construir el layout principal con scroll
         self.page.add(
             app_bar,
             ft.Container(
-                main_content,
-                padding=20,
-                expand=True
-            )
+                [main_content],
+                expand=True,
+                # Aseguramos que el contenedor tenga scroll si es necesario
+                auto_scroll=True
+            ),
+        padding=20,
         )
         
         # Actualizar lista de productos temporales
@@ -507,18 +504,18 @@ class DistriAppV3:
                 clientes = Cliente.search_by_name(texto)
                 
                 # Limpiar lista actual
-                self.cliente_dropdown.controls.clear()
+                self.cliente_dropdown.content.controls.clear()
                 
                 if clientes:
                     for cliente in clientes:
-                        self.cliente_dropdown.controls.append(
+                        self.cliente_dropdown.content.controls.append(
                             ft.Container(
                                 ft.ListTile(
                                     title=ft.Text(cliente.nombre),
                                     on_click=lambda _, c=cliente.nombre: self.select_cliente(c)
                                 ),
-                                bgcolor=ft.colors.WHITE,
-                                border_radius=5,
+                                bgcolor=ft.Colors.WHITE,
+
                                 margin=2
                             )
                         )
@@ -552,19 +549,18 @@ class DistriAppV3:
                 productos = Producto.search_by_name(texto)
                 
                 # Limpiar lista actual
-                self.producto_dropdown.controls.clear()
+                self.producto_dropdown.content.controls.clear()
                 
                 if productos:
                     for producto in productos:
-                        self.producto_dropdown.controls.append(
+                        self.producto_dropdown.content.controls.append(
                             ft.Container(
                                 ft.ListTile(
                                     title=ft.Text(producto.nombre),
                                     subtitle=ft.Text(f"Precio: ${producto.costo} | Stock: {producto.stock}"),
                                     on_click=lambda _, p=producto.nombre: self.select_producto(p)
                                 ),
-                                bgcolor=ft.colors.WHITE,
-                                border_radius=5,
+                                bgcolor=ft.Colors.WHITE,
                                 margin=2
                             )
                         )
@@ -680,7 +676,7 @@ class DistriAppV3:
             self.lista_productos.controls.append(
                 ft.Container(
                     ft.Text("No hay productos en el pedido actual", 
-                           italic=True, color=ft.colors.GREY),
+                           italic=True, color=ft.Colors.GREY),
                     alignment=ft.alignment.center,
                     padding=20,
                     expand=True
@@ -698,14 +694,14 @@ class DistriAppV3:
                         content=ft.Container(
                             ft.Column([
                                 ft.Row([
-                                    ft.Icon(ft.icons.SHOPPING_BAG, color=ft.colors.BLUE),
+                                    ft.Icon(ft.icons.SHOPPING_BAG, color=ft.Colors.BLUE),
                                     ft.Text(producto['producto'], 
                                           weight=ft.FontWeight.BOLD,
                                           size=16),
                                     ft.Container(
                                         ft.IconButton(
                                             icon=ft.icons.DELETE,
-                                            icon_color=ft.colors.RED,
+                                            icon_color=ft.Colors.RED,
                                             tooltip="Eliminar",
                                             on_click=lambda e, idx=i: self.eliminar_de_orden_actual(idx)
                                         ),
@@ -721,18 +717,18 @@ class DistriAppV3:
                                         ft.Container(width=10),
                                         ft.Text(f"Subtotal: ${subtotal:.2f}", 
                                                weight=ft.FontWeight.BOLD,
-                                               color=ft.colors.GREEN)
+                                               color=ft.Colors.GREEN)
                                     ]),
                                     padding=ft.padding.only(top=5)
                                 ),
                                 ft.Container(
                                     ft.Text(f"Zona: {producto['zona']}", 
-                                           color=ft.colors.GREY),
+                                           color=ft.Colors.GREY),
                                     padding=ft.padding.only(top=5)
                                 )
                             ]),
                             padding=15,
-                            bgcolor=ft.colors.WHITE
+                            bgcolor=ft.Colors.WHITE
                         ),
                         margin=5,
                         elevation=2
@@ -749,11 +745,10 @@ class DistriAppV3:
                         ft.Text(f"${total_pedido:.2f}", 
                                weight=ft.FontWeight.BOLD,
                                size=18,
-                               color=ft.colors.GREEN)
+                               color=ft.Colors.GREEN)
                     ], alignment=ft.MainAxisAlignment.CENTER),
                     padding=10,
-                    bgcolor=ft.colors.BLUE_50,
-                    border_radius=10,
+                    bgcolor=ft.Colors.BLUE_50,
                     margin=10
                 )
             )
@@ -798,8 +793,8 @@ class DistriAppV3:
                 ft.TextButton("Cancelar", on_click=cancel_vaciar),
                 ft.ElevatedButton(
                     "Vaciar",
-                    color=ft.colors.WHITE,
-                    bgcolor=ft.colors.RED,
+                    color=ft.Colors.WHITE,
+                    bgcolor=ft.Colors.RED,
                     on_click=confirm_vaciar
                 ),
             ],
@@ -822,7 +817,6 @@ class DistriAppV3:
         dlg_content = ft.ListView(
             expand=True,
             spacing=10,
-            padding=10,
             auto_scroll=True
         )
         
@@ -848,9 +842,6 @@ class DistriAppV3:
                 try:
                     nueva_cantidad = int(c_field.value)
                     nuevo_costo = float(p_field.value)
-                    
-                    if nueva_cantidad <= 0 or nuevo_costo <= 0:
-                        self.show_message("Los valores deben ser mayores a 0")
                     
                     if nueva_cantidad <= 0 or nuevo_costo <= 0:
                         self.show_message("Los valores deben ser mayores a 0")
@@ -884,7 +875,7 @@ class DistriAppV3:
             subtotal_text = ft.Text(
                 f"Subtotal: ${subtotal:.2f}", 
                 weight=ft.FontWeight.BOLD,
-                color=ft.colors.GREEN
+                color=ft.Colors.GREEN
             )
             
             # Conectar eventos de cambio
@@ -893,32 +884,33 @@ class DistriAppV3:
             
             dlg_content.controls.append(
                 ft.Card(
-                    content=ft.Container(
+                    ft.Container(
+                    content=
                         ft.Column([
                             ft.Row([
-                                ft.Icon(ft.icons.SHOPPING_BAG, color=ft.colors.BLUE),
+                                ft.Icon(ft.icons.SHOPPING_BAG, color=ft.Colors.BLUE),
                                 ft.Text(producto['producto'], 
                                       weight=ft.FontWeight.BOLD,
                                       size=16),
                                 ft.IconButton(
                                     icon=ft.icons.DELETE,
-                                    icon_color=ft.colors.RED,
+                                    icon_color=ft.Colors.RED,
                                     tooltip="Eliminar",
                                     on_click=lambda e, idx=i: self.eliminar_y_cerrar_dialogo(idx, dlg)
                                 )
                             ]),
                             ft.Row([
-                                cantidad_field,
+                                [cantidad_field],
                                 ft.Container(width=10),
-                                costo_field
+                                [costo_field]
                             ]),
                             ft.Container(
-                                subtotal_text,
+                                [subtotal_text],
                                 padding=ft.padding.only(top=5)
                             ),
                             ft.Container(
                                 ft.Text(f"Zona: {producto['zona']}", 
-                                       color=ft.colors.GREY),
+                                       color=ft.Colors.GREY),
                                 padding=ft.padding.only(top=5)
                             )
                         ]),
@@ -931,7 +923,14 @@ class DistriAppV3:
         # Crear diálogo
         dlg = ft.AlertDialog(
             title=ft.Text("Editar pedido actual"),
-            content=dlg_content,
+            content=ft.Container(ft.Column(
+                [dlg_content],
+
+                # Agregamos scroll al contenedor del diálogo
+                auto_scroll=True),
+                height=400,
+                width=400,
+            ),
             actions=[
                 ft.TextButton("Cancelar", on_click=lambda e: self.cerrar_dialogo(dlg)),
                 ft.ElevatedButton(
@@ -1090,16 +1089,21 @@ class DistriAppV3:
             return
         
         # Crear contenido del diálogo
-        dlg_content = ft.ListView(
-            expand=True,
-            spacing=10,
-            padding=10
+        dlg_content = ft.ListView(ft.Container(
+            ft.Column(            
+                expand=True,
+
+                auto_scroll=True),
+
+                
+            ),                padding=10,                 spacing=10,
+  # Habilitar scroll
         )
         
         for cliente in clientes:
             dlg_content.controls.append(
                 ft.ElevatedButton(
-                    cliente,
+                    [cliente],
                     icon=ft.icons.PERSON,
                     style=ft.ButtonStyle(
                         padding=15,
@@ -1117,11 +1121,12 @@ class DistriAppV3:
                     "Descargar PDF para cada cliente",
                     icon=ft.icons.PICTURE_AS_PDF,
                     style=ft.ButtonStyle(
-                        bgcolor=ft.colors.BLUE,
-                        color=ft.colors.WHITE,
-                        padding=15,
+                        bgcolor=ft.Colors.BLUE,
+                        color=ft.Colors.WHITE,
+
                         shape=ft.RoundedRectangleBorder(radius=8),
                     ),
+                    padding=15,
                     width=300,
                     on_click=lambda e: self.generar_pdf_todos_clientes(clientes)
                 ),
@@ -1133,8 +1138,8 @@ class DistriAppV3:
         dlg = ft.AlertDialog(
             title=ft.Text("Pedidos del día"),
             content=ft.Container(
-                dlg_content,
-                height=400,
+                [dlg_content],
+                height=400, 
                 width=350
             ),
             actions=[
@@ -1199,11 +1204,14 @@ class DistriAppV3:
         total_cliente = sum(p.cantidad * p.costo for p in pedidos)
         
         # Crear contenido del diálogo
-        dlg_content = ft.ListView(
-            expand=True,
-            spacing=10,
-            padding=10
-        )
+        dlg_content = ft.ListView(ft.Container(
+            ft.Column(
+                expand=True,
+
+                auto_scroll=True),
+),                padding=10,                spacing=10,
+              # Habilitar scroll
+    )   
         
         for pedido in pedidos:
             total = pedido.cantidad * pedido.costo
@@ -1212,7 +1220,7 @@ class DistriAppV3:
                     content=ft.Container(
                         ft.Column([
                             ft.Row([
-                                ft.Icon(ft.icons.SHOPPING_BAG, color=ft.colors.BLUE),
+                                ft.Icon(ft.icons.SHOPPING_BAG, color=ft.Colors.BLUE),
                                 ft.Text(pedido.producto, 
                                       weight=ft.FontWeight.BOLD,
                                       size=16)
@@ -1229,7 +1237,7 @@ class DistriAppV3:
                                 ft.Row([
                                     ft.Text(f"Total: ${total:.2f}", 
                                           weight=ft.FontWeight.BOLD,
-                                          color=ft.colors.GREEN),
+                                          color=ft.Colors.GREEN),
                                     ft.Container(width=10),
                                     ft.Text(f"Zona: {pedido.zona}")
                                 ]),
@@ -1252,11 +1260,10 @@ class DistriAppV3:
                     ft.Text(f"${total_cliente:.2f}", 
                            weight=ft.FontWeight.BOLD,
                            size=18,
-                           color=ft.colors.GREEN)
+                           color=ft.Colors.GREEN)
                 ], alignment=ft.MainAxisAlignment.CENTER),
                 padding=10,
-                bgcolor=ft.colors.BLUE_50,
-                border_radius=10,
+                bgcolor=ft.Colors.BLUE_50,
                 margin=10
             )
         )
@@ -1265,7 +1272,7 @@ class DistriAppV3:
         dlg = ft.AlertDialog(
             title=ft.Text(f"Pedidos de {cliente}"),
             content=ft.Container(
-                dlg_content,
+                [dlg_content],
                 height=400,
                 width=350
             ),
@@ -1416,10 +1423,12 @@ class DistriAppV3:
             return
         
         # Crear contenido del diálogo
-        dlg_content = ft.ListView(
+        dlg_content = ft.ListView(ft.Column(
             expand=True,
             spacing=10,
-            padding=10
+            padding=10,
+            ),auto_scroll=True
+              # Habilitar scroll
         )
         
         for cliente in clientes:
@@ -1440,7 +1449,7 @@ class DistriAppV3:
         dlg = ft.AlertDialog(
             title=ft.Text("Seleccione un cliente para editar"),
             content=ft.Container(
-                dlg_content,
+                [dlg_content],
                 height=400,
                 width=350
             ),
@@ -1509,10 +1518,12 @@ class DistriAppV3:
         forms = []
         
         # Crear contenido del diálogo
-        dlg_content = ft.ListView(
+        dlg_content = ft.ListView(ft.Column(
             expand=True,
             spacing=15,
-            padding=10
+            padding=10,
+            auto_scroll=True)
+              # Habilitar scroll
         )
         
         for pedido in pedidos:
@@ -1539,23 +1550,23 @@ class DistriAppV3:
                 content=ft.Container(
                     ft.Column([
                         ft.Row([
-                            ft.Icon(ft.icons.SHOPPING_BAG, color=ft.colors.BLUE),
+                            ft.Icon(ft.icons.SHOPPING_BAG, color=ft.Colors.BLUE),
                             ft.Text(pedido.producto, 
                                   weight=ft.FontWeight.BOLD,
                                   size=16)
                         ]),
                         ft.Text(f"Zona: {pedido.zona}"),
                         ft.Row([
-                            cantidad_field,
+                            [cantidad_field],
                             ft.Container(width=10),
-                            costo_field
+                            [costo_field]
                         ]),
                         ft.ElevatedButton(
                             "Eliminar pedido",
                             icon=ft.icons.DELETE,
                             style=ft.ButtonStyle(
-                                bgcolor=ft.colors.RED,
-                                color=ft.colors.WHITE,
+                                bgcolor=ft.Colors.RED,
+                                color=ft.Colors.WHITE,
                                 padding=10,
                                 shape=ft.RoundedRectangleBorder(radius=8),
                             ),
@@ -1573,7 +1584,7 @@ class DistriAppV3:
         dlg = ft.AlertDialog(
             title=ft.Text(f"Editar pedidos de {cliente}"),
             content=ft.Container(
-                dlg_content,
+                [dlg_content],
                 height=500,
                 width=400
             ),
@@ -1582,8 +1593,8 @@ class DistriAppV3:
                     "Guardar",
                     icon=ft.icons.SAVE,
                     style=ft.ButtonStyle(
-                        bgcolor=ft.colors.GREEN,
-                        color=ft.colors.WHITE,
+                        bgcolor=ft.Colors.GREEN,
+                        color=ft.Colors.WHITE,
                         padding=10,
                         shape=ft.RoundedRectangleBorder(radius=8),
                     ),
@@ -1649,7 +1660,8 @@ class DistriAppV3:
                 except Exception as e:
                     logger.error(f"Error al guardar cambios: {e}")
                     self.page.invoke_async(
-                        lambda: self.show_message(f"Error al guardar: {e}", is_error=True)
+
+                lambda: self.show_message(f"Error al guardar: {e}", is_error=True)
                     )
                 finally:
                     # Ocultar progreso
@@ -1681,8 +1693,8 @@ class DistriAppV3:
                 ft.ElevatedButton(
                     "Eliminar",
                     style=ft.ButtonStyle(
-                        bgcolor=ft.colors.RED,
-                        color=ft.colors.WHITE
+                        bgcolor=ft.Colors.RED,
+                        color=ft.Colors.WHITE
                     ),
                     on_click=lambda e: self.eliminar_pedido_confirmado(pedido_id, dlg_confirm)
                 ),
@@ -1834,16 +1846,17 @@ class DistriAppV3:
         total_ventas = sum(venta['total'] for venta in ventas_diarias) if ventas_diarias else 0
         
         # Crear contenido del diálogo
-        dlg_content = ft.Column(
+        dlg_content = ft.Column(ft.Column(
             spacing=20,
-            scroll=ft.ScrollMode.AUTO
+            auto_scroll=True)
+            
         )
         
         # 1. Sección: Resumen de ventas
         resumen_section = ft.Container(
             ft.Column([
                 ft.Row([
-                    ft.Icon(ft.icons.TRENDING_UP, color=ft.colors.BLUE, size=30),
+                    ft.Icon(ft.icons.TRENDING_UP, color=ft.Colors.BLUE, size=30),
                     ft.Text("📊 Resumen de Ventas", 
                            size=20, 
                            weight=ft.FontWeight.BOLD)
@@ -1856,10 +1869,9 @@ class DistriAppV3:
                             ft.Container(
                                 ft.Text(f"${total_ventas:.2f}", 
                                       size=24, 
-                                      color=ft.colors.WHITE,
+                                      color=ft.Colors.WHITE,
                                       weight=ft.FontWeight.BOLD),
-                                bgcolor=ft.colors.GREEN,
-                                border_radius=10,
+                                bgcolor=ft.Colors.GREEN,
                                 padding=20,
                                 alignment=ft.alignment.center
                             )
@@ -1876,7 +1888,7 @@ class DistriAppV3:
         ventas_section = ft.Container(
             ft.Column([
                 ft.Row([
-                    ft.Icon(ft.icons.DATE_RANGE, color=ft.colors.BLUE, size=30),
+                    ft.Icon(ft.icons.DATE_RANGE, color=ft.Colors.BLUE, size=30),
                     ft.Text("📅 Ventas por Día", 
                            size=20, 
                            weight=ft.FontWeight.BOLD)
@@ -1901,8 +1913,8 @@ class DistriAppV3:
                     "Exportar a PDF",
                     icon=ft.icons.PICTURE_AS_PDF,
                     style=ft.ButtonStyle(
-                        bgcolor=ft.colors.BLUE,
-                        color=ft.colors.WHITE,
+                        bgcolor=ft.Colors.BLUE,
+                        color=ft.Colors.WHITE,
                         padding=15,
                         shape=ft.RoundedRectangleBorder(radius=8),
                     ),
@@ -1915,10 +1927,12 @@ class DistriAppV3:
         # Crear diálogo
         dlg = ft.AlertDialog(
             title=ft.Text("Estadísticas y Análisis"),
-            content=ft.Container(
-                dlg_content,
-                height=500,
-                width=500
+            content=ft.Container(ft.Column(
+                [dlg_content],
+
+                auto_scroll=True ),                height=500,
+                width=500,
+                 # Habilitar scroll
             ),
             actions=[
                 ft.TextButton("Cerrar", on_click=lambda e: self.cerrar_dialogo(dlg)),
@@ -1943,17 +1957,17 @@ class DistriAppV3:
             
             total = venta['total']
             variacion = "---"
-            color = ft.colors.BLACK
+            color = ft.Colors.BLACK
             
             if ultimo_valor is not None:
                 if total > ultimo_valor:
                     porcentaje = ((total/ultimo_valor)-1)*100
                     variacion = f"↑ {porcentaje:.1f}%"
-                    color = ft.colors.GREEN
+                    color = ft.Colors.GREEN
                 elif total < ultimo_valor:
                     porcentaje = ((ultimo_valor/total)-1)*100
                     variacion = f"↓ {porcentaje:.1f}%"
-                    color = ft.colors.RED
+                    color = ft.Colors.RED
                 else:
                     variacion = "= 0%"
             
@@ -2014,6 +2028,9 @@ class DistriAppV3:
     
     def subir_csv(self, e):
         """Abre un diálogo para subir un archivo CSV de productos."""
+        # Mostrar mensaje informativo
+        self.show_message("Seleccione un archivo CSV para importar productos")
+        
         # Preparar file picker
         self.file_picker.pick_files(
             allowed_extensions=["csv"],
@@ -2033,30 +2050,46 @@ class DistriAppV3:
             
             # Obtener archivo seleccionado
             file_path = e.files[0].path
+            file_name = e.files[0].name
+            
+            # Mostrar nombre del archivo seleccionado
+            self.show_message(f"Procesando archivo: {file_name}")
             
             # Ejecutar en segundo plano
             def background_task():
                 try:
                     # Leer contenido del archivo
+                    logger.info(f"Leyendo archivo CSV: {file_path}")
                     with open(file_path, 'rb') as f:
                         content = f.read()
                     
+                    # Verificar que el archivo tenga contenido
+                    if not content:
+                        self.page.invoke_async(
+                            lambda: self.show_message("El archivo está vacío", is_error=True)
+                        )
+                        return
+                    
                     # Procesar el contenido
+                    logger.info(f"Procesando CSV con tamaño: {len(content)} bytes")
                     success, message, actualizados, creados = CSVHandler.procesar_csv_productos(content)
+                    
+                    # Mostrar detalles del proceso
+                    logger.info(f"Resultado del procesamiento: {success}, {message}, actualizados: {actualizados}, creados: {creados}")
                     
                     # Actualizar UI en el hilo principal
                     if success:
                         self.page.invoke_async(
-                            lambda: self.show_message(message)
+                            lambda: self.show_message(f"✅ {message}")
                         )
                     else:
                         self.page.invoke_async(
                             lambda: self.show_message(f"Error: {message}", is_error=True)
                         )
                 except Exception as e:
-                    logger.error(f"Error al procesar CSV: {e}")
+                    logger.error(f"Error al procesar CSV: {e}", exc_info=True)
                     self.page.invoke_async(
-                        lambda: self.show_message(f"Error: {e}", is_error=True)
+                        lambda: self.show_message(f"Error al procesar archivo: {str(e)}", is_error=True)
                     )
                 finally:
                     # Ocultar progreso
@@ -2068,7 +2101,7 @@ class DistriAppV3:
             threading.Thread(target=background_task).start()
             
         except Exception as e:
-            logger.error(f"Error al procesar el archivo CSV: {e}")
+            logger.error(f"Error al procesar el archivo CSV: {e}", exc_info=True)
             self.progress_ring.visible = False
             self.show_message(f"Error: {e}", is_error=True)
             self.page.update()
@@ -2077,14 +2110,14 @@ class DistriAppV3:
     
     def show_message(self, mensaje, is_error=False):
         """Muestra un mensaje en un banner."""
-        color = ft.colors.RED if is_error else ft.colors.BLUE
+        color = ft.Colors.RED if is_error else ft.Colors.BLUE
         
         self.page.show_snack_bar(
             ft.SnackBar(
-                content=ft.Text(mensaje, color=ft.colors.WHITE),
+                content=ft.Text(mensaje, color=ft.Colors.WHITE),
                 bgcolor=color,
                 action="OK",
-                action_color=ft.colors.WHITE
+                action_color=ft.Colors.WHITE
             )
         )
     
@@ -2095,7 +2128,7 @@ class DistriAppV3:
             content=ft.Column([
                 ft.Text("Esta función estará disponible en próximas versiones."),
                 ft.Container(height=10),
-                ft.Text("DirectiApp v1.0.0", italic=True, color=ft.colors.GREY)
+                ft.Text("DirectiApp v1.0.0", italic=True, color=ft.Colors.GREY)
             ], spacing=10, width=400),
             actions=[
                 ft.TextButton("Cerrar", on_click=lambda e: self.cerrar_dialogo(dlg)),
@@ -2117,7 +2150,7 @@ class DistriAppV3:
                 ft.Container(height=10),
                 ft.Text("Versión 1.0.0"),
                 ft.Container(height=20),
-                ft.Text("© 2025 - Todos los derechos reservados", color=ft.colors.GREY)
+                ft.Text("© 2025 - Todos los derechos reservados", color=ft.Colors.GREY)
             ], spacing=5, width=400),
             actions=[
                 ft.TextButton("Cerrar", on_click=lambda e: self.cerrar_dialogo(dlg)),
@@ -2129,7 +2162,13 @@ class DistriAppV3:
         self.page.update()
 
 def main(page: ft.Page):
+    """Función principal que inicia la aplicación."""
+    print("Iniciando DistriApp...")
     app = DistriAppV3(page)
+    print("DistriApp inicializada correctamente. Si no ves la interfaz, visita http://localhost:8550")
+    return app
 
 if __name__ == "__main__":
-    ft.app(target=main)
+    print("Iniciando servidor Flet...")
+    ft.app(target=main, view=ft.AppView.WEB_BROWSER)
+    print("Servidor Flet finalizado.")                

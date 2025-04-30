@@ -104,3 +104,377 @@ Traceback (most recent call last):
     ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
 ConnectionResetError: [WinError 10054] Se ha forzado la interrupción de una conexión existente por el host remoto
 2025-04-29 19:55:39,412 - flet_web.fastapi - INFO - Session disconnected: APP_PARA_SULPI/main.py_k8v7gZkQlzQuDWog_88f348dd3ed080be5f50f8943a04106bc05d23f8
+2025-04-29 19:56:25,344 - flet_web.fastapi - INFO - New FletApp: 81Rog7dP
+2025-04-29 19:56:25,364 - flet_web.fastapi - INFO - Existing session requested: k8v7gZkQlzQuDWog
+2025-04-29 19:56:25,365 - flet_web.fastapi - INFO - Session reconnected: APP_PARA_SULPI/main.py_k8v7gZkQlzQuDWog_88f348dd3ed080be5f50f8943a04106bc05d23f8
+2025-04-29 19:56:25,365 - flet_web.fastapi - INFO - Disposing FletApp: XjJKj3Nb
+2025-04-29 19:57:15,372 - flet_web.fastapi - INFO - Session disconnected: APP_PARA_SULPI/main.py_k8v7gZkQlzQuDWog_88f348dd3ed080be5f50f8943a04106bc05d23f8
+2025-04-29 20:07:26,892 - database.db_connection - INFO - Conexión a la base de datos establecida con éxito
+2025-04-29 20:07:26,897 - flet - INFO - Assets path configured: C:\Users\joaqu\Desktop\APP_PARA_SULPI\assets
+2025-04-29 20:07:27,491 - flet - INFO - Starting Flet web server on port 8551...
+2025-04-29 20:07:27,492 - flet_web.fastapi - INFO - Web renderer configured: WebRenderer.CANVAS_KIT
+2025-04-29 20:07:27,492 - flet_web.fastapi - INFO - Use color emoji: False
+2025-04-29 20:07:27,492 - flet_web.fastapi - INFO - Route URL strategy configured: path
+2025-04-29 20:07:27,563 - flet_web.fastapi - INFO - Starting up Flet App Manager
+2025-04-30 02:09:59,088 - database.db_connection - INFO - Conexión a la base de datos establecida con éxito
+2025-04-30 02:10:10,124 - database.db_connection - INFO - Conexión a la base de datos establecida con éxito
+2025-04-30 02:10:41,942 - database.db_connection - INFO - Conexión a la base de datos establecida con éxito
+2025-04-30 02:10:45,121 - database.db_connection - INFO - Conexión a la base de datos establecida con éxito
+2025-04-30 02:10:46,052 - database.db_connection - INFO - Conexión a la base de datos establecida con éxito
+2025-04-30 02:11:34,927 - database.db_connection - INFO - Conexión a la base de datos establecida con éxito
+2025-04-30 02:15:05,543 - database.db_connection - INFO - Conexión a la base de datos establecida con éxito
+2025-04-30 02:16:13,528 - database.db_connection - INFO - Conexión a la base de datos establecida con éxito
+2025-04-30 02:16:30,751 - database.db_connection - INFO - Conexión a la base de datos establecida con éxito
+2025-04-30 02:17:36,653 - database.db_connection - INFO - Conexión a la base de datos establecida con éxito
+2025-04-30 02:18:45,835 - database.db_connection - INFO - Conexión a la base de datos establecida con éxito
+2025-04-30 02:18:46,334 - flet - INFO - Assets path configured: C:\Users\joaqu\Desktop\APP_PARA_SULPI\assets
+2025-04-30 02:30:58,964 - database.db_connection - INFO - Conexión a la base de datos establecida con éxito
+2025-04-30 02:30:59,010 - flet - INFO - Assets path configured: C:\Users\joaqu\Desktop\APP_PARA_SULPI\assets
+2025-04-30 02:31:00,925 - flet - INFO - Starting Flet web server on port 8551...
+2025-04-30 02:31:00,937 - flet_web.fastapi - INFO - Web renderer configured: WebRenderer.CANVAS_KIT
+2025-04-30 02:31:00,937 - flet_web.fastapi - INFO - Use color emoji: False
+2025-04-30 02:31:00,937 - flet_web.fastapi - INFO - Route URL strategy configured: path
+2025-04-30 02:31:01,204 - flet_web.fastapi - INFO - Starting up Flet App Manager
+2025-04-30 02:31:13,302 - flet_web.fastapi - INFO - Temp dir created for patched index and manifest: C:\Users\joaqu\AppData\Local\Temp\tmpljdvuybc
+2025-04-30 02:31:13,303 - flet_web.fastapi - INFO - Web root: E:\PYTHON\Lib\site-packages\flet_web\web
+2025-04-30 02:31:13,303 - flet_web.fastapi - INFO - assets_dir does not exist: C:\Users\joaqu\Desktop\APP_PARA_SULPI\assets
+2025-04-30 02:31:13,303 - flet_web.fastapi - INFO - Assets dir: None
+2025-04-30 02:31:14,832 - flet_web.fastapi - INFO - New FletApp: qRuYLqec
+2025-04-30 02:31:14,848 - flet_web.fastapi - INFO - New session created (1 total): APP_PARA_SULPI/main.py_kVAxjVWlvF7zhvWf_88f348dd3ed080be5f50f8943a04106bc05d23f8
+2025-04-30 02:31:14,851 - flet_web.fastapi - INFO - Start session: kVAxjVWlvF7zhvWf
+2025-04-30 02:31:15,175 - database.db_connection - INFO - Base de datos inicializada correctamente
+2025-04-30 02:31:15,175 - __main__ - INFO - Base de datos inicializada correctamente
+2025-04-30 02:33:14,992 - asyncio - ERROR - Exception in callback _ProactorBasePipeTransport._call_connection_lost()
+handle: <Handle _ProactorBasePipeTransport._call_connection_lost()>
+Traceback (most recent call last):
+  File "E:\PYTHON\Lib\asyncio\events.py", line 89, in _run
+    self._context.run(self._callback, *self._args)
+    ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\PYTHON\Lib\asyncio\proactor_events.py", line 165, in _call_connection_lost
+    self._sock.shutdown(socket.SHUT_RDWR)
+    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+ConnectionResetError: [WinError 10054] Se ha forzado la interrupción de una conexión existente por el host remoto
+2025-04-30 02:33:15,042 - flet_web.fastapi - INFO - Session disconnected: APP_PARA_SULPI/main.py_kVAxjVWlvF7zhvWf_88f348dd3ed080be5f50f8943a04106bc05d23f8
+2025-04-30 02:34:31,281 - database.db_connection - INFO - Conexión a la base de datos establecida con éxito
+2025-04-30 02:34:31,320 - flet - INFO - Assets path configured: C:\Users\joaqu\Desktop\APP_PARA_SULPI\assets
+2025-04-30 02:34:31,896 - flet - INFO - Starting Flet web server on port 8551...
+2025-04-30 02:34:31,897 - flet_web.fastapi - INFO - Web renderer configured: WebRenderer.CANVAS_KIT
+2025-04-30 02:34:31,898 - flet_web.fastapi - INFO - Use color emoji: False
+2025-04-30 02:34:31,898 - flet_web.fastapi - INFO - Route URL strategy configured: path
+2025-04-30 02:34:31,956 - flet_web.fastapi - INFO - Starting up Flet App Manager
+2025-04-30 02:35:31,244 - database.db_connection - INFO - Conexión a la base de datos establecida con éxito
+2025-04-30 02:35:31,295 - flet - INFO - Assets path configured: C:\Users\joaqu\Desktop\APP_PARA_SULPI\assets
+2025-04-30 02:35:32,040 - flet - INFO - Starting Flet web server on port 8551...
+2025-04-30 02:35:32,044 - flet_web.fastapi - INFO - Web renderer configured: WebRenderer.CANVAS_KIT
+2025-04-30 02:35:32,044 - flet_web.fastapi - INFO - Use color emoji: False
+2025-04-30 02:35:32,044 - flet_web.fastapi - INFO - Route URL strategy configured: path
+2025-04-30 02:35:32,129 - flet_web.fastapi - INFO - Starting up Flet App Manager
+2025-04-30 02:35:42,044 - database.db_connection - INFO - Conexión a la base de datos establecida con éxito
+2025-04-30 02:35:42,196 - flet - INFO - Assets path configured: C:\Users\joaqu\Desktop\APP_PARA_SULPI\assets
+2025-04-30 02:35:42,834 - flet - INFO - Starting Flet web server on port 8551...
+2025-04-30 02:35:42,836 - flet_web.fastapi - INFO - Web renderer configured: WebRenderer.CANVAS_KIT
+2025-04-30 02:35:42,836 - flet_web.fastapi - INFO - Use color emoji: False
+2025-04-30 02:35:42,836 - flet_web.fastapi - INFO - Route URL strategy configured: path
+2025-04-30 02:35:42,924 - flet_web.fastapi - INFO - Starting up Flet App Manager
+2025-04-30 02:35:53,199 - database.db_connection - INFO - Conexión a la base de datos establecida con éxito
+2025-04-30 02:35:53,269 - flet - INFO - Assets path configured: C:\Users\joaqu\Desktop\APP_PARA_SULPI\assets
+2025-04-30 02:35:54,276 - flet - INFO - Starting Flet web server on port 8551...
+2025-04-30 02:35:54,278 - flet_web.fastapi - INFO - Web renderer configured: WebRenderer.CANVAS_KIT
+2025-04-30 02:35:54,278 - flet_web.fastapi - INFO - Use color emoji: False
+2025-04-30 02:35:54,278 - flet_web.fastapi - INFO - Route URL strategy configured: path
+2025-04-30 02:35:54,329 - flet_web.fastapi - INFO - Starting up Flet App Manager
+2025-04-30 02:36:21,802 - database.db_connection - INFO - Conexión a la base de datos establecida con éxito
+2025-04-30 02:36:21,838 - flet - INFO - Assets path configured: C:\Users\joaqu\Desktop\APP_PARA_SULPI\assets
+2025-04-30 02:36:22,326 - flet - INFO - Starting Flet web server on port 8551...
+2025-04-30 02:36:22,334 - flet_web.fastapi - INFO - Web renderer configured: WebRenderer.CANVAS_KIT
+2025-04-30 02:36:22,340 - flet_web.fastapi - INFO - Use color emoji: False
+2025-04-30 02:36:22,341 - flet_web.fastapi - INFO - Route URL strategy configured: path
+2025-04-30 02:36:22,408 - flet_web.fastapi - INFO - Starting up Flet App Manager
+2025-04-30 02:36:22,461 - flet_web.fastapi - INFO - New FletApp: oPfYvtKP
+2025-04-30 02:36:22,478 - flet_web.fastapi - INFO - New session created (1 total): APP_PARA_SULPI/main.py_MyE1NRgjWpe2zJb8_88f348dd3ed080be5f50f8943a04106bc05d23f8
+2025-04-30 02:36:22,480 - flet_web.fastapi - INFO - Start session: MyE1NRgjWpe2zJb8
+2025-04-30 02:36:22,501 - database.db_connection - INFO - Base de datos inicializada correctamente
+2025-04-30 02:36:22,502 - __main__ - INFO - Base de datos inicializada correctamente
+2025-04-30 02:36:54,153 - asyncio - ERROR - Exception in callback _ProactorBasePipeTransport._call_connection_lost()
+handle: <Handle _ProactorBasePipeTransport._call_connection_lost()>
+Traceback (most recent call last):
+  File "E:\PYTHON\Lib\asyncio\events.py", line 89, in _run
+    self._context.run(self._callback, *self._args)
+    ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\PYTHON\Lib\asyncio\proactor_events.py", line 165, in _call_connection_lost
+    self._sock.shutdown(socket.SHUT_RDWR)
+    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+ConnectionResetError: [WinError 10054] Se ha forzado la interrupción de una conexión existente por el host remoto
+2025-04-30 02:36:54,162 - flet_web.fastapi - INFO - Session disconnected: APP_PARA_SULPI/main.py_MyE1NRgjWpe2zJb8_88f348dd3ed080be5f50f8943a04106bc05d23f8
+2025-04-30 02:37:58,743 - database.db_connection - INFO - Conexión a la base de datos establecida con éxito
+2025-04-30 02:37:58,780 - flet - INFO - Assets path configured: C:\Users\joaqu\Desktop\APP_PARA_SULPI\assets
+2025-04-30 02:37:59,286 - flet - INFO - Starting Flet web server on port 8551...
+2025-04-30 02:37:59,287 - flet_web.fastapi - INFO - Web renderer configured: WebRenderer.CANVAS_KIT
+2025-04-30 02:37:59,287 - flet_web.fastapi - INFO - Use color emoji: False
+2025-04-30 02:37:59,287 - flet_web.fastapi - INFO - Route URL strategy configured: path
+2025-04-30 02:37:59,418 - flet_web.fastapi - INFO - Starting up Flet App Manager
+2025-04-30 02:38:00,382 - flet_web.fastapi - INFO - New FletApp: QUv5QQkm
+2025-04-30 02:38:00,392 - flet_web.fastapi - INFO - New session created (1 total): APP_PARA_SULPI/main.py_7nccKe2cElHPe5Dx_88f348dd3ed080be5f50f8943a04106bc05d23f8
+2025-04-30 02:38:00,393 - flet_web.fastapi - INFO - Start session: 7nccKe2cElHPe5Dx
+2025-04-30 02:38:00,411 - database.db_connection - INFO - Base de datos inicializada correctamente
+2025-04-30 02:38:00,411 - __main__ - INFO - Base de datos inicializada correctamente
+2025-04-30 02:38:34,355 - asyncio - ERROR - Exception in callback _ProactorBasePipeTransport._call_connection_lost()
+handle: <Handle _ProactorBasePipeTransport._call_connection_lost()>
+Traceback (most recent call last):
+  File "E:\PYTHON\Lib\asyncio\events.py", line 89, in _run
+    self._context.run(self._callback, *self._args)
+    ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\PYTHON\Lib\asyncio\proactor_events.py", line 165, in _call_connection_lost
+    self._sock.shutdown(socket.SHUT_RDWR)
+    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+ConnectionResetError: [WinError 10054] Se ha forzado la interrupción de una conexión existente por el host remoto
+2025-04-30 02:38:34,358 - flet_web.fastapi - INFO - Session disconnected: APP_PARA_SULPI/main.py_7nccKe2cElHPe5Dx_88f348dd3ed080be5f50f8943a04106bc05d23f8
+2025-04-30 02:39:37,790 - flet_web.fastapi - INFO - New FletApp: 1FYtlXO9
+2025-04-30 02:39:37,798 - flet_web.fastapi - INFO - Existing session requested: 7nccKe2cElHPe5Dx
+2025-04-30 02:39:37,800 - flet_web.fastapi - INFO - Session reconnected: APP_PARA_SULPI/main.py_7nccKe2cElHPe5Dx_88f348dd3ed080be5f50f8943a04106bc05d23f8
+2025-04-30 02:39:37,801 - flet_web.fastapi - INFO - Disposing FletApp: QUv5QQkm
+2025-04-30 02:40:02,885 - database.db_connection - INFO - Conexión a la base de datos establecida con éxito
+2025-04-30 02:40:02,931 - flet - INFO - Assets path configured: C:\Users\joaqu\Desktop\APP_PARA_SULPI\assets
+2025-04-30 02:40:03,450 - flet - INFO - Starting Flet web server on port 8551...
+2025-04-30 02:40:03,451 - flet_web.fastapi - INFO - Web renderer configured: WebRenderer.CANVAS_KIT
+2025-04-30 02:40:03,451 - flet_web.fastapi - INFO - Use color emoji: False
+2025-04-30 02:40:03,451 - flet_web.fastapi - INFO - Route URL strategy configured: path
+2025-04-30 02:40:03,504 - flet_web.fastapi - INFO - Starting up Flet App Manager
+2025-04-30 02:40:03,542 - flet_web.fastapi - INFO - New FletApp: 8Urm1732
+2025-04-30 02:40:03,552 - flet_web.fastapi - INFO - New session created (1 total): APP_PARA_SULPI/main.py_cdt5EGErrf6tbBFd_88f348dd3ed080be5f50f8943a04106bc05d23f8
+2025-04-30 02:40:03,552 - flet_web.fastapi - INFO - Start session: cdt5EGErrf6tbBFd
+2025-04-30 02:40:03,574 - database.db_connection - INFO - Base de datos inicializada correctamente
+2025-04-30 02:40:03,574 - __main__ - INFO - Base de datos inicializada correctamente
+2025-04-30 02:40:49,221 - database.db_connection - INFO - Conexión a la base de datos establecida con éxito
+2025-04-30 02:40:49,261 - flet - INFO - Assets path configured: C:\Users\joaqu\Desktop\APP_PARA_SULPI\assets
+2025-04-30 02:40:49,712 - flet - INFO - Starting Flet web server on port 8551...
+2025-04-30 02:40:49,713 - flet_web.fastapi - INFO - Web renderer configured: WebRenderer.CANVAS_KIT
+2025-04-30 02:40:49,714 - flet_web.fastapi - INFO - Use color emoji: False
+2025-04-30 02:40:49,714 - flet_web.fastapi - INFO - Route URL strategy configured: path
+2025-04-30 02:40:49,772 - flet_web.fastapi - INFO - Starting up Flet App Manager
+2025-04-30 02:40:53,246 - flet_web.fastapi - INFO - New FletApp: ybwU0wYM
+2025-04-30 02:40:53,255 - flet_web.fastapi - INFO - New session created (1 total): APP_PARA_SULPI/main.py_kMpnavUMMF9jgEVx_88f348dd3ed080be5f50f8943a04106bc05d23f8
+2025-04-30 02:40:53,256 - flet_web.fastapi - INFO - Start session: kMpnavUMMF9jgEVx
+2025-04-30 02:40:53,267 - database.db_connection - INFO - Base de datos inicializada correctamente
+2025-04-30 02:40:53,267 - __main__ - INFO - Base de datos inicializada correctamente
+2025-04-30 02:41:28,570 - database.db_connection - INFO - Conexión a la base de datos establecida con éxito
+2025-04-30 02:43:34,496 - database.db_connection - INFO - Conexión a la base de datos establecida con éxito
+2025-04-30 02:43:34,552 - flet - INFO - Assets path configured: C:\Users\joaqu\Desktop\APP_PARA_SULPI\assets
+2025-04-30 02:43:35,052 - flet - INFO - Starting Flet web server on port 8551...
+2025-04-30 02:43:35,053 - flet_web.fastapi - INFO - Web renderer configured: WebRenderer.CANVAS_KIT
+2025-04-30 02:43:35,054 - flet_web.fastapi - INFO - Use color emoji: False
+2025-04-30 02:43:35,054 - flet_web.fastapi - INFO - Route URL strategy configured: path
+2025-04-30 02:43:35,117 - flet_web.fastapi - INFO - Starting up Flet App Manager
+2025-04-30 02:43:38,894 - flet_web.fastapi - INFO - Temp dir created for patched index and manifest: C:\Users\joaqu\AppData\Local\Temp\tmpsni18ryr
+2025-04-30 02:43:38,894 - flet_web.fastapi - INFO - Web root: E:\PYTHON\Lib\site-packages\flet_web\web
+2025-04-30 02:43:38,895 - flet_web.fastapi - INFO - assets_dir does not exist: C:\Users\joaqu\Desktop\APP_PARA_SULPI\assets
+2025-04-30 02:43:38,895 - flet_web.fastapi - INFO - Assets dir: None
+2025-04-30 02:43:38,917 - flet_web.fastapi - INFO - New FletApp: 2ePpIJFb
+2025-04-30 02:43:38,994 - flet_web.fastapi - INFO - New session created (1 total): APP_PARA_SULPI/main.py_3el9kFzzpXtZA0Fd_88f348dd3ed080be5f50f8943a04106bc05d23f8
+2025-04-30 02:43:38,995 - flet_web.fastapi - INFO - Start session: 3el9kFzzpXtZA0Fd
+2025-04-30 02:43:39,008 - database.db_connection - INFO - Base de datos inicializada correctamente
+2025-04-30 02:43:39,010 - __main__ - INFO - Base de datos inicializada correctamente
+2025-04-30 02:44:15,952 - asyncio - ERROR - Exception in callback _ProactorBasePipeTransport._call_connection_lost()
+handle: <Handle _ProactorBasePipeTransport._call_connection_lost()>
+Traceback (most recent call last):
+  File "E:\PYTHON\Lib\asyncio\events.py", line 89, in _run
+    self._context.run(self._callback, *self._args)
+    ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\PYTHON\Lib\asyncio\proactor_events.py", line 165, in _call_connection_lost
+    self._sock.shutdown(socket.SHUT_RDWR)
+    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+ConnectionResetError: [WinError 10054] Se ha forzado la interrupción de una conexión existente por el host remoto
+2025-04-30 02:44:15,954 - flet_web.fastapi - INFO - Session disconnected: APP_PARA_SULPI/main.py_3el9kFzzpXtZA0Fd_88f348dd3ed080be5f50f8943a04106bc05d23f8
+2025-04-30 02:44:24,263 - database.db_connection - INFO - Conexión a la base de datos establecida con éxito
+2025-04-30 02:44:24,307 - flet - INFO - Assets path configured: C:\Users\joaqu\Desktop\APP_PARA_SULPI\assets
+2025-04-30 02:44:24,979 - flet - INFO - Starting Flet web server on port 8551...
+2025-04-30 02:44:24,980 - flet_web.fastapi - INFO - Web renderer configured: WebRenderer.CANVAS_KIT
+2025-04-30 02:44:24,980 - flet_web.fastapi - INFO - Use color emoji: False
+2025-04-30 02:44:24,980 - flet_web.fastapi - INFO - Route URL strategy configured: path
+2025-04-30 02:44:25,046 - flet_web.fastapi - INFO - Starting up Flet App Manager
+2025-04-30 02:44:25,922 - flet_web.fastapi - INFO - New FletApp: qu0Ho1tB
+2025-04-30 02:44:25,930 - flet_web.fastapi - INFO - New session created (1 total): APP_PARA_SULPI/main.py_aqh1IP13ogeMZCbc_88f348dd3ed080be5f50f8943a04106bc05d23f8
+2025-04-30 02:44:25,931 - flet_web.fastapi - INFO - Start session: aqh1IP13ogeMZCbc
+2025-04-30 02:44:25,943 - database.db_connection - INFO - Base de datos inicializada correctamente
+2025-04-30 02:44:25,943 - __main__ - INFO - Base de datos inicializada correctamente
+2025-04-30 02:45:00,472 - asyncio - ERROR - Exception in callback _ProactorBasePipeTransport._call_connection_lost()
+handle: <Handle _ProactorBasePipeTransport._call_connection_lost()>
+Traceback (most recent call last):
+  File "E:\PYTHON\Lib\asyncio\events.py", line 89, in _run
+    self._context.run(self._callback, *self._args)
+    ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\PYTHON\Lib\asyncio\proactor_events.py", line 165, in _call_connection_lost
+    self._sock.shutdown(socket.SHUT_RDWR)
+    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+ConnectionResetError: [WinError 10054] Se ha forzado la interrupción de una conexión existente por el host remoto
+2025-04-30 02:45:00,474 - flet_web.fastapi - INFO - Session disconnected: APP_PARA_SULPI/main.py_aqh1IP13ogeMZCbc_88f348dd3ed080be5f50f8943a04106bc05d23f8
+2025-04-30 02:45:09,956 - database.db_connection - INFO - Conexión a la base de datos establecida con éxito
+2025-04-30 02:45:10,001 - flet - INFO - Assets path configured: C:\Users\joaqu\Desktop\APP_PARA_SULPI\assets
+2025-04-30 02:45:10,522 - flet - INFO - Starting Flet web server on port 8551...
+2025-04-30 02:45:10,523 - flet_web.fastapi - INFO - Web renderer configured: WebRenderer.CANVAS_KIT
+2025-04-30 02:45:10,523 - flet_web.fastapi - INFO - Use color emoji: False
+2025-04-30 02:45:10,524 - flet_web.fastapi - INFO - Route URL strategy configured: path
+2025-04-30 02:45:10,574 - flet_web.fastapi - INFO - Starting up Flet App Manager
+2025-04-30 02:45:11,115 - flet_web.fastapi - INFO - New FletApp: 7plQcqHV
+2025-04-30 02:45:11,122 - flet_web.fastapi - INFO - New session created (1 total): APP_PARA_SULPI/main.py_6KBJJCvuITspLkdK_88f348dd3ed080be5f50f8943a04106bc05d23f8
+2025-04-30 02:45:11,128 - flet_web.fastapi - INFO - Start session: 6KBJJCvuITspLkdK
+2025-04-30 02:45:11,139 - database.db_connection - INFO - Base de datos inicializada correctamente
+2025-04-30 02:45:11,139 - __main__ - INFO - Base de datos inicializada correctamente
+2025-04-30 02:45:41,938 - asyncio - ERROR - Exception in callback _ProactorBasePipeTransport._call_connection_lost()
+handle: <Handle _ProactorBasePipeTransport._call_connection_lost()>
+Traceback (most recent call last):
+  File "E:\PYTHON\Lib\asyncio\events.py", line 89, in _run
+    self._context.run(self._callback, *self._args)
+    ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\PYTHON\Lib\asyncio\proactor_events.py", line 165, in _call_connection_lost
+    self._sock.shutdown(socket.SHUT_RDWR)
+    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+ConnectionResetError: [WinError 10054] Se ha forzado la interrupción de una conexión existente por el host remoto
+2025-04-30 02:45:41,945 - flet_web.fastapi - INFO - Session disconnected: APP_PARA_SULPI/main.py_6KBJJCvuITspLkdK_88f348dd3ed080be5f50f8943a04106bc05d23f8
+2025-04-30 02:46:26,570 - flet_web.fastapi - INFO - New FletApp: Q1ys8Jvh
+2025-04-30 02:46:26,577 - flet_web.fastapi - INFO - Existing session requested: 6KBJJCvuITspLkdK
+2025-04-30 02:46:26,578 - flet_web.fastapi - INFO - Session reconnected: APP_PARA_SULPI/main.py_6KBJJCvuITspLkdK_88f348dd3ed080be5f50f8943a04106bc05d23f8
+2025-04-30 02:46:26,579 - flet_web.fastapi - INFO - Disposing FletApp: 7plQcqHV
+2025-04-30 02:46:49,798 - database.db_connection - INFO - Conexión a la base de datos establecida con éxito
+2025-04-30 02:46:49,839 - flet - INFO - Assets path configured: C:\Users\joaqu\Desktop\APP_PARA_SULPI\assets
+2025-04-30 02:46:50,404 - flet - INFO - Starting Flet web server on port 8551...
+2025-04-30 02:46:50,405 - flet_web.fastapi - INFO - Web renderer configured: WebRenderer.CANVAS_KIT
+2025-04-30 02:46:50,405 - flet_web.fastapi - INFO - Use color emoji: False
+2025-04-30 02:46:50,405 - flet_web.fastapi - INFO - Route URL strategy configured: path
+2025-04-30 02:46:50,472 - flet_web.fastapi - INFO - Starting up Flet App Manager
+2025-04-30 02:46:50,623 - flet_web.fastapi - INFO - New FletApp: SXYhyQbD
+2025-04-30 02:46:50,633 - flet_web.fastapi - INFO - New session created (1 total): APP_PARA_SULPI/main.py_Z6TPSCqGcXhouGSs_88f348dd3ed080be5f50f8943a04106bc05d23f8
+2025-04-30 02:46:50,633 - flet_web.fastapi - INFO - Start session: Z6TPSCqGcXhouGSs
+2025-04-30 02:46:50,647 - database.db_connection - INFO - Base de datos inicializada correctamente
+2025-04-30 02:46:50,647 - __main__ - INFO - Base de datos inicializada correctamente
+2025-04-30 02:47:20,102 - asyncio - ERROR - Exception in callback _ProactorBasePipeTransport._call_connection_lost()
+handle: <Handle _ProactorBasePipeTransport._call_connection_lost()>
+Traceback (most recent call last):
+  File "E:\PYTHON\Lib\asyncio\events.py", line 89, in _run
+    self._context.run(self._callback, *self._args)
+    ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\PYTHON\Lib\asyncio\proactor_events.py", line 165, in _call_connection_lost
+    self._sock.shutdown(socket.SHUT_RDWR)
+    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+ConnectionResetError: [WinError 10054] Se ha forzado la interrupción de una conexión existente por el host remoto
+2025-04-30 02:47:20,104 - flet_web.fastapi - INFO - Session disconnected: APP_PARA_SULPI/main.py_Z6TPSCqGcXhouGSs_88f348dd3ed080be5f50f8943a04106bc05d23f8
+2025-04-30 02:47:33,090 - database.db_connection - INFO - Conexión a la base de datos establecida con éxito
+2025-04-30 02:47:33,138 - flet - INFO - Assets path configured: C:\Users\joaqu\Desktop\APP_PARA_SULPI\assets
+2025-04-30 02:47:34,089 - flet - INFO - Starting Flet web server on port 8551...
+2025-04-30 02:47:34,090 - flet_web.fastapi - INFO - Web renderer configured: WebRenderer.CANVAS_KIT
+2025-04-30 02:47:34,090 - flet_web.fastapi - INFO - Use color emoji: False
+2025-04-30 02:47:34,092 - flet_web.fastapi - INFO - Route URL strategy configured: path
+2025-04-30 02:47:34,250 - flet_web.fastapi - INFO - Starting up Flet App Manager
+2025-04-30 02:47:43,776 - flet_web.fastapi - INFO - New FletApp: oBU7TTym
+2025-04-30 02:47:43,785 - flet_web.fastapi - INFO - New session created (1 total): APP_PARA_SULPI/main.py_PCuacrKn4LwQZSri_88f348dd3ed080be5f50f8943a04106bc05d23f8
+2025-04-30 02:47:43,799 - flet_web.fastapi - INFO - Start session: PCuacrKn4LwQZSri
+2025-04-30 02:47:43,860 - database.db_connection - INFO - Base de datos inicializada correctamente
+2025-04-30 02:47:43,863 - __main__ - INFO - Base de datos inicializada correctamente
+2025-04-30 02:48:15,510 - asyncio - ERROR - Exception in callback _ProactorBasePipeTransport._call_connection_lost()
+handle: <Handle _ProactorBasePipeTransport._call_connection_lost()>
+Traceback (most recent call last):
+  File "E:\PYTHON\Lib\asyncio\events.py", line 89, in _run
+    self._context.run(self._callback, *self._args)
+    ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\PYTHON\Lib\asyncio\proactor_events.py", line 165, in _call_connection_lost
+    self._sock.shutdown(socket.SHUT_RDWR)
+    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+ConnectionResetError: [WinError 10054] Se ha forzado la interrupción de una conexión existente por el host remoto
+2025-04-30 02:48:15,521 - flet_web.fastapi - INFO - Session disconnected: APP_PARA_SULPI/main.py_PCuacrKn4LwQZSri_88f348dd3ed080be5f50f8943a04106bc05d23f8
+2025-04-30 02:48:50,799 - flet_web.fastapi - INFO - New FletApp: cK2G8guQ
+2025-04-30 02:48:50,808 - flet_web.fastapi - INFO - Existing session requested: PCuacrKn4LwQZSri
+2025-04-30 02:48:50,809 - flet_web.fastapi - INFO - Session reconnected: APP_PARA_SULPI/main.py_PCuacrKn4LwQZSri_88f348dd3ed080be5f50f8943a04106bc05d23f8
+2025-04-30 02:48:50,809 - flet_web.fastapi - INFO - Disposing FletApp: oBU7TTym
+2025-04-30 02:49:06,392 - database.db_connection - INFO - Conexión a la base de datos establecida con éxito
+2025-04-30 02:49:06,436 - flet - INFO - Assets path configured: C:\Users\joaqu\Desktop\APP_PARA_SULPI\assets
+2025-04-30 02:49:06,946 - flet - INFO - Starting Flet web server on port 8551...
+2025-04-30 02:49:06,948 - flet_web.fastapi - INFO - Web renderer configured: WebRenderer.CANVAS_KIT
+2025-04-30 02:49:06,948 - flet_web.fastapi - INFO - Use color emoji: False
+2025-04-30 02:49:06,949 - flet_web.fastapi - INFO - Route URL strategy configured: path
+2025-04-30 02:49:07,184 - flet_web.fastapi - INFO - Starting up Flet App Manager
+2025-04-30 02:49:10,413 - flet_web.fastapi - INFO - New FletApp: tUG3hw2b
+2025-04-30 02:49:10,422 - flet_web.fastapi - INFO - New session created (1 total): APP_PARA_SULPI/main.py_leogb0Ksv2ooPlAh_88f348dd3ed080be5f50f8943a04106bc05d23f8
+2025-04-30 02:49:10,423 - flet_web.fastapi - INFO - Start session: leogb0Ksv2ooPlAh
+2025-04-30 02:49:10,624 - database.db_connection - INFO - Base de datos inicializada correctamente
+2025-04-30 02:49:10,626 - __main__ - INFO - Base de datos inicializada correctamente
+2025-04-30 02:50:49,661 - asyncio - ERROR - Exception in callback _ProactorBasePipeTransport._call_connection_lost()
+handle: <Handle _ProactorBasePipeTransport._call_connection_lost()>
+Traceback (most recent call last):
+  File "E:\PYTHON\Lib\asyncio\events.py", line 89, in _run
+    self._context.run(self._callback, *self._args)
+    ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\PYTHON\Lib\asyncio\proactor_events.py", line 165, in _call_connection_lost
+    self._sock.shutdown(socket.SHUT_RDWR)
+    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+ConnectionResetError: [WinError 10054] Se ha forzado la interrupción de una conexión existente por el host remoto
+2025-04-30 02:50:49,664 - flet_web.fastapi - INFO - Session disconnected: APP_PARA_SULPI/main.py_leogb0Ksv2ooPlAh_88f348dd3ed080be5f50f8943a04106bc05d23f8
+2025-04-30 02:52:37,986 - database.db_connection - INFO - Conexión a la base de datos establecida con éxito
+2025-04-30 02:52:38,032 - flet - INFO - Assets path configured: C:\Users\joaqu\Desktop\APP_PARA_SULPI\assets
+2025-04-30 02:52:38,658 - flet - INFO - Starting Flet web server on port 8551...
+2025-04-30 02:52:38,659 - flet_web.fastapi - INFO - Web renderer configured: WebRenderer.CANVAS_KIT
+2025-04-30 02:52:38,659 - flet_web.fastapi - INFO - Use color emoji: False
+2025-04-30 02:52:38,659 - flet_web.fastapi - INFO - Route URL strategy configured: path
+2025-04-30 02:52:38,732 - flet_web.fastapi - INFO - Starting up Flet App Manager
+2025-04-30 11:58:43,377 - database.db_connection - INFO - Conexión a la base de datos establecida con éxito
+2025-04-30 12:02:10,133 - database.db_connection - INFO - Conexión a la base de datos establecida con éxito
+2025-04-30 12:02:10,877 - flet - INFO - Assets path configured: C:\Users\joaqu\Desktop\APP_PARA_SULPI\assets
+2025-04-30 12:02:22,351 - flet - INFO - Starting Flet web server on port 58572...
+2025-04-30 12:02:22,355 - flet_web.fastapi - INFO - Web renderer configured: WebRenderer.CANVAS_KIT
+2025-04-30 12:02:22,356 - flet_web.fastapi - INFO - Use color emoji: False
+2025-04-30 12:02:22,356 - flet_web.fastapi - INFO - Route URL strategy configured: path
+2025-04-30 12:02:22,584 - flet_web.fastapi - INFO - Starting up Flet App Manager
+2025-04-30 12:02:22,588 - flet - INFO - App URL: http://127.0.0.1:58572
+2025-04-30 12:02:23,373 - flet_web.fastapi - INFO - Temp dir created for patched index and manifest: C:\Users\joaqu\AppData\Local\Temp\tmpywhc71qu
+2025-04-30 12:02:23,556 - flet_web.fastapi - INFO - Web root: C:\Users\joaqu\Desktop\APP_PARA_SULPI\venv\Lib\site-packages\flet_web\web
+2025-04-30 12:02:23,590 - flet_web.fastapi - INFO - assets_dir does not exist: C:\Users\joaqu\Desktop\APP_PARA_SULPI\assets
+2025-04-30 12:02:23,602 - flet_web.fastapi - INFO - Assets dir: None
+2025-04-30 12:02:29,462 - flet_web.fastapi - INFO - New FletApp: Pmiu7uqB
+2025-04-30 12:02:29,725 - flet_web.fastapi - INFO - New session created (1 total): _DIwKbzE6ykvsQVvn_cd70dd7f3fadb8b1aecec11ec71b12314e0814be
+2025-04-30 12:02:29,766 - flet_web.fastapi - INFO - Start session: DIwKbzE6ykvsQVvn
+2025-04-30 12:02:29,864 - database.db_connection - INFO - Base de datos inicializada correctamente
+2025-04-30 12:02:29,866 - __main__ - INFO - Base de datos inicializada correctamente
+2025-04-30 12:10:00,296 - flet_web.fastapi - INFO - Session disconnected: _DIwKbzE6ykvsQVvn_cd70dd7f3fadb8b1aecec11ec71b12314e0814be
+2025-04-30 12:10:01,303 - flet_web.fastapi - INFO - New FletApp: fzjEZGxv
+2025-04-30 12:10:01,447 - flet_web.fastapi - INFO - Existing session requested: DIwKbzE6ykvsQVvn
+2025-04-30 12:10:01,447 - flet_web.fastapi - INFO - Session reconnected: _DIwKbzE6ykvsQVvn_cd70dd7f3fadb8b1aecec11ec71b12314e0814be
+2025-04-30 12:10:01,448 - flet_web.fastapi - INFO - Disposing FletApp: Pmiu7uqB
+2025-04-30 12:28:24,298 - flet_web.fastapi - INFO - Session disconnected: _DIwKbzE6ykvsQVvn_cd70dd7f3fadb8b1aecec11ec71b12314e0814be
+2025-04-30 12:28:24,804 - flet_web.fastapi - INFO - New FletApp: jDfpEkyR
+2025-04-30 12:28:24,938 - flet_web.fastapi - INFO - Existing session requested: DIwKbzE6ykvsQVvn
+2025-04-30 12:28:24,938 - flet_web.fastapi - INFO - Session reconnected: _DIwKbzE6ykvsQVvn_cd70dd7f3fadb8b1aecec11ec71b12314e0814be
+2025-04-30 12:28:24,938 - flet_web.fastapi - INFO - Disposing FletApp: fzjEZGxv
+2025-04-30 12:28:41,812 - database.db_connection - INFO - Conexión a la base de datos establecida con éxito
+2025-04-30 12:28:42,432 - flet - INFO - Assets path configured: C:\Users\joaqu\Desktop\APP_PARA_SULPI\assets
+2025-04-30 12:28:42,761 - flet - INFO - Starting Flet web server on port 60569...
+2025-04-30 12:28:42,762 - flet_web.fastapi - INFO - Web renderer configured: WebRenderer.CANVAS_KIT
+2025-04-30 12:28:42,762 - flet_web.fastapi - INFO - Use color emoji: False
+2025-04-30 12:28:42,762 - flet_web.fastapi - INFO - Route URL strategy configured: path
+2025-04-30 12:28:42,838 - flet_web.fastapi - INFO - Starting up Flet App Manager
+2025-04-30 12:28:42,839 - flet - INFO - App URL: http://127.0.0.1:60569
+2025-04-30 12:28:43,431 - flet_web.fastapi - INFO - Temp dir created for patched index and manifest: C:\Users\joaqu\AppData\Local\Temp\tmps_1q38kx
+2025-04-30 12:28:43,432 - flet_web.fastapi - INFO - Web root: C:\Users\joaqu\Desktop\APP_PARA_SULPI\venv\Lib\site-packages\flet_web\web
+2025-04-30 12:28:43,432 - flet_web.fastapi - INFO - assets_dir does not exist: C:\Users\joaqu\Desktop\APP_PARA_SULPI\assets
+2025-04-30 12:28:43,433 - flet_web.fastapi - INFO - Assets dir: None
+2025-04-30 12:28:46,322 - flet_web.fastapi - INFO - New FletApp: YatB942t
+2025-04-30 12:28:46,533 - flet_web.fastapi - INFO - New session created (1 total): _ejNFqSTC4FHM0Imy_cd70dd7f3fadb8b1aecec11ec71b12314e0814be
+2025-04-30 12:28:46,533 - flet_web.fastapi - INFO - Start session: ejNFqSTC4FHM0Imy
+2025-04-30 12:28:46,546 - database.db_connection - INFO - Base de datos inicializada correctamente
+2025-04-30 12:28:46,549 - __main__ - INFO - Base de datos inicializada correctamente
+2025-04-30 12:33:49,169 - database.db_connection - INFO - Conexión a la base de datos establecida con éxito
+2025-04-30 12:33:49,801 - flet - INFO - Assets path configured: C:\Users\joaqu\Desktop\APP_PARA_SULPI\assets
+2025-04-30 12:33:50,069 - flet - INFO - Starting Flet web server on port 60764...
+2025-04-30 12:33:50,070 - flet_web.fastapi - INFO - Web renderer configured: WebRenderer.CANVAS_KIT
+2025-04-30 12:33:50,071 - flet_web.fastapi - INFO - Use color emoji: False
+2025-04-30 12:33:50,071 - flet_web.fastapi - INFO - Route URL strategy configured: path
+2025-04-30 12:33:50,260 - flet_web.fastapi - INFO - Starting up Flet App Manager
+2025-04-30 12:33:50,297 - flet - INFO - App URL: http://127.0.0.1:60764
+2025-04-30 12:33:51,571 - flet_web.fastapi - INFO - Temp dir created for patched index and manifest: C:\Users\joaqu\AppData\Local\Temp\tmpt73h_2wm
+2025-04-30 12:33:51,589 - flet_web.fastapi - INFO - Web root: C:\Users\joaqu\Desktop\APP_PARA_SULPI\venv\Lib\site-packages\flet_web\web
+2025-04-30 12:33:51,591 - flet_web.fastapi - INFO - assets_dir does not exist: C:\Users\joaqu\Desktop\APP_PARA_SULPI\assets
+2025-04-30 12:33:51,594 - flet_web.fastapi - INFO - Assets dir: None
+2025-04-30 12:33:55,256 - flet_web.fastapi - INFO - Session disconnected: _ejNFqSTC4FHM0Imy_cd70dd7f3fadb8b1aecec11ec71b12314e0814be
+2025-04-30 12:33:55,466 - flet_web.fastapi - INFO - New FletApp: KpQEDM1j
+2025-04-30 12:33:55,827 - flet_web.fastapi - INFO - New session created (1 total): _ObSyrxGvqQg6fmC3_cd70dd7f3fadb8b1aecec11ec71b12314e0814be
+2025-04-30 12:33:55,827 - flet_web.fastapi - INFO - Start session: ObSyrxGvqQg6fmC3
+2025-04-30 12:33:55,853 - database.db_connection - INFO - Base de datos inicializada correctamente
+2025-04-30 12:33:55,853 - __main__ - INFO - Base de datos inicializada correctamente

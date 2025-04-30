@@ -23,28 +23,83 @@ class CSVHandler:
         try:
             # Si el contenido es bytes, convertirlo a string
             if isinstance(contenido_csv, bytes):
-                contenido_csv = contenido_csv.decode('utf-8-sig')
+                # Intentar diferentes codificaciones (utf-8, latin-1, etc.)
+                try:
+                    contenido_csv = contenido_csv.decode('utf-8-sig')
+                except UnicodeDecodeError:
+                    try:
+                        contenido_csv = contenido_csv.decode('latin-1')
+                    except UnicodeDecodeError:
+                        contenido_csv = contenido_csv.decode('cp1252')
             
             # Crear un DataFrame desde el contenido
-            df = pd.read_csv(io.StringIO(contenido_csv))
+            try:
+                # Intentar con diferentes delimitadores
+                df = pd.read_csv(io.StringIO(contenido_csv), sep=None, engine='python')
+            except Exception as e:
+                logger.warning(f"Error al leer CSV con detección automática: {e}")
+                # Intentar específicamente con coma y punto y coma
+                try:
+                    df = pd.read_csv(io.StringIO(contenido_csv), sep=',')
+                except:
+                    df = pd.read_csv(io.StringIO(contenido_csv), sep=';')
+            
+            logger.info(f"DataFrame cargado correctamente con {len(df)} filas")
             
             # Verificar encabezados requeridos
             required_columns = {'nombre', 'costo', 'precio_venta', 'stock'}
-            if not required_columns.issubset(set(df.columns)):
-                missing = required_columns - set(df.columns)
+            actual_columns = set(df.columns)
+            
+            logger.info(f"Columnas encontradas: {actual_columns}")
+            
+            if not required_columns.issubset(actual_columns):
+                missing = required_columns - actual_columns
                 return (False, f"Faltan columnas requeridas: {', '.join(missing)}", 0, 0)
             
             # Convertir DataFrame a lista de diccionarios
             productos_data = df.to_dict('records')
             
+            # Añadir log para depuración
+            logger.info(f"Ejemplo de primer producto: {productos_data[0] if productos_data else 'No hay datos'}")
+            
             # Procesar los productos
-            actualizados, creados = Producto.bulk_update_from_csv(productos_data)
+            # Verificar si existe el método bulk_update_from_csv
+            if hasattr(Producto, 'bulk_update_from_csv'):
+                actualizados, creados = Producto.bulk_update_from_csv(productos_data)
+            else:
+                # Implementación alternativa si el método no existe
+                actualizados = 0
+                creados = 0
+                
+                for data in productos_data:
+                    producto = Producto.get_by_name(data['nombre'])
+                    if producto:
+                        # Actualizar producto existente
+                        producto.costo = float(data['costo'])
+                        producto.precio_venta = float(data['precio_venta'])
+                        producto.stock = int(data['stock'])
+                        if 'codigo' in data:
+                            producto.codigo = data['codigo']
+                        producto.save()
+                        actualizados += 1
+                    else:
+                        # Crear nuevo producto
+                        nuevo = Producto(
+                            nombre=data['nombre'],
+                            costo=float(data['costo']),
+                            precio_venta=float(data['precio_venta']),
+                            stock=int(data['stock']),
+                            codigo=data.get('codigo', '')
+                        )
+                        nuevo.save()
+                        creados += 1
             
             mensaje = f"CSV procesado exitosamente. {actualizados} productos actualizados, {creados} productos nuevos."
+            logger.info(mensaje)
             return (True, mensaje, actualizados, creados)
             
         except Exception as e:
-            logger.error(f"Error al procesar CSV: {e}")
+            logger.error(f"Error al procesar CSV: {e}", exc_info=True)
             return (False, f"Error al procesar el archivo: {str(e)}", 0, 0)
     
     @staticmethod
