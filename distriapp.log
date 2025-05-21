@@ -478,3 +478,1207 @@ ConnectionResetError: [WinError 10054] Se ha forzado la interrupción de una cone
 2025-04-30 12:33:55,827 - flet_web.fastapi - INFO - Start session: ObSyrxGvqQg6fmC3
 2025-04-30 12:33:55,853 - database.db_connection - INFO - Base de datos inicializada correctamente
 2025-04-30 12:33:55,853 - __main__ - INFO - Base de datos inicializada correctamente
+2025-04-30 18:47:03,879 - database.db_connection - INFO - Conexión a la base de datos establecida con éxito
+2025-04-30 18:48:34,457 - database.db_connection - INFO - Conexión a la base de datos establecida con éxito
+2025-04-30 18:50:37,119 - database.db_connection - INFO - Conexión a la base de datos establecida con éxito
+2025-04-30 18:50:37,580 - flet - INFO - Assets path configured: C:\Users\joaqu\Desktop\APP_PARA_SULPI\assets
+2025-04-30 18:50:38,586 - flet - INFO - Starting Flet web server on port 56780...
+2025-04-30 18:50:38,587 - flet_web.fastapi - INFO - Web renderer configured: WebRenderer.CANVAS_KIT
+2025-04-30 18:50:38,587 - flet_web.fastapi - INFO - Use color emoji: False
+2025-04-30 18:50:38,587 - flet_web.fastapi - INFO - Route URL strategy configured: path
+2025-04-30 18:50:38,692 - flet_web.fastapi - INFO - Starting up Flet App Manager
+2025-04-30 18:50:39,499 - flet_web.fastapi - INFO - New FletApp: 9k9o6G5k
+2025-04-30 18:50:39,506 - flet_web.fastapi - INFO - New session created (1 total): _Vt7i2O3okBcf0ibi_1c937ecbeba32347b08c451ce625e216d4357604
+2025-04-30 18:50:39,510 - flet_web.fastapi - INFO - Start session: Vt7i2O3okBcf0ibi
+2025-04-30 18:50:39,527 - database.db_connection - INFO - Base de datos inicializada correctamente
+2025-04-30 18:50:39,527 - __main__ - INFO - Base de datos inicializada correctamente
+2025-04-30 18:56:57,342 - database.db_connection - INFO - Conexión a la base de datos establecida con éxito
+2025-04-30 18:56:57,982 - flet - INFO - Assets path configured: C:\Users\joaqu\Desktop\APP_PARA_SULPI\assets
+2025-04-30 18:56:58,284 - flet - INFO - Starting Flet web server on port 56780...
+2025-04-30 18:56:58,286 - flet_web.fastapi - INFO - Web renderer configured: WebRenderer.CANVAS_KIT
+2025-04-30 18:56:58,287 - flet_web.fastapi - INFO - Use color emoji: False
+2025-04-30 18:56:58,287 - flet_web.fastapi - INFO - Route URL strategy configured: path
+2025-04-30 18:56:58,366 - flet_web.fastapi - INFO - Starting up Flet App Manager
+2025-04-30 18:56:58,836 - flet_web.fastapi - INFO - New FletApp: wSgNyTQU
+2025-04-30 18:56:58,839 - flet_web.fastapi - INFO - New session created (1 total): _5aXW3Z7KmZvwtr1h_1c937ecbeba32347b08c451ce625e216d4357604
+2025-04-30 18:56:58,840 - flet_web.fastapi - INFO - Start session: 5aXW3Z7KmZvwtr1h
+2025-04-30 18:56:59,246 - database.db_connection - INFO - Base de datos inicializada correctamente
+2025-04-30 18:56:59,247 - __main__ - INFO - Base de datos inicializada correctamente
+2025-04-30 18:57:25,964 - database.db_connection - INFO - Conexión a la base de datos establecida con éxito
+2025-04-30 18:57:26,385 - flet - INFO - Assets path configured: C:\Users\joaqu\Desktop\APP_PARA_SULPI\assets
+2025-04-30 18:57:26,625 - flet - INFO - Starting Flet web server on port 56780...
+2025-04-30 18:57:26,626 - flet_web.fastapi - INFO - Web renderer configured: WebRenderer.CANVAS_KIT
+2025-04-30 18:57:26,626 - flet_web.fastapi - INFO - Use color emoji: False
+2025-04-30 18:57:26,627 - flet_web.fastapi - INFO - Route URL strategy configured: path
+2025-04-30 18:57:26,673 - flet_web.fastapi - INFO - Starting up Flet App Manager
+2025-04-30 18:57:27,094 - flet_web.fastapi - INFO - New FletApp: jwOqphue
+2025-04-30 18:57:27,097 - flet_web.fastapi - INFO - New session created (1 total): _tll7EzvGDRvRZ1Sz_1c937ecbeba32347b08c451ce625e216d4357604
+2025-04-30 18:57:27,098 - flet_web.fastapi - INFO - Start session: tll7EzvGDRvRZ1Sz
+2025-04-30 18:57:27,112 - database.db_connection - INFO - Base de datos inicializada correctamente
+2025-04-30 18:57:27,113 - __main__ - INFO - Base de datos inicializada correctamente
+2025-04-30 19:10:38,259 - database.db_connection - INFO - Conexión a la base de datos establecida con éxito
+2025-04-30 19:10:38,779 - flet - INFO - Assets path configured: C:\Users\joaqu\Desktop\APP_PARA_SULPI\assets
+2025-04-30 19:10:39,030 - flet - INFO - Starting Flet web server on port 56780...
+2025-04-30 19:10:39,031 - flet_web.fastapi - INFO - Web renderer configured: WebRenderer.CANVAS_KIT
+2025-04-30 19:10:39,031 - flet_web.fastapi - INFO - Use color emoji: False
+2025-04-30 19:10:39,032 - flet_web.fastapi - INFO - Route URL strategy configured: path
+2025-04-30 19:10:39,085 - flet_web.fastapi - INFO - Starting up Flet App Manager
+2025-04-30 19:10:39,167 - flet_web.fastapi - INFO - New FletApp: bTc3d5AY
+2025-04-30 19:10:39,169 - flet_web.fastapi - INFO - New session created (1 total): _gj1XXgFJRtei4Uaq_1c937ecbeba32347b08c451ce625e216d4357604
+2025-04-30 19:10:39,170 - flet_web.fastapi - INFO - Start session: gj1XXgFJRtei4Uaq
+2025-04-30 19:10:39,178 - database.db_connection - INFO - Base de datos inicializada correctamente
+2025-04-30 19:10:39,178 - __main__ - INFO - Base de datos inicializada correctamente
+2025-04-30 19:11:40,161 - database.db_connection - INFO - Conexión a la base de datos establecida con éxito
+2025-04-30 19:11:40,878 - flet - INFO - Assets path configured: C:\Users\joaqu\Desktop\APP_PARA_SULPI\assets
+2025-04-30 19:11:41,933 - flet - INFO - Starting Flet web server on port 56780...
+2025-04-30 19:11:41,934 - flet_web.fastapi - INFO - Web renderer configured: WebRenderer.CANVAS_KIT
+2025-04-30 19:11:41,935 - flet_web.fastapi - INFO - Use color emoji: False
+2025-04-30 19:11:41,935 - flet_web.fastapi - INFO - Route URL strategy configured: path
+2025-04-30 19:11:42,977 - flet_web.fastapi - INFO - Starting up Flet App Manager
+2025-04-30 19:11:43,385 - flet_web.fastapi - INFO - New FletApp: WoHY58VY
+2025-04-30 19:11:43,389 - flet_web.fastapi - INFO - New session created (1 total): _Xqn66GcexZHuUhvf_1c937ecbeba32347b08c451ce625e216d4357604
+2025-04-30 19:11:43,390 - flet_web.fastapi - INFO - Start session: Xqn66GcexZHuUhvf
+2025-04-30 19:11:43,408 - database.db_connection - INFO - Base de datos inicializada correctamente
+2025-04-30 19:11:43,410 - __main__ - INFO - Base de datos inicializada correctamente
+2025-04-30 19:12:09,820 - database.db_connection - INFO - Conexión a la base de datos establecida con éxito
+2025-04-30 19:12:10,554 - flet - INFO - Assets path configured: C:\Users\joaqu\Desktop\APP_PARA_SULPI\assets
+2025-04-30 19:12:11,148 - flet - INFO - Starting Flet web server on port 56780...
+2025-04-30 19:12:11,152 - flet_web.fastapi - INFO - Web renderer configured: WebRenderer.CANVAS_KIT
+2025-04-30 19:12:11,153 - flet_web.fastapi - INFO - Use color emoji: False
+2025-04-30 19:12:11,153 - flet_web.fastapi - INFO - Route URL strategy configured: path
+2025-04-30 19:12:11,252 - flet_web.fastapi - INFO - Starting up Flet App Manager
+2025-04-30 19:12:11,347 - flet_web.fastapi - INFO - New FletApp: t7MHziJx
+2025-04-30 19:12:11,358 - flet_web.fastapi - INFO - New session created (1 total): _zXwh5tPxt3C4OJrm_1c937ecbeba32347b08c451ce625e216d4357604
+2025-04-30 19:12:11,359 - flet_web.fastapi - INFO - Start session: zXwh5tPxt3C4OJrm
+2025-04-30 19:12:11,374 - database.db_connection - INFO - Base de datos inicializada correctamente
+2025-04-30 19:12:11,374 - __main__ - INFO - Base de datos inicializada correctamente
+2025-04-30 19:12:18,436 - database.db_connection - INFO - Conexión a la base de datos establecida con éxito
+2025-04-30 19:12:19,529 - flet - INFO - Assets path configured: C:\Users\joaqu\Desktop\APP_PARA_SULPI\assets
+2025-04-30 19:12:19,822 - flet - INFO - Starting Flet web server on port 56780...
+2025-04-30 19:12:19,824 - flet_web.fastapi - INFO - Web renderer configured: WebRenderer.CANVAS_KIT
+2025-04-30 19:12:19,824 - flet_web.fastapi - INFO - Use color emoji: False
+2025-04-30 19:12:19,825 - flet_web.fastapi - INFO - Route URL strategy configured: path
+2025-04-30 19:12:19,885 - flet_web.fastapi - INFO - Starting up Flet App Manager
+2025-04-30 19:12:20,229 - flet_web.fastapi - INFO - New FletApp: 6SPS2FEL
+2025-04-30 19:12:20,232 - flet_web.fastapi - INFO - New session created (1 total): _SnTwZRxEuojZcqoY_1c937ecbeba32347b08c451ce625e216d4357604
+2025-04-30 19:12:20,232 - flet_web.fastapi - INFO - Start session: SnTwZRxEuojZcqoY
+2025-04-30 19:12:20,241 - database.db_connection - INFO - Base de datos inicializada correctamente
+2025-04-30 19:12:20,241 - __main__ - INFO - Base de datos inicializada correctamente
+2025-04-30 19:12:50,288 - database.db_connection - INFO - Conexión a la base de datos establecida con éxito
+2025-04-30 19:12:50,772 - flet - INFO - Assets path configured: C:\Users\joaqu\Desktop\APP_PARA_SULPI\assets
+2025-04-30 19:12:51,046 - flet - INFO - Starting Flet web server on port 56780...
+2025-04-30 19:12:51,047 - flet_web.fastapi - INFO - Web renderer configured: WebRenderer.CANVAS_KIT
+2025-04-30 19:12:51,047 - flet_web.fastapi - INFO - Use color emoji: False
+2025-04-30 19:12:51,048 - flet_web.fastapi - INFO - Route URL strategy configured: path
+2025-04-30 19:12:51,110 - flet_web.fastapi - INFO - Starting up Flet App Manager
+2025-04-30 19:12:51,389 - flet_web.fastapi - INFO - New FletApp: 0F0Lm8p9
+2025-04-30 19:12:51,392 - flet_web.fastapi - INFO - New session created (1 total): _dG31FgPf1TVf9KXq_1c937ecbeba32347b08c451ce625e216d4357604
+2025-04-30 19:12:51,392 - flet_web.fastapi - INFO - Start session: dG31FgPf1TVf9KXq
+2025-04-30 19:12:51,404 - database.db_connection - INFO - Base de datos inicializada correctamente
+2025-04-30 19:12:51,407 - __main__ - INFO - Base de datos inicializada correctamente
+2025-04-30 19:14:08,441 - database.db_connection - INFO - Conexión a la base de datos establecida con éxito
+2025-04-30 19:14:08,914 - flet - INFO - Assets path configured: C:\Users\joaqu\Desktop\APP_PARA_SULPI\assets
+2025-04-30 19:14:09,165 - flet - INFO - Starting Flet web server on port 56780...
+2025-04-30 19:14:09,166 - flet_web.fastapi - INFO - Web renderer configured: WebRenderer.CANVAS_KIT
+2025-04-30 19:14:09,166 - flet_web.fastapi - INFO - Use color emoji: False
+2025-04-30 19:14:09,166 - flet_web.fastapi - INFO - Route URL strategy configured: path
+2025-04-30 19:14:09,221 - flet_web.fastapi - INFO - Starting up Flet App Manager
+2025-04-30 19:14:09,275 - flet_web.fastapi - INFO - New FletApp: KKW6Rltc
+2025-04-30 19:14:09,277 - flet_web.fastapi - INFO - New session created (1 total): _5YnnIqD0pM9sYPjv_1c937ecbeba32347b08c451ce625e216d4357604
+2025-04-30 19:14:09,278 - flet_web.fastapi - INFO - Start session: 5YnnIqD0pM9sYPjv
+2025-04-30 19:14:09,296 - database.db_connection - INFO - Base de datos inicializada correctamente
+2025-04-30 19:14:09,296 - __main__ - INFO - Base de datos inicializada correctamente
+2025-04-30 19:16:18,710 - database.db_connection - INFO - Conexión a la base de datos establecida con éxito
+2025-04-30 19:16:21,603 - flet - INFO - Assets path configured: C:\Users\joaqu\Desktop\APP_PARA_SULPI\assets
+2025-04-30 19:16:21,903 - flet - INFO - Starting Flet web server on port 56780...
+2025-04-30 19:16:21,904 - flet_web.fastapi - INFO - Web renderer configured: WebRenderer.CANVAS_KIT
+2025-04-30 19:16:21,904 - flet_web.fastapi - INFO - Use color emoji: False
+2025-04-30 19:16:21,906 - flet_web.fastapi - INFO - Route URL strategy configured: path
+2025-04-30 19:16:21,970 - flet_web.fastapi - INFO - Starting up Flet App Manager
+2025-04-30 19:16:22,301 - flet_web.fastapi - INFO - New FletApp: kuSdqM6t
+2025-04-30 19:16:22,304 - flet_web.fastapi - INFO - New session created (1 total): _j3TEcf6MYoqxLT5n_1c937ecbeba32347b08c451ce625e216d4357604
+2025-04-30 19:16:22,304 - flet_web.fastapi - INFO - Start session: j3TEcf6MYoqxLT5n
+2025-04-30 19:16:22,317 - database.db_connection - INFO - Base de datos inicializada correctamente
+2025-04-30 19:16:22,317 - __main__ - INFO - Base de datos inicializada correctamente
+2025-04-30 19:20:10,208 - database.db_connection - INFO - Conexión a la base de datos establecida con éxito
+2025-04-30 19:20:11,257 - flet - INFO - Assets path configured: C:\Users\joaqu\Desktop\APP_PARA_SULPI\assets
+2025-04-30 19:20:11,525 - flet - INFO - Starting Flet web server on port 56780...
+2025-04-30 19:20:11,527 - flet_web.fastapi - INFO - Web renderer configured: WebRenderer.CANVAS_KIT
+2025-04-30 19:20:11,528 - flet_web.fastapi - INFO - Use color emoji: False
+2025-04-30 19:20:11,528 - flet_web.fastapi - INFO - Route URL strategy configured: path
+2025-04-30 19:20:11,580 - flet_web.fastapi - INFO - Starting up Flet App Manager
+2025-04-30 19:20:11,739 - flet_web.fastapi - INFO - New FletApp: CiwTMjfH
+2025-04-30 19:20:11,741 - flet_web.fastapi - INFO - New session created (1 total): _UFrMwcSQ0jYqJa1i_1c937ecbeba32347b08c451ce625e216d4357604
+2025-04-30 19:20:11,741 - flet_web.fastapi - INFO - Start session: UFrMwcSQ0jYqJa1i
+2025-04-30 19:20:11,750 - database.db_connection - INFO - Base de datos inicializada correctamente
+2025-04-30 19:20:11,750 - __main__ - INFO - Base de datos inicializada correctamente
+2025-04-30 19:23:56,244 - database.db_connection - INFO - Conexión a la base de datos establecida con éxito
+2025-04-30 19:23:56,838 - flet - INFO - Assets path configured: C:\Users\joaqu\Desktop\APP_PARA_SULPI\assets
+2025-04-30 19:23:57,065 - flet - INFO - Starting Flet web server on port 56780...
+2025-04-30 19:23:57,066 - flet_web.fastapi - INFO - Web renderer configured: WebRenderer.CANVAS_KIT
+2025-04-30 19:23:57,066 - flet_web.fastapi - INFO - Use color emoji: False
+2025-04-30 19:23:57,066 - flet_web.fastapi - INFO - Route URL strategy configured: path
+2025-04-30 19:23:57,119 - flet_web.fastapi - INFO - Starting up Flet App Manager
+2025-04-30 19:23:57,216 - flet_web.fastapi - INFO - New FletApp: cnc9aQIr
+2025-04-30 19:23:57,218 - flet_web.fastapi - INFO - New session created (1 total): _dyTDcS56qQOdYS1Z_1c937ecbeba32347b08c451ce625e216d4357604
+2025-04-30 19:23:57,219 - flet_web.fastapi - INFO - Start session: dyTDcS56qQOdYS1Z
+2025-04-30 19:23:57,227 - database.db_connection - INFO - Base de datos inicializada correctamente
+2025-04-30 19:23:57,228 - __main__ - INFO - Base de datos inicializada correctamente
+2025-05-02 02:15:10,847 - database.db_connection - ERROR - Error al conectar a la base de datos: (1045, "Access denied for user 'root'@'localhost' (using password: YES)")
+2025-05-02 02:16:08,790 - database.db_connection - INFO - Conexión a la base de datos establecida con éxito
+2025-05-02 02:16:09,501 - flet_runtime - INFO - Assets path configured: C:\Users\joaqu\Desktop\APP_PARA_SULPI\assets
+2025-05-02 02:16:09,502 - flet_runtime - INFO - Starting local Flet Server on port 53387...
+2025-05-02 02:16:09,549 - flet_runtime - INFO - Flet Server found in: C:\Users\joaqu\Desktop\APP_PARA_SULPI\venv\Lib\site-packages\flet\bin\fletd.exe
+2025-05-02 02:16:09,550 - flet_runtime - INFO - Web renderer configured: canvaskit
+2025-05-02 02:16:09,550 - flet_runtime - INFO - Use color emoji: False
+2025-05-02 02:16:09,550 - flet_runtime - INFO - Route URL strategy configured: path
+2025-05-02 02:16:10,340 - flet - INFO - Connecting Flet Server at ws://127.0.0.1:53387/ws...
+2025-05-02 02:16:10,546 - flet - INFO - Reconnecting Flet Server in 0.1 seconds
+2025-05-02 02:16:10,656 - flet - INFO - Connecting Flet Server at ws://127.0.0.1:53387/ws...
+2025-05-02 02:16:10,674 - flet - INFO - Successfully connected to ws://127.0.0.1:53387/ws
+2025-05-02 02:16:11,341 - flet_runtime - INFO - App URL: http://127.0.0.1:53387
+2025-05-02 02:16:11,341 - flet_runtime - INFO - Connected to Flet app and handling user sessions...
+2025-05-02 02:16:15,647 - flet_runtime - INFO - Session started: d29fc5f2-7008-43fe-84ac-3865faba16c0
+2025-05-02 02:16:15,700 - database.db_connection - INFO - Base de datos inicializada correctamente
+2025-05-02 02:16:15,700 - __main__ - INFO - Base de datos inicializada correctamente
+2025-05-02 02:42:34,830 - flet_runtime - INFO - Session started: bd462df4-7c15-48d3-933f-88eb52dc2bd1
+2025-05-02 02:42:34,844 - database.db_connection - INFO - Base de datos inicializada correctamente
+2025-05-02 02:42:34,844 - __main__ - INFO - Base de datos inicializada correctamente
+2025-05-02 02:45:11,115 - database.db_connection - INFO - Conexión a la base de datos establecida con éxito
+2025-05-02 02:45:11,588 - flet - INFO - Assets path configured: C:\Users\joaqu\Desktop\APP_PARA_SULPI\assets
+2025-05-02 02:45:12,833 - flet - INFO - Starting Flet web server on port 55713...
+2025-05-02 02:45:12,834 - flet_web.fastapi - INFO - Web renderer configured: WebRenderer.CANVAS_KIT
+2025-05-02 02:45:12,834 - flet_web.fastapi - INFO - Use color emoji: False
+2025-05-02 02:45:12,834 - flet_web.fastapi - INFO - Route URL strategy configured: path
+2025-05-02 02:45:12,961 - flet_web.fastapi - INFO - Starting up Flet App Manager
+2025-05-02 02:45:12,962 - flet - INFO - App URL: http://127.0.0.1:55713
+2025-05-02 02:45:13,429 - flet_web.fastapi - INFO - Temp dir created for patched index and manifest: C:\Users\joaqu\AppData\Local\Temp\tmp_meplq40
+2025-05-02 02:45:13,429 - flet_web.fastapi - INFO - Web root: C:\Users\joaqu\Desktop\APP_PARA_SULPI\venv\Lib\site-packages\flet_web\web
+2025-05-02 02:45:13,430 - flet_web.fastapi - INFO - assets_dir does not exist: C:\Users\joaqu\Desktop\APP_PARA_SULPI\assets
+2025-05-02 02:45:13,430 - flet_web.fastapi - INFO - Assets dir: None
+2025-05-02 02:45:18,495 - flet_web.fastapi - INFO - New FletApp: bbRNROUB
+2025-05-02 02:45:18,691 - flet_web.fastapi - INFO - New session created (1 total): _5FYAj70ncRJf43ej_cd70dd7f3fadb8b1aecec11ec71b12314e0814be
+2025-05-02 02:45:18,696 - flet_web.fastapi - INFO - Start session: 5FYAj70ncRJf43ej
+2025-05-02 02:45:18,778 - database.db_connection - INFO - Base de datos inicializada correctamente
+2025-05-02 02:45:18,779 - __main__ - INFO - Base de datos inicializada correctamente
+2025-05-02 02:45:22,823 - asyncio - ERROR - Future exception was never retrieved
+future: <Future finished exception=AttributeError("'Page' object has no attribute 'show_snack_bar'")>
+Traceback (most recent call last):
+  File "E:\PYTHON\Lib\concurrent\futures\thread.py", line 58, in run
+    result = self.fn(*self.args, **self.kwargs)
+  File "C:\Users\joaqu\Desktop\APP_PARA_SULPI\venv\Lib\site-packages\flet\core\page.py", line 903, in wrapper
+    handler(*args)
+    ~~~~~~~^^^^^^^
+  File "C:\Users\joaqu\Desktop\APP_PARA_SULPI\main.py", line 2469, in subir_csv
+    self.show_message("Seleccione un archivo CSV para importar productos")
+    ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\joaqu\Desktop\APP_PARA_SULPI\main.py", line 2641, in show_message
+    self.page.show_snack_bar(
+    ^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'Page' object has no attribute 'show_snack_bar'
+2025-05-02 02:48:39,264 - database.db_connection - INFO - Conexión a la base de datos establecida con éxito
+2025-05-02 02:48:39,733 - flet - INFO - Assets path configured: C:\Users\joaqu\Desktop\APP_PARA_SULPI\assets
+2025-05-02 02:48:39,983 - flet - INFO - Starting Flet web server on port 55820...
+2025-05-02 02:48:39,985 - flet_web.fastapi - INFO - Web renderer configured: WebRenderer.CANVAS_KIT
+2025-05-02 02:48:39,985 - flet_web.fastapi - INFO - Use color emoji: False
+2025-05-02 02:48:39,985 - flet_web.fastapi - INFO - Route URL strategy configured: path
+2025-05-02 02:48:40,048 - flet_web.fastapi - INFO - Starting up Flet App Manager
+2025-05-02 02:48:40,049 - flet - INFO - App URL: http://127.0.0.1:55820
+2025-05-02 02:48:40,516 - flet_web.fastapi - INFO - Temp dir created for patched index and manifest: C:\Users\joaqu\AppData\Local\Temp\tmp99cb54p1
+2025-05-02 02:48:40,517 - flet_web.fastapi - INFO - Web root: C:\Users\joaqu\Desktop\APP_PARA_SULPI\venv\Lib\site-packages\flet_web\web
+2025-05-02 02:48:40,518 - flet_web.fastapi - INFO - assets_dir does not exist: C:\Users\joaqu\Desktop\APP_PARA_SULPI\assets
+2025-05-02 02:48:40,519 - flet_web.fastapi - INFO - Assets dir: None
+2025-05-02 02:48:45,598 - flet_web.fastapi - INFO - New FletApp: 6OVHyXbO
+2025-05-02 02:48:45,743 - flet_web.fastapi - INFO - New session created (1 total): _sjb3IsN4K6c1xExv_cd70dd7f3fadb8b1aecec11ec71b12314e0814be
+2025-05-02 02:48:45,745 - flet_web.fastapi - INFO - Start session: sjb3IsN4K6c1xExv
+2025-05-02 02:48:45,778 - database.db_connection - INFO - Base de datos inicializada correctamente
+2025-05-02 02:48:45,782 - __main__ - INFO - Base de datos inicializada correctamente
+2025-05-02 02:49:13,471 - flet_web.fastapi - INFO - Session disconnected: _sjb3IsN4K6c1xExv_cd70dd7f3fadb8b1aecec11ec71b12314e0814be
+2025-05-02 02:49:15,434 - flet_web.fastapi - INFO - New FletApp: kb1ku94O
+2025-05-02 02:49:15,650 - flet_web.fastapi - INFO - Existing session requested: sjb3IsN4K6c1xExv
+2025-05-02 02:49:15,651 - flet_web.fastapi - INFO - Session reconnected: _sjb3IsN4K6c1xExv_cd70dd7f3fadb8b1aecec11ec71b12314e0814be
+2025-05-02 02:49:15,651 - flet_web.fastapi - INFO - Disposing FletApp: 6OVHyXbO
+2025-05-02 02:49:21,060 - asyncio - ERROR - Future exception was never retrieved
+future: <Future finished exception=AttributeError("'Page' object has no attribute 'show_snack_bar'")>
+Traceback (most recent call last):
+  File "E:\PYTHON\Lib\concurrent\futures\thread.py", line 58, in run
+    result = self.fn(*self.args, **self.kwargs)
+  File "C:\Users\joaqu\Desktop\APP_PARA_SULPI\venv\Lib\site-packages\flet\core\page.py", line 903, in wrapper
+    handler(*args)
+    ~~~~~~~^^^^^^^
+  File "C:\Users\joaqu\Desktop\APP_PARA_SULPI\main.py", line 2469, in subir_csv
+    self.show_message("Seleccione un archivo CSV para importar productos")
+    ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\joaqu\Desktop\APP_PARA_SULPI\main.py", line 2641, in show_message
+    self.page.show_snack_bar(
+    ^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'Page' object has no attribute 'show_snack_bar'
+2025-05-02 02:50:34,799 - flet_web.fastapi - INFO - Session disconnected: _sjb3IsN4K6c1xExv_cd70dd7f3fadb8b1aecec11ec71b12314e0814be
+2025-05-02 02:50:35,488 - flet_web.fastapi - INFO - New FletApp: fLejGV2k
+2025-05-02 02:50:35,607 - flet_web.fastapi - INFO - Existing session requested: sjb3IsN4K6c1xExv
+2025-05-02 02:50:35,607 - flet_web.fastapi - INFO - Session reconnected: _sjb3IsN4K6c1xExv_cd70dd7f3fadb8b1aecec11ec71b12314e0814be
+2025-05-02 02:50:35,609 - flet_web.fastapi - INFO - Disposing FletApp: kb1ku94O
+2025-05-02 02:50:36,783 - asyncio - ERROR - Future exception was never retrieved
+future: <Future finished exception=AttributeError("'Page' object has no attribute 'show_snack_bar'")>
+Traceback (most recent call last):
+  File "E:\PYTHON\Lib\concurrent\futures\thread.py", line 58, in run
+    result = self.fn(*self.args, **self.kwargs)
+  File "C:\Users\joaqu\Desktop\APP_PARA_SULPI\venv\Lib\site-packages\flet\core\page.py", line 903, in wrapper
+    handler(*args)
+    ~~~~~~~^^^^^^^
+  File "C:\Users\joaqu\Desktop\APP_PARA_SULPI\main.py", line 2469, in subir_csv
+    # Mostrar mensaje informativo
+  File "C:\Users\joaqu\Desktop\APP_PARA_SULPI\main.py", line 2641, in show_message
+AttributeError: 'Page' object has no attribute 'show_snack_bar'
+2025-05-02 02:52:02,047 - asyncio - ERROR - Future exception was never retrieved
+future: <Future finished exception=AttributeError("'Page' object has no attribute 'show_snack_bar'")>
+Traceback (most recent call last):
+  File "E:\PYTHON\Lib\concurrent\futures\thread.py", line 58, in run
+    result = self.fn(*self.args, **self.kwargs)
+  File "C:\Users\joaqu\Desktop\APP_PARA_SULPI\venv\Lib\site-packages\flet\core\page.py", line 903, in wrapper
+    handler(*args)
+    ~~~~~~~^^^^^^^
+  File "C:\Users\joaqu\Desktop\APP_PARA_SULPI\main.py", line 2469, in subir_csv
+    # Mostrar mensaje informativo
+  File "C:\Users\joaqu\Desktop\APP_PARA_SULPI\main.py", line 2641, in show_message
+AttributeError: 'Page' object has no attribute 'show_snack_bar'
+2025-05-02 02:52:03,472 - flet_web.fastapi - INFO - Session disconnected: _sjb3IsN4K6c1xExv_cd70dd7f3fadb8b1aecec11ec71b12314e0814be
+2025-05-02 02:52:04,568 - flet_web.fastapi - INFO - New FletApp: sCeqlgjp
+2025-05-02 02:52:04,706 - flet_web.fastapi - INFO - Existing session requested: sjb3IsN4K6c1xExv
+2025-05-02 02:52:04,707 - flet_web.fastapi - INFO - Session reconnected: _sjb3IsN4K6c1xExv_cd70dd7f3fadb8b1aecec11ec71b12314e0814be
+2025-05-02 02:52:04,708 - flet_web.fastapi - INFO - Disposing FletApp: fLejGV2k
+2025-05-02 02:52:05,580 - asyncio - ERROR - Future exception was never retrieved
+future: <Future finished exception=AttributeError("'Page' object has no attribute 'show_snack_bar'")>
+Traceback (most recent call last):
+  File "E:\PYTHON\Lib\concurrent\futures\thread.py", line 58, in run
+    result = self.fn(*self.args, **self.kwargs)
+  File "C:\Users\joaqu\Desktop\APP_PARA_SULPI\venv\Lib\site-packages\flet\core\page.py", line 903, in wrapper
+    handler(*args)
+    ~~~~~~~^^^^^^^
+  File "C:\Users\joaqu\Desktop\APP_PARA_SULPI\main.py", line 2469, in subir_csv
+    # Mostrar mensaje informativo
+  File "C:\Users\joaqu\Desktop\APP_PARA_SULPI\main.py", line 2641, in show_message
+AttributeError: 'Page' object has no attribute 'show_snack_bar'
+2025-05-02 02:52:06,261 - asyncio - ERROR - Future exception was never retrieved
+future: <Future finished exception=AttributeError("'Page' object has no attribute 'show_snack_bar'")>
+Traceback (most recent call last):
+  File "E:\PYTHON\Lib\concurrent\futures\thread.py", line 58, in run
+    result = self.fn(*self.args, **self.kwargs)
+  File "C:\Users\joaqu\Desktop\APP_PARA_SULPI\venv\Lib\site-packages\flet\core\page.py", line 903, in wrapper
+    handler(*args)
+    ~~~~~~~^^^^^^^
+  File "C:\Users\joaqu\Desktop\APP_PARA_SULPI\main.py", line 2469, in subir_csv
+    # Mostrar mensaje informativo
+  File "C:\Users\joaqu\Desktop\APP_PARA_SULPI\main.py", line 2641, in show_message
+AttributeError: 'Page' object has no attribute 'show_snack_bar'
+2025-05-02 02:52:06,444 - asyncio - ERROR - Future exception was never retrieved
+future: <Future finished exception=AttributeError("'Page' object has no attribute 'show_snack_bar'")>
+Traceback (most recent call last):
+  File "E:\PYTHON\Lib\concurrent\futures\thread.py", line 58, in run
+    result = self.fn(*self.args, **self.kwargs)
+  File "C:\Users\joaqu\Desktop\APP_PARA_SULPI\venv\Lib\site-packages\flet\core\page.py", line 903, in wrapper
+    handler(*args)
+    ~~~~~~~^^^^^^^
+  File "C:\Users\joaqu\Desktop\APP_PARA_SULPI\main.py", line 2469, in subir_csv
+    # Mostrar mensaje informativo
+  File "C:\Users\joaqu\Desktop\APP_PARA_SULPI\main.py", line 2641, in show_message
+AttributeError: 'Page' object has no attribute 'show_snack_bar'
+2025-05-02 02:52:06,591 - asyncio - ERROR - Future exception was never retrieved
+future: <Future finished exception=AttributeError("'Page' object has no attribute 'show_snack_bar'")>
+Traceback (most recent call last):
+  File "E:\PYTHON\Lib\concurrent\futures\thread.py", line 58, in run
+    result = self.fn(*self.args, **self.kwargs)
+  File "C:\Users\joaqu\Desktop\APP_PARA_SULPI\venv\Lib\site-packages\flet\core\page.py", line 903, in wrapper
+    handler(*args)
+    ~~~~~~~^^^^^^^
+  File "C:\Users\joaqu\Desktop\APP_PARA_SULPI\main.py", line 2469, in subir_csv
+    # Mostrar mensaje informativo
+  File "C:\Users\joaqu\Desktop\APP_PARA_SULPI\main.py", line 2641, in show_message
+AttributeError: 'Page' object has no attribute 'show_snack_bar'
+2025-05-02 02:52:06,752 - asyncio - ERROR - Future exception was never retrieved
+future: <Future finished exception=AttributeError("'Page' object has no attribute 'show_snack_bar'")>
+Traceback (most recent call last):
+  File "E:\PYTHON\Lib\concurrent\futures\thread.py", line 58, in run
+    result = self.fn(*self.args, **self.kwargs)
+  File "C:\Users\joaqu\Desktop\APP_PARA_SULPI\venv\Lib\site-packages\flet\core\page.py", line 903, in wrapper
+    handler(*args)
+    ~~~~~~~^^^^^^^
+  File "C:\Users\joaqu\Desktop\APP_PARA_SULPI\main.py", line 2469, in subir_csv
+    # Mostrar mensaje informativo
+  File "C:\Users\joaqu\Desktop\APP_PARA_SULPI\main.py", line 2641, in show_message
+AttributeError: 'Page' object has no attribute 'show_snack_bar'
+2025-05-02 02:53:01,026 - flet_web.fastapi - INFO - Session disconnected: _sjb3IsN4K6c1xExv_cd70dd7f3fadb8b1aecec11ec71b12314e0814be
+2025-05-02 02:53:01,801 - flet_web.fastapi - INFO - New FletApp: GsLJARQx
+2025-05-02 02:53:01,962 - flet_web.fastapi - INFO - Existing session requested: sjb3IsN4K6c1xExv
+2025-05-02 02:53:01,963 - flet_web.fastapi - INFO - Session reconnected: _sjb3IsN4K6c1xExv_cd70dd7f3fadb8b1aecec11ec71b12314e0814be
+2025-05-02 02:53:01,963 - flet_web.fastapi - INFO - Disposing FletApp: sCeqlgjp
+2025-05-02 02:53:02,887 - asyncio - ERROR - Future exception was never retrieved
+future: <Future finished exception=AttributeError("'Page' object has no attribute 'show_snack_bar'")>
+Traceback (most recent call last):
+  File "E:\PYTHON\Lib\concurrent\futures\thread.py", line 58, in run
+    result = self.fn(*self.args, **self.kwargs)
+  File "C:\Users\joaqu\Desktop\APP_PARA_SULPI\venv\Lib\site-packages\flet\core\page.py", line 903, in wrapper
+    handler(*args)
+    ~~~~~~~^^^^^^^
+  File "C:\Users\joaqu\Desktop\APP_PARA_SULPI\main.py", line 2469, in subir_csv
+    self.file_picker.pick_files(
+  File "C:\Users\joaqu\Desktop\APP_PARA_SULPI\main.py", line 2641, in show_message
+    # ======== Funciones de interfaz y utilidad ========
+AttributeError: 'Page' object has no attribute 'show_snack_bar'
+2025-05-02 02:55:12,609 - database.db_connection - INFO - Conexión a la base de datos establecida con éxito
+2025-05-02 02:55:13,038 - flet - INFO - Assets path configured: C:\Users\joaqu\Desktop\APP_PARA_SULPI\assets
+2025-05-02 02:55:13,264 - flet - INFO - Starting Flet web server on port 56027...
+2025-05-02 02:55:13,265 - flet_web.fastapi - INFO - Web renderer configured: WebRenderer.CANVAS_KIT
+2025-05-02 02:55:13,265 - flet_web.fastapi - INFO - Use color emoji: False
+2025-05-02 02:55:13,265 - flet_web.fastapi - INFO - Route URL strategy configured: path
+2025-05-02 02:55:13,328 - flet_web.fastapi - INFO - Starting up Flet App Manager
+2025-05-02 02:55:13,328 - flet - INFO - App URL: http://127.0.0.1:56027
+2025-05-02 02:55:13,759 - flet_web.fastapi - INFO - Temp dir created for patched index and manifest: C:\Users\joaqu\AppData\Local\Temp\tmpghhgjde_
+2025-05-02 02:55:13,761 - flet_web.fastapi - INFO - Web root: C:\Users\joaqu\Desktop\APP_PARA_SULPI\venv\Lib\site-packages\flet_web\web
+2025-05-02 02:55:13,762 - flet_web.fastapi - INFO - assets_dir does not exist: C:\Users\joaqu\Desktop\APP_PARA_SULPI\assets
+2025-05-02 02:55:13,762 - flet_web.fastapi - INFO - Assets dir: None
+2025-05-02 02:55:17,020 - flet_web.fastapi - INFO - New FletApp: G2E6jCAk
+2025-05-02 02:55:17,191 - flet_web.fastapi - INFO - New session created (1 total): _H9T3x475aA6L0SDB_cd70dd7f3fadb8b1aecec11ec71b12314e0814be
+2025-05-02 02:55:17,192 - flet_web.fastapi - INFO - Start session: H9T3x475aA6L0SDB
+2025-05-02 02:55:17,206 - database.db_connection - INFO - Base de datos inicializada correctamente
+2025-05-02 02:55:17,207 - __main__ - INFO - Base de datos inicializada correctamente
+2025-05-02 02:55:49,281 - __main__ - INFO - Leyendo archivo CSV: None
+2025-05-02 02:55:49,285 - __main__ - ERROR - Error al procesar CSV: expected str, bytes or os.PathLike object, not NoneType
+Traceback (most recent call last):
+  File "C:\Users\joaqu\Desktop\APP_PARA_SULPI\main.py", line 2506, in background_task
+    with open(file_path, 'rb') as f:
+         ~~~~^^^^^^^^^^^^^^^^^
+TypeError: expected str, bytes or os.PathLike object, not NoneType
+2025-05-02 03:04:23,892 - database.db_connection - INFO - Conexión a la base de datos establecida con éxito
+2025-05-02 03:04:24,721 - flet - INFO - Assets path configured: C:\Users\joaqu\Desktop\APP_PARA_SULPI\assets
+2025-05-02 03:04:25,078 - flet - INFO - Starting Flet web server on port 56226...
+2025-05-02 03:04:25,079 - flet_web.fastapi - INFO - Web renderer configured: WebRenderer.CANVAS_KIT
+2025-05-02 03:04:25,080 - flet_web.fastapi - INFO - Use color emoji: False
+2025-05-02 03:04:25,080 - flet_web.fastapi - INFO - Route URL strategy configured: path
+2025-05-02 03:04:25,134 - flet_web.fastapi - INFO - Starting up Flet App Manager
+2025-05-02 03:04:25,135 - flet - INFO - App URL: http://127.0.0.1:56226
+2025-05-02 03:04:25,565 - flet_web.fastapi - INFO - Temp dir created for patched index and manifest: C:\Users\joaqu\AppData\Local\Temp\tmpbky888lb
+2025-05-02 03:04:25,567 - flet_web.fastapi - INFO - Web root: C:\Users\joaqu\Desktop\APP_PARA_SULPI\venv\Lib\site-packages\flet_web\web
+2025-05-02 03:04:25,571 - flet_web.fastapi - INFO - assets_dir does not exist: C:\Users\joaqu\Desktop\APP_PARA_SULPI\assets
+2025-05-02 03:04:25,573 - flet_web.fastapi - INFO - Assets dir: None
+2025-05-02 03:04:29,095 - flet_web.fastapi - INFO - New FletApp: BvQTsUhk
+2025-05-02 03:04:29,246 - flet_web.fastapi - INFO - New session created (1 total): _iQQ6kGNZQqVwCN30_cd70dd7f3fadb8b1aecec11ec71b12314e0814be
+2025-05-02 03:04:29,247 - flet_web.fastapi - INFO - Start session: iQQ6kGNZQqVwCN30
+2025-05-02 03:04:29,258 - database.db_connection - INFO - Base de datos inicializada correctamente
+2025-05-02 03:04:29,262 - __main__ - INFO - Base de datos inicializada correctamente
+2025-05-02 03:04:32,407 - __main__ - INFO - Leyendo archivo CSV: None
+2025-05-02 03:04:32,408 - __main__ - ERROR - Error al procesar CSV: expected str, bytes or os.PathLike object, not NoneType
+Traceback (most recent call last):
+  File "C:\Users\joaqu\Desktop\APP_PARA_SULPI\main.py", line 2520, in background_task
+    with open(file_path, 'rb') as f:
+         ~~~~^^^^^^^^^^^^^^^^^
+TypeError: expected str, bytes or os.PathLike object, not NoneType
+2025-05-02 03:08:34,445 - flet_web.fastapi - INFO - Session disconnected: _iQQ6kGNZQqVwCN30_cd70dd7f3fadb8b1aecec11ec71b12314e0814be
+2025-05-02 03:08:35,956 - flet_web.fastapi - INFO - New FletApp: tLd52SBr
+2025-05-02 03:08:36,218 - flet_web.fastapi - INFO - Existing session requested: iQQ6kGNZQqVwCN30
+2025-05-02 03:08:36,246 - flet_web.fastapi - INFO - Session reconnected: _iQQ6kGNZQqVwCN30_cd70dd7f3fadb8b1aecec11ec71b12314e0814be
+2025-05-02 03:08:36,296 - flet_web.fastapi - INFO - Disposing FletApp: BvQTsUhk
+2025-05-02 03:08:38,971 - __main__ - INFO - Leyendo archivo CSV: None
+2025-05-02 03:08:38,972 - __main__ - ERROR - Error al procesar CSV: expected str, bytes or os.PathLike object, not NoneType
+Traceback (most recent call last):
+  File "C:\Users\joaqu\Desktop\APP_PARA_SULPI\main.py", line 2520, in background_task
+    file_path = e.files[0].path
+                 ^^^^^^^^^^^^^^
+TypeError: expected str, bytes or os.PathLike object, not NoneType
+2025-05-02 03:09:53,487 - flet_web.fastapi - INFO - Session disconnected: _iQQ6kGNZQqVwCN30_cd70dd7f3fadb8b1aecec11ec71b12314e0814be
+2025-05-02 03:09:54,223 - flet_web.fastapi - INFO - New FletApp: zJoH7LZu
+2025-05-02 03:09:54,443 - flet_web.fastapi - INFO - Existing session requested: iQQ6kGNZQqVwCN30
+2025-05-02 03:09:54,460 - flet_web.fastapi - INFO - Session reconnected: _iQQ6kGNZQqVwCN30_cd70dd7f3fadb8b1aecec11ec71b12314e0814be
+2025-05-02 03:09:54,473 - flet_web.fastapi - INFO - Disposing FletApp: tLd52SBr
+2025-05-02 03:09:57,946 - __main__ - INFO - Leyendo archivo CSV: None
+2025-05-02 03:09:57,947 - __main__ - ERROR - Error al procesar CSV: expected str, bytes or os.PathLike object, not NoneType
+Traceback (most recent call last):
+  File "C:\Users\joaqu\Desktop\APP_PARA_SULPI\main.py", line 2520, in background_task
+    # Mostrar detalles del proceso
+TypeError: expected str, bytes or os.PathLike object, not NoneType
+2025-05-02 03:12:03,707 - flet_web.fastapi - INFO - Session disconnected: _iQQ6kGNZQqVwCN30_cd70dd7f3fadb8b1aecec11ec71b12314e0814be
+2025-05-02 03:12:04,992 - flet_web.fastapi - INFO - New FletApp: GjlZctMs
+2025-05-02 03:12:05,290 - flet_web.fastapi - INFO - Existing session requested: iQQ6kGNZQqVwCN30
+2025-05-02 03:12:05,291 - flet_web.fastapi - INFO - Session reconnected: _iQQ6kGNZQqVwCN30_cd70dd7f3fadb8b1aecec11ec71b12314e0814be
+2025-05-02 03:12:05,291 - flet_web.fastapi - INFO - Disposing FletApp: zJoH7LZu
+2025-05-02 03:12:08,319 - __main__ - INFO - Leyendo archivo CSV: None
+2025-05-02 03:12:08,319 - __main__ - ERROR - Error al procesar CSV: expected str, bytes or os.PathLike object, not NoneType
+Traceback (most recent call last):
+  File "C:\Users\joaqu\Desktop\APP_PARA_SULPI\main.py", line 2520, in background_task
+    except Exception as ex:
+                     ^^^^^^
+TypeError: expected str, bytes or os.PathLike object, not NoneType
+2025-05-02 03:12:51,021 - flet_web.fastapi - INFO - Session disconnected: _iQQ6kGNZQqVwCN30_cd70dd7f3fadb8b1aecec11ec71b12314e0814be
+2025-05-02 03:12:52,389 - flet_web.fastapi - INFO - New FletApp: TPvnIAa0
+2025-05-02 03:12:52,589 - flet_web.fastapi - INFO - Existing session requested: iQQ6kGNZQqVwCN30
+2025-05-02 03:12:52,646 - flet_web.fastapi - INFO - Session reconnected: _iQQ6kGNZQqVwCN30_cd70dd7f3fadb8b1aecec11ec71b12314e0814be
+2025-05-02 03:12:52,657 - flet_web.fastapi - INFO - Disposing FletApp: GjlZctMs
+2025-05-02 03:13:11,182 - flet_web.fastapi - INFO - Session disconnected: _iQQ6kGNZQqVwCN30_cd70dd7f3fadb8b1aecec11ec71b12314e0814be
+2025-05-02 03:13:12,276 - database.db_connection - INFO - Conexión a la base de datos establecida con éxito
+2025-05-02 03:13:13,263 - flet - INFO - Assets path configured: C:\Users\joaqu\Desktop\APP_PARA_SULPI\assets
+2025-05-02 03:13:13,507 - flet - INFO - Starting Flet web server on port 56599...
+2025-05-02 03:13:13,508 - flet_web.fastapi - INFO - Web renderer configured: WebRenderer.CANVAS_KIT
+2025-05-02 03:13:13,508 - flet_web.fastapi - INFO - Use color emoji: False
+2025-05-02 03:13:13,508 - flet_web.fastapi - INFO - Route URL strategy configured: path
+2025-05-02 03:13:13,618 - flet_web.fastapi - INFO - Starting up Flet App Manager
+2025-05-02 03:13:13,618 - flet - INFO - App URL: http://127.0.0.1:56599
+2025-05-02 03:13:14,193 - flet_web.fastapi - INFO - Temp dir created for patched index and manifest: C:\Users\joaqu\AppData\Local\Temp\tmp1fu7kdps
+2025-05-02 03:13:14,198 - flet_web.fastapi - INFO - Web root: C:\Users\joaqu\Desktop\APP_PARA_SULPI\venv\Lib\site-packages\flet_web\web
+2025-05-02 03:13:14,202 - flet_web.fastapi - INFO - assets_dir does not exist: C:\Users\joaqu\Desktop\APP_PARA_SULPI\assets
+2025-05-02 03:13:14,206 - flet_web.fastapi - INFO - Assets dir: None
+2025-05-02 03:13:17,446 - flet_web.fastapi - INFO - New FletApp: EuqQHjsQ
+2025-05-02 03:13:17,592 - flet_web.fastapi - INFO - New session created (1 total): _spbpaE54ilDz67rJ_cd70dd7f3fadb8b1aecec11ec71b12314e0814be
+2025-05-02 03:13:17,593 - flet_web.fastapi - INFO - Start session: spbpaE54ilDz67rJ
+2025-05-02 03:13:17,602 - database.db_connection - INFO - Base de datos inicializada correctamente
+2025-05-02 03:13:17,602 - __main__ - INFO - Base de datos inicializada correctamente
+2025-05-02 03:13:21,043 - asyncio - ERROR - Future exception was never retrieved
+future: <Future finished exception=AssertionError()>
+Traceback (most recent call last):
+  File "E:\PYTHON\Lib\concurrent\futures\thread.py", line 58, in run
+    result = self.fn(*self.args, **self.kwargs)
+  File "C:\Users\joaqu\Desktop\APP_PARA_SULPI\venv\Lib\site-packages\flet\core\page.py", line 903, in wrapper
+    handler(*args)
+    ~~~~~~~^^^^^^^
+  File "C:\Users\joaqu\Desktop\APP_PARA_SULPI\main.py", line 197, in on_files_picked
+    self.page.run_task(lambda: self._set_progress(True))
+    ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\joaqu\Desktop\APP_PARA_SULPI\venv\Lib\site-packages\flet\core\page.py", line 884, in run_task
+    assert asyncio.iscoroutinefunction(handler)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+AssertionError
+2025-05-02 03:14:09,398 - database.db_connection - INFO - Conexión a la base de datos establecida con éxito
+2025-05-02 03:14:09,988 - flet - INFO - Assets path configured: C:\Users\joaqu\Desktop\APP_PARA_SULPI\assets
+2025-05-02 03:14:10,255 - flet - INFO - Starting Flet web server on port 56623...
+2025-05-02 03:14:10,256 - flet_web.fastapi - INFO - Web renderer configured: WebRenderer.CANVAS_KIT
+2025-05-02 03:14:10,256 - flet_web.fastapi - INFO - Use color emoji: False
+2025-05-02 03:14:10,256 - flet_web.fastapi - INFO - Route URL strategy configured: path
+2025-05-02 03:14:10,319 - flet_web.fastapi - INFO - Starting up Flet App Manager
+2025-05-02 03:14:10,320 - flet - INFO - App URL: http://127.0.0.1:56623
+2025-05-02 03:14:10,855 - flet_web.fastapi - INFO - Temp dir created for patched index and manifest: C:\Users\joaqu\AppData\Local\Temp\tmp10gzok8i
+2025-05-02 03:14:10,855 - flet_web.fastapi - INFO - Web root: C:\Users\joaqu\Desktop\APP_PARA_SULPI\venv\Lib\site-packages\flet_web\web
+2025-05-02 03:14:10,856 - flet_web.fastapi - INFO - assets_dir does not exist: C:\Users\joaqu\Desktop\APP_PARA_SULPI\assets
+2025-05-02 03:14:10,856 - flet_web.fastapi - INFO - Assets dir: None
+2025-05-02 03:14:13,727 - flet_web.fastapi - INFO - New FletApp: j9VVXyGC
+2025-05-02 03:14:13,845 - flet_web.fastapi - INFO - New session created (1 total): _Uo9xceD9o34nolFB_cd70dd7f3fadb8b1aecec11ec71b12314e0814be
+2025-05-02 03:14:13,846 - flet_web.fastapi - INFO - Start session: Uo9xceD9o34nolFB
+2025-05-02 03:14:13,856 - database.db_connection - INFO - Base de datos inicializada correctamente
+2025-05-02 03:14:13,856 - __main__ - INFO - Base de datos inicializada correctamente
+2025-05-02 03:14:16,641 - asyncio - ERROR - Future exception was never retrieved
+future: <Future finished exception=AssertionError()>
+Traceback (most recent call last):
+  File "E:\PYTHON\Lib\concurrent\futures\thread.py", line 58, in run
+    result = self.fn(*self.args, **self.kwargs)
+  File "C:\Users\joaqu\Desktop\APP_PARA_SULPI\venv\Lib\site-packages\flet\core\page.py", line 903, in wrapper
+    handler(*args)
+    ~~~~~~~^^^^^^^
+  File "C:\Users\joaqu\Desktop\APP_PARA_SULPI\main.py", line 197, in on_files_picked
+    self.page.run_task(lambda: self._set_progress(True))
+    ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\joaqu\Desktop\APP_PARA_SULPI\venv\Lib\site-packages\flet\core\page.py", line 884, in run_task
+    assert asyncio.iscoroutinefunction(handler)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+AssertionError
+2025-05-02 03:21:34,778 - database.db_connection - INFO - Conexión a la base de datos establecida con éxito
+2025-05-02 03:21:35,218 - flet - INFO - Assets path configured: C:\Users\joaqu\Desktop\APP_PARA_SULPI\assets
+2025-05-02 03:21:35,445 - flet - INFO - Starting Flet web server on port 56764...
+2025-05-02 03:21:35,447 - flet_web.fastapi - INFO - Web renderer configured: WebRenderer.CANVAS_KIT
+2025-05-02 03:21:35,447 - flet_web.fastapi - INFO - Use color emoji: False
+2025-05-02 03:21:35,447 - flet_web.fastapi - INFO - Route URL strategy configured: path
+2025-05-02 03:21:35,499 - flet_web.fastapi - INFO - Starting up Flet App Manager
+2025-05-02 03:21:35,499 - flet - INFO - App URL: http://127.0.0.1:56764
+2025-05-02 03:21:36,052 - flet_web.fastapi - INFO - Temp dir created for patched index and manifest: C:\Users\joaqu\AppData\Local\Temp\tmph6z0anvc
+2025-05-02 03:21:36,060 - flet_web.fastapi - INFO - Web root: C:\Users\joaqu\Desktop\APP_PARA_SULPI\venv\Lib\site-packages\flet_web\web
+2025-05-02 03:21:36,071 - flet_web.fastapi - INFO - assets_dir does not exist: C:\Users\joaqu\Desktop\APP_PARA_SULPI\assets
+2025-05-02 03:21:36,071 - flet_web.fastapi - INFO - Assets dir: None
+2025-05-02 03:21:39,175 - flet_web.fastapi - INFO - New FletApp: J9rMnIzl
+2025-05-02 03:21:39,302 - flet_web.fastapi - INFO - New session created (1 total): _ifK9toWDxsXLMZcE_cd70dd7f3fadb8b1aecec11ec71b12314e0814be
+2025-05-02 03:21:39,303 - flet_web.fastapi - INFO - Start session: ifK9toWDxsXLMZcE
+2025-05-02 03:21:39,312 - database.db_connection - INFO - Base de datos inicializada correctamente
+2025-05-02 03:21:39,312 - __main__ - INFO - Base de datos inicializada correctamente
+2025-05-02 03:21:48,235 - asyncio - ERROR - Future exception was never retrieved
+future: <Future finished exception=AssertionError()>
+Traceback (most recent call last):
+  File "E:\PYTHON\Lib\concurrent\futures\thread.py", line 58, in run
+    result = self.fn(*self.args, **self.kwargs)
+  File "C:\Users\joaqu\Desktop\APP_PARA_SULPI\venv\Lib\site-packages\flet\core\page.py", line 903, in wrapper
+    handler(*args)
+    ~~~~~~~^^^^^^^
+  File "C:\Users\joaqu\Desktop\APP_PARA_SULPI\main.py", line 198, in on_files_picked
+    self.page.run_task(lambda: self._set_progress(True))
+    ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\joaqu\Desktop\APP_PARA_SULPI\venv\Lib\site-packages\flet\core\page.py", line 884, in run_task
+    assert asyncio.iscoroutinefunction(handler)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+AssertionError
+2025-05-02 03:21:58,237 - flet_web.fastapi - INFO - Session disconnected: _ifK9toWDxsXLMZcE_cd70dd7f3fadb8b1aecec11ec71b12314e0814be
+2025-05-02 03:28:26,165 - database.db_connection - INFO - Conexión a la base de datos establecida con éxito
+2025-05-02 03:28:26,534 - flet - INFO - Assets path configured: C:\Users\joaqu\Desktop\APP_PARA_SULPI\assets
+2025-05-02 03:28:26,830 - flet - INFO - Starting Flet web server on port 57338...
+2025-05-02 03:28:26,831 - flet_web.fastapi - INFO - Web renderer configured: WebRenderer.CANVAS_KIT
+2025-05-02 03:28:26,831 - flet_web.fastapi - INFO - Use color emoji: False
+2025-05-02 03:28:26,831 - flet_web.fastapi - INFO - Route URL strategy configured: path
+2025-05-02 03:28:26,880 - flet_web.fastapi - INFO - Starting up Flet App Manager
+2025-05-02 03:28:26,881 - flet - INFO - App URL: http://127.0.0.1:57338
+2025-05-02 03:28:27,307 - flet_web.fastapi - INFO - Temp dir created for patched index and manifest: C:\Users\joaqu\AppData\Local\Temp\tmpeza_51d5
+2025-05-02 03:28:27,309 - flet_web.fastapi - INFO - Web root: C:\Users\joaqu\Desktop\APP_PARA_SULPI\venv\Lib\site-packages\flet_web\web
+2025-05-02 03:28:27,310 - flet_web.fastapi - INFO - assets_dir does not exist: C:\Users\joaqu\Desktop\APP_PARA_SULPI\assets
+2025-05-02 03:28:27,311 - flet_web.fastapi - INFO - Assets dir: None
+2025-05-02 03:28:30,391 - flet_web.fastapi - INFO - New FletApp: ejepYXWB
+2025-05-02 03:28:30,535 - flet_web.fastapi - INFO - New session created (1 total): _TxXOtC2QB6DrSMyk_cd70dd7f3fadb8b1aecec11ec71b12314e0814be
+2025-05-02 03:28:30,536 - flet_web.fastapi - INFO - Start session: TxXOtC2QB6DrSMyk
+2025-05-02 03:28:30,545 - database.db_connection - INFO - Base de datos inicializada correctamente
+2025-05-02 03:28:30,558 - __main__ - INFO - Base de datos inicializada correctamente
+2025-05-02 03:28:34,026 - asyncio - ERROR - Future exception was never retrieved
+future: <Future finished exception=AssertionError()>
+Traceback (most recent call last):
+  File "E:\PYTHON\Lib\concurrent\futures\thread.py", line 58, in run
+    result = self.fn(*self.args, **self.kwargs)
+  File "C:\Users\joaqu\Desktop\APP_PARA_SULPI\venv\Lib\site-packages\flet\core\page.py", line 903, in wrapper
+    handler(*args)
+    ~~~~~~~^^^^^^^
+  File "C:\Users\joaqu\Desktop\APP_PARA_SULPI\main.py", line 200, in on_files_picked
+    self.page.run_task(lambda: self._set_progress(True))
+    ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\joaqu\Desktop\APP_PARA_SULPI\venv\Lib\site-packages\flet\core\page.py", line 884, in run_task
+    assert asyncio.iscoroutinefunction(handler)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+AssertionError
+2025-05-02 03:30:07,388 - database.db_connection - INFO - Conexión a la base de datos establecida con éxito
+2025-05-02 03:30:07,848 - flet - INFO - Assets path configured: C:\Users\joaqu\Desktop\APP_PARA_SULPI\assets
+2025-05-02 03:30:08,205 - flet - INFO - Starting Flet web server on port 57405...
+2025-05-02 03:30:08,207 - flet_web.fastapi - INFO - Web renderer configured: WebRenderer.CANVAS_KIT
+2025-05-02 03:30:08,207 - flet_web.fastapi - INFO - Use color emoji: False
+2025-05-02 03:30:08,208 - flet_web.fastapi - INFO - Route URL strategy configured: path
+2025-05-02 03:30:08,257 - flet_web.fastapi - INFO - Starting up Flet App Manager
+2025-05-02 03:30:08,258 - flet - INFO - App URL: http://127.0.0.1:57405
+2025-05-02 03:30:08,754 - flet_web.fastapi - INFO - Temp dir created for patched index and manifest: C:\Users\joaqu\AppData\Local\Temp\tmpkhkb_ttk
+2025-05-02 03:30:08,754 - flet_web.fastapi - INFO - Web root: C:\Users\joaqu\Desktop\APP_PARA_SULPI\venv\Lib\site-packages\flet_web\web
+2025-05-02 03:30:08,755 - flet_web.fastapi - INFO - assets_dir does not exist: C:\Users\joaqu\Desktop\APP_PARA_SULPI\assets
+2025-05-02 03:30:08,756 - flet_web.fastapi - INFO - Assets dir: None
+2025-05-02 03:30:11,921 - flet_web.fastapi - INFO - New FletApp: G7LtU88Y
+2025-05-02 03:30:12,163 - flet_web.fastapi - INFO - New session created (1 total): _829ZwCyEX8BHVBUA_cd70dd7f3fadb8b1aecec11ec71b12314e0814be
+2025-05-02 03:30:12,164 - flet_web.fastapi - INFO - Start session: 829ZwCyEX8BHVBUA
+2025-05-02 03:30:12,174 - database.db_connection - INFO - Base de datos inicializada correctamente
+2025-05-02 03:30:12,174 - __main__ - INFO - Base de datos inicializada correctamente
+2025-05-02 03:36:02,884 - database.db_connection - INFO - Conexión a la base de datos establecida con éxito
+2025-05-02 03:36:03,651 - flet - INFO - Assets path configured: C:\Users\joaqu\Desktop\APP_PARA_SULPI\assets
+2025-05-02 03:36:03,870 - flet - INFO - Starting Flet web server on port 57486...
+2025-05-02 03:36:03,871 - flet_web.fastapi - INFO - Web renderer configured: WebRenderer.CANVAS_KIT
+2025-05-02 03:36:03,871 - flet_web.fastapi - INFO - Use color emoji: False
+2025-05-02 03:36:03,871 - flet_web.fastapi - INFO - Route URL strategy configured: path
+2025-05-02 03:36:03,933 - flet_web.fastapi - INFO - Starting up Flet App Manager
+2025-05-02 03:36:03,934 - flet - INFO - App URL: http://127.0.0.1:57486
+2025-05-02 03:36:04,361 - flet_web.fastapi - INFO - Temp dir created for patched index and manifest: C:\Users\joaqu\AppData\Local\Temp\tmplarevw6q
+2025-05-02 03:36:04,362 - flet_web.fastapi - INFO - Web root: C:\Users\joaqu\Desktop\APP_PARA_SULPI\venv\Lib\site-packages\flet_web\web
+2025-05-02 03:36:04,362 - flet_web.fastapi - INFO - assets_dir does not exist: C:\Users\joaqu\Desktop\APP_PARA_SULPI\assets
+2025-05-02 03:36:04,363 - flet_web.fastapi - INFO - Assets dir: None
+2025-05-02 03:36:07,456 - flet_web.fastapi - INFO - New FletApp: 54bfwl9H
+2025-05-02 03:36:07,575 - flet_web.fastapi - INFO - New session created (1 total): _Dl46vR6qMPzhhAVi_cd70dd7f3fadb8b1aecec11ec71b12314e0814be
+2025-05-02 03:36:07,577 - flet_web.fastapi - INFO - Start session: Dl46vR6qMPzhhAVi
+2025-05-02 03:36:07,590 - database.db_connection - INFO - Base de datos inicializada correctamente
+2025-05-02 03:36:07,595 - __main__ - INFO - Base de datos inicializada correctamente
+2025-05-02 12:59:04,666 - flet - INFO - Assets path configured: C:\Users\joaqu\Desktop\APP_PARA_SULPI\assets
+2025-05-02 12:59:05,763 - flet - INFO - Starting Flet web server on port 60401...
+2025-05-02 12:59:05,764 - flet_web.fastapi - INFO - Web renderer configured: WebRenderer.CANVAS_KIT
+2025-05-02 12:59:05,764 - flet_web.fastapi - INFO - Use color emoji: False
+2025-05-02 12:59:05,764 - flet_web.fastapi - INFO - Route URL strategy configured: path
+2025-05-02 12:59:05,883 - flet_web.fastapi - INFO - Starting up Flet App Manager
+2025-05-02 12:59:05,884 - flet - INFO - App URL: http://127.0.0.1:60401
+2025-05-02 12:59:06,409 - flet_web.fastapi - INFO - Temp dir created for patched index and manifest: C:\Users\joaqu\AppData\Local\Temp\tmp13gba9vv
+2025-05-02 12:59:06,411 - flet_web.fastapi - INFO - Web root: C:\Users\joaqu\Desktop\APP_PARA_SULPI\venv\Lib\site-packages\flet_web\web
+2025-05-02 12:59:06,412 - flet_web.fastapi - INFO - assets_dir does not exist: C:\Users\joaqu\Desktop\APP_PARA_SULPI\assets
+2025-05-02 12:59:06,428 - flet_web.fastapi - INFO - Assets dir: None
+2025-05-02 12:59:11,912 - flet_web.fastapi - INFO - New FletApp: wtiKYqfr
+2025-05-02 12:59:12,102 - flet_web.fastapi - INFO - New session created (1 total): _Be1J2napcBxB6ItV_cd70dd7f3fadb8b1aecec11ec71b12314e0814be
+2025-05-02 12:59:12,131 - flet_web.fastapi - INFO - Start session: Be1J2napcBxB6ItV
+2025-05-02 12:59:12,546 - __main__ - INFO - Base de datos inicializada correctamente
+2025-05-02 12:59:12,546 - __main__ - INFO - Base de datos inicializada correctamente
+2025-05-02 13:00:06,971 - flet_web.fastapi - INFO - Session disconnected: _Be1J2napcBxB6ItV_cd70dd7f3fadb8b1aecec11ec71b12314e0814be
+2025-05-02 13:00:09,219 - flet_web.fastapi - INFO - New FletApp: KfKsC3X1
+2025-05-02 13:00:09,405 - flet_web.fastapi - INFO - Existing session requested: Be1J2napcBxB6ItV
+2025-05-02 13:00:09,405 - flet_web.fastapi - INFO - Session reconnected: _Be1J2napcBxB6ItV_cd70dd7f3fadb8b1aecec11ec71b12314e0814be
+2025-05-02 13:00:09,407 - flet_web.fastapi - INFO - Disposing FletApp: wtiKYqfr
+2025-05-02 13:00:17,682 - flet_web.fastapi - INFO - Session disconnected: _Dl46vR6qMPzhhAVi_cd70dd7f3fadb8b1aecec11ec71b12314e0814be
+2025-05-02 13:00:36,379 - flet_web.fastapi - INFO - New FletApp: vZjoBZ0C
+2025-05-02 13:00:36,555 - flet_web.fastapi - INFO - New session created (2 total): _Ad4nLTeAQ0Ap5Uc4_cd70dd7f3fadb8b1aecec11ec71b12314e0814be
+2025-05-02 13:00:36,556 - flet_web.fastapi - INFO - Start session: Ad4nLTeAQ0Ap5Uc4
+2025-05-02 13:00:36,568 - __main__ - INFO - Base de datos inicializada correctamente
+2025-05-02 13:00:36,569 - __main__ - INFO - Base de datos inicializada correctamente
+2025-05-02 13:00:39,531 - flet_web.fastapi - INFO - Session disconnected: _Ad4nLTeAQ0Ap5Uc4_cd70dd7f3fadb8b1aecec11ec71b12314e0814be
+2025-05-02 13:00:40,110 - flet_web.fastapi - INFO - Session disconnected: _Be1J2napcBxB6ItV_cd70dd7f3fadb8b1aecec11ec71b12314e0814be
+2025-05-02 13:00:41,227 - flet_web.fastapi - INFO - Shutting down Flet App Manager
+2025-05-02 13:00:41,227 - flet_web.fastapi - INFO - Deleting temp dir: C:\Users\joaqu\AppData\Local\Temp\tmp13gba9vv
+2025-05-02 13:00:41,229 - flet - INFO - Flet app has started...
+2025-05-02 13:00:41,229 - flet_web.fastapi - INFO - Closing Flet web server...
+2025-05-02 13:00:52,044 - flet - INFO - Assets path configured: C:\Users\joaqu\Desktop\APP_PARA_SULPI\assets
+2025-05-02 13:00:52,317 - flet - INFO - Starting Flet web server on port 60454...
+2025-05-02 13:00:52,321 - flet_web.fastapi - INFO - Web renderer configured: WebRenderer.CANVAS_KIT
+2025-05-02 13:00:52,322 - flet_web.fastapi - INFO - Use color emoji: False
+2025-05-02 13:00:52,328 - flet_web.fastapi - INFO - Route URL strategy configured: path
+2025-05-02 13:00:52,397 - flet_web.fastapi - INFO - Starting up Flet App Manager
+2025-05-02 13:00:52,397 - flet - INFO - App URL: http://127.0.0.1:60454
+2025-05-02 13:00:52,838 - flet_web.fastapi - INFO - Temp dir created for patched index and manifest: C:\Users\joaqu\AppData\Local\Temp\tmphor1acpb
+2025-05-02 13:00:52,840 - flet_web.fastapi - INFO - Web root: C:\Users\joaqu\Desktop\APP_PARA_SULPI\venv\Lib\site-packages\flet_web\web
+2025-05-02 13:00:52,841 - flet_web.fastapi - INFO - assets_dir does not exist: C:\Users\joaqu\Desktop\APP_PARA_SULPI\assets
+2025-05-02 13:00:52,844 - flet_web.fastapi - INFO - Assets dir: None
+2025-05-02 13:00:56,694 - flet_web.fastapi - INFO - New FletApp: paDotm3Q
+2025-05-02 13:00:56,891 - flet_web.fastapi - INFO - New session created (1 total): _ZrWsO8QMUSVz35YI_cd70dd7f3fadb8b1aecec11ec71b12314e0814be
+2025-05-02 13:00:56,909 - flet_web.fastapi - INFO - Start session: ZrWsO8QMUSVz35YI
+2025-05-02 13:00:57,068 - __main__ - INFO - Base de datos inicializada correctamente
+2025-05-02 13:00:57,124 - __main__ - INFO - Base de datos inicializada correctamente
+2025-05-02 13:01:47,933 - flet_web.fastapi - INFO - Session disconnected: _ZrWsO8QMUSVz35YI_cd70dd7f3fadb8b1aecec11ec71b12314e0814be
+2025-05-02 13:01:48,042 - flet_web.fastapi - INFO - Shutting down Flet App Manager
+2025-05-02 13:01:48,043 - flet_web.fastapi - INFO - Deleting temp dir: C:\Users\joaqu\AppData\Local\Temp\tmphor1acpb
+2025-05-02 13:01:48,045 - flet - INFO - Flet app has started...
+2025-05-02 13:01:48,045 - flet_web.fastapi - INFO - Closing Flet web server...
+2025-05-02 13:02:00,431 - flet - INFO - Assets path configured: C:\Users\joaqu\Desktop\APP_PARA_SULPI\assets
+2025-05-02 13:02:00,856 - flet - INFO - Starting Flet web server on port 60481...
+2025-05-02 13:02:00,858 - flet_web.fastapi - INFO - Web renderer configured: WebRenderer.CANVAS_KIT
+2025-05-02 13:02:00,859 - flet_web.fastapi - INFO - Use color emoji: False
+2025-05-02 13:02:00,859 - flet_web.fastapi - INFO - Route URL strategy configured: path
+2025-05-02 13:02:00,930 - flet_web.fastapi - INFO - Starting up Flet App Manager
+2025-05-02 13:02:00,931 - flet - INFO - App URL: http://127.0.0.1:60481
+2025-05-02 13:02:01,664 - flet_web.fastapi - INFO - Temp dir created for patched index and manifest: C:\Users\joaqu\AppData\Local\Temp\tmpn0hd8pb9
+2025-05-02 13:02:01,665 - flet_web.fastapi - INFO - Web root: C:\Users\joaqu\Desktop\APP_PARA_SULPI\venv\Lib\site-packages\flet_web\web
+2025-05-02 13:02:01,666 - flet_web.fastapi - INFO - assets_dir does not exist: C:\Users\joaqu\Desktop\APP_PARA_SULPI\assets
+2025-05-02 13:02:01,666 - flet_web.fastapi - INFO - Assets dir: None
+2025-05-02 13:02:05,520 - flet_web.fastapi - INFO - New FletApp: uQHmwKRZ
+2025-05-02 13:02:05,665 - flet_web.fastapi - INFO - New session created (1 total): _Nxkz4SZQuLHvc8zZ_cd70dd7f3fadb8b1aecec11ec71b12314e0814be
+2025-05-02 13:02:05,707 - flet_web.fastapi - INFO - Start session: Nxkz4SZQuLHvc8zZ
+2025-05-02 13:02:05,810 - __main__ - INFO - Base de datos inicializada correctamente
+2025-05-02 13:02:05,817 - __main__ - INFO - Base de datos inicializada correctamente
+2025-05-02 13:02:47,657 - flet_web.fastapi - INFO - Session disconnected: _Nxkz4SZQuLHvc8zZ_cd70dd7f3fadb8b1aecec11ec71b12314e0814be
+2025-05-02 13:02:49,068 - flet_web.fastapi - INFO - New FletApp: JMvFQJ3w
+2025-05-02 13:02:49,203 - flet_web.fastapi - INFO - Existing session requested: Nxkz4SZQuLHvc8zZ
+2025-05-02 13:02:49,222 - flet_web.fastapi - INFO - Session reconnected: _Nxkz4SZQuLHvc8zZ_cd70dd7f3fadb8b1aecec11ec71b12314e0814be
+2025-05-02 13:02:49,224 - flet_web.fastapi - INFO - Disposing FletApp: uQHmwKRZ
+2025-05-02 13:03:24,018 - flet_web.fastapi - INFO - Session disconnected: _Nxkz4SZQuLHvc8zZ_cd70dd7f3fadb8b1aecec11ec71b12314e0814be
+2025-05-02 13:03:24,150 - flet_web.fastapi - INFO - Shutting down Flet App Manager
+2025-05-02 13:03:24,155 - flet_web.fastapi - INFO - Deleting temp dir: C:\Users\joaqu\AppData\Local\Temp\tmpn0hd8pb9
+2025-05-02 13:03:24,173 - flet - INFO - Flet app has started...
+2025-05-02 13:03:24,179 - flet_web.fastapi - INFO - Closing Flet web server...
+2025-05-02 13:03:37,838 - flet - INFO - Assets path configured: C:\Users\joaqu\Desktop\APP_PARA_SULPI\assets
+2025-05-02 13:03:38,664 - flet - INFO - Starting Flet web server on port 60638...
+2025-05-02 13:03:38,686 - flet_web.fastapi - INFO - Web renderer configured: WebRenderer.CANVAS_KIT
+2025-05-02 13:03:38,690 - flet_web.fastapi - INFO - Use color emoji: False
+2025-05-02 13:03:38,690 - flet_web.fastapi - INFO - Route URL strategy configured: path
+2025-05-02 13:03:38,796 - flet_web.fastapi - INFO - Starting up Flet App Manager
+2025-05-02 13:03:38,797 - flet - INFO - App URL: http://127.0.0.1:60638
+2025-05-02 13:03:39,589 - flet_web.fastapi - INFO - Temp dir created for patched index and manifest: C:\Users\joaqu\AppData\Local\Temp\tmp9ey45ub_
+2025-05-02 13:03:39,593 - flet_web.fastapi - INFO - Web root: C:\Users\joaqu\Desktop\APP_PARA_SULPI\venv\Lib\site-packages\flet_web\web
+2025-05-02 13:03:39,595 - flet_web.fastapi - INFO - assets_dir does not exist: C:\Users\joaqu\Desktop\APP_PARA_SULPI\assets
+2025-05-02 13:03:39,599 - flet_web.fastapi - INFO - Assets dir: None
+2025-05-02 13:03:43,988 - flet_web.fastapi - INFO - New FletApp: N4qzjRWi
+2025-05-02 13:03:44,142 - flet_web.fastapi - INFO - New session created (1 total): _h74Q5UuNZMa3I9oQ_cd70dd7f3fadb8b1aecec11ec71b12314e0814be
+2025-05-02 13:03:44,158 - flet_web.fastapi - INFO - Start session: h74Q5UuNZMa3I9oQ
+2025-05-02 13:03:44,236 - __main__ - INFO - Base de datos inicializada correctamente
+2025-05-02 13:03:44,236 - __main__ - INFO - Base de datos inicializada correctamente
+2025-05-02 13:06:14,278 - flet_web.fastapi - INFO - Session disconnected: _h74Q5UuNZMa3I9oQ_cd70dd7f3fadb8b1aecec11ec71b12314e0814be
+2025-05-02 13:06:14,406 - flet_web.fastapi - INFO - Shutting down Flet App Manager
+2025-05-02 13:06:14,409 - flet_web.fastapi - INFO - Deleting temp dir: C:\Users\joaqu\AppData\Local\Temp\tmp9ey45ub_
+2025-05-02 13:06:14,426 - flet - INFO - Flet app has started...
+2025-05-02 13:06:14,427 - flet_web.fastapi - INFO - Closing Flet web server...
+2025-05-02 13:06:24,324 - flet - INFO - Assets path configured: C:\Users\joaqu\Desktop\APP_PARA_SULPI\assets
+2025-05-02 13:06:24,766 - flet - INFO - Starting Flet web server on port 60678...
+2025-05-02 13:06:24,767 - flet_web.fastapi - INFO - Web renderer configured: WebRenderer.CANVAS_KIT
+2025-05-02 13:06:24,767 - flet_web.fastapi - INFO - Use color emoji: False
+2025-05-02 13:06:24,768 - flet_web.fastapi - INFO - Route URL strategy configured: path
+2025-05-02 13:06:24,847 - flet_web.fastapi - INFO - Starting up Flet App Manager
+2025-05-02 13:06:24,850 - flet - INFO - App URL: http://127.0.0.1:60678
+2025-05-02 13:06:25,771 - flet_web.fastapi - INFO - Temp dir created for patched index and manifest: C:\Users\joaqu\AppData\Local\Temp\tmpzicc6rne
+2025-05-02 13:06:25,772 - flet_web.fastapi - INFO - Web root: C:\Users\joaqu\Desktop\APP_PARA_SULPI\venv\Lib\site-packages\flet_web\web
+2025-05-02 13:06:25,773 - flet_web.fastapi - INFO - assets_dir does not exist: C:\Users\joaqu\Desktop\APP_PARA_SULPI\assets
+2025-05-02 13:06:25,774 - flet_web.fastapi - INFO - Assets dir: None
+2025-05-02 13:06:30,812 - flet_web.fastapi - INFO - New FletApp: uqX9SFC5
+2025-05-02 13:06:31,084 - flet_web.fastapi - INFO - New session created (1 total): _FbiyRyuzzGUIfrWd_cd70dd7f3fadb8b1aecec11ec71b12314e0814be
+2025-05-02 13:06:31,251 - flet_web.fastapi - INFO - Start session: FbiyRyuzzGUIfrWd
+2025-05-02 13:06:31,581 - __main__ - INFO - Base de datos inicializada correctamente
+2025-05-02 13:06:31,619 - __main__ - INFO - Base de datos inicializada correctamente
+2025-05-02 13:07:53,534 - flet_web.fastapi - INFO - Session disconnected: _FbiyRyuzzGUIfrWd_cd70dd7f3fadb8b1aecec11ec71b12314e0814be
+2025-05-02 13:07:53,679 - flet_web.fastapi - INFO - Shutting down Flet App Manager
+2025-05-02 13:07:53,696 - flet_web.fastapi - INFO - Deleting temp dir: C:\Users\joaqu\AppData\Local\Temp\tmpzicc6rne
+2025-05-02 13:07:53,735 - flet - INFO - Flet app has started...
+2025-05-02 13:07:53,740 - flet_web.fastapi - INFO - Closing Flet web server...
+2025-05-02 13:08:01,708 - flet - INFO - Assets path configured: C:\Users\joaqu\Desktop\APP_PARA_SULPI\assets
+2025-05-02 13:08:01,985 - flet - INFO - Starting Flet web server on port 60747...
+2025-05-02 13:08:01,986 - flet_web.fastapi - INFO - Web renderer configured: WebRenderer.CANVAS_KIT
+2025-05-02 13:08:01,987 - flet_web.fastapi - INFO - Use color emoji: False
+2025-05-02 13:08:01,987 - flet_web.fastapi - INFO - Route URL strategy configured: path
+2025-05-02 13:08:02,067 - flet_web.fastapi - INFO - Starting up Flet App Manager
+2025-05-02 13:08:02,068 - flet - INFO - App URL: http://127.0.0.1:60747
+2025-05-02 13:08:03,019 - flet_web.fastapi - INFO - Temp dir created for patched index and manifest: C:\Users\joaqu\AppData\Local\Temp\tmpz4ib8qbv
+2025-05-02 13:08:03,020 - flet_web.fastapi - INFO - Web root: C:\Users\joaqu\Desktop\APP_PARA_SULPI\venv\Lib\site-packages\flet_web\web
+2025-05-02 13:08:03,023 - flet_web.fastapi - INFO - assets_dir does not exist: C:\Users\joaqu\Desktop\APP_PARA_SULPI\assets
+2025-05-02 13:08:03,025 - flet_web.fastapi - INFO - Assets dir: None
+2025-05-02 13:08:07,563 - flet_web.fastapi - INFO - New FletApp: GCikCcIr
+2025-05-02 13:08:07,751 - flet_web.fastapi - INFO - New session created (1 total): _QXa15wjFx05ikOGK_cd70dd7f3fadb8b1aecec11ec71b12314e0814be
+2025-05-02 13:08:07,752 - flet_web.fastapi - INFO - Start session: QXa15wjFx05ikOGK
+2025-05-02 13:08:07,800 - __main__ - INFO - Base de datos inicializada correctamente
+2025-05-02 13:08:07,801 - __main__ - INFO - Base de datos inicializada correctamente
+2025-05-02 13:08:22,646 - flet_web.fastapi - INFO - Session disconnected: _QXa15wjFx05ikOGK_cd70dd7f3fadb8b1aecec11ec71b12314e0814be
+2025-05-02 13:08:23,805 - flet_web.fastapi - INFO - New FletApp: sKs5PPzr
+2025-05-02 13:08:23,942 - flet_web.fastapi - INFO - Existing session requested: QXa15wjFx05ikOGK
+2025-05-02 13:08:23,961 - flet_web.fastapi - INFO - Session reconnected: _QXa15wjFx05ikOGK_cd70dd7f3fadb8b1aecec11ec71b12314e0814be
+2025-05-02 13:08:23,961 - flet_web.fastapi - INFO - Disposing FletApp: GCikCcIr
+2025-05-02 13:08:40,285 - flet_web.fastapi - INFO - Session disconnected: _QXa15wjFx05ikOGK_cd70dd7f3fadb8b1aecec11ec71b12314e0814be
+2025-05-02 13:08:40,407 - flet_web.fastapi - INFO - Shutting down Flet App Manager
+2025-05-02 13:08:40,412 - flet_web.fastapi - INFO - Deleting temp dir: C:\Users\joaqu\AppData\Local\Temp\tmpz4ib8qbv
+2025-05-02 13:08:40,428 - flet - INFO - Flet app has started...
+2025-05-02 13:08:40,429 - flet_web.fastapi - INFO - Closing Flet web server...
+2025-05-02 13:08:52,267 - flet - INFO - Assets path configured: C:\Users\joaqu\Desktop\APP_PARA_SULPI\assets
+2025-05-02 13:08:52,684 - flet - INFO - Starting Flet web server on port 60813...
+2025-05-02 13:08:52,685 - flet_web.fastapi - INFO - Web renderer configured: WebRenderer.CANVAS_KIT
+2025-05-02 13:08:52,685 - flet_web.fastapi - INFO - Use color emoji: False
+2025-05-02 13:08:52,686 - flet_web.fastapi - INFO - Route URL strategy configured: path
+2025-05-02 13:08:52,749 - flet_web.fastapi - INFO - Starting up Flet App Manager
+2025-05-02 13:08:52,759 - flet - INFO - App URL: http://127.0.0.1:60813
+2025-05-02 13:08:53,584 - flet_web.fastapi - INFO - Temp dir created for patched index and manifest: C:\Users\joaqu\AppData\Local\Temp\tmp5kjyocvf
+2025-05-02 13:08:53,585 - flet_web.fastapi - INFO - Web root: C:\Users\joaqu\Desktop\APP_PARA_SULPI\venv\Lib\site-packages\flet_web\web
+2025-05-02 13:08:53,588 - flet_web.fastapi - INFO - assets_dir does not exist: C:\Users\joaqu\Desktop\APP_PARA_SULPI\assets
+2025-05-02 13:08:53,589 - flet_web.fastapi - INFO - Assets dir: None
+2025-05-02 13:08:56,349 - flet_web.fastapi - INFO - New FletApp: DVV17QD1
+2025-05-02 13:08:56,550 - flet_web.fastapi - INFO - New session created (1 total): _F4pFkWdCap3cajt7_cd70dd7f3fadb8b1aecec11ec71b12314e0814be
+2025-05-02 13:08:56,590 - flet_web.fastapi - INFO - Start session: F4pFkWdCap3cajt7
+2025-05-02 13:08:56,764 - __main__ - INFO - Base de datos inicializada correctamente
+2025-05-02 13:08:56,795 - __main__ - INFO - Base de datos inicializada correctamente
+2025-05-02 13:09:04,823 - flet_web.fastapi - INFO - Session disconnected: _F4pFkWdCap3cajt7_cd70dd7f3fadb8b1aecec11ec71b12314e0814be
+2025-05-02 13:09:04,997 - flet_web.fastapi - INFO - Shutting down Flet App Manager
+2025-05-02 13:09:05,029 - flet_web.fastapi - INFO - Deleting temp dir: C:\Users\joaqu\AppData\Local\Temp\tmp5kjyocvf
+2025-05-02 13:09:05,132 - flet - INFO - Flet app has started...
+2025-05-02 13:09:05,136 - flet_web.fastapi - INFO - Closing Flet web server...
+2025-05-02 13:09:15,519 - flet - INFO - Assets path configured: C:\Users\joaqu\Desktop\APP_PARA_SULPI\assets
+2025-05-02 13:09:15,994 - flet - INFO - Starting Flet web server on port 60856...
+2025-05-02 13:09:15,995 - flet_web.fastapi - INFO - Web renderer configured: WebRenderer.CANVAS_KIT
+2025-05-02 13:09:15,996 - flet_web.fastapi - INFO - Use color emoji: False
+2025-05-02 13:09:15,996 - flet_web.fastapi - INFO - Route URL strategy configured: path
+2025-05-02 13:09:16,077 - flet_web.fastapi - INFO - Starting up Flet App Manager
+2025-05-02 13:09:16,078 - flet - INFO - App URL: http://127.0.0.1:60856
+2025-05-02 13:09:16,613 - flet_web.fastapi - INFO - Temp dir created for patched index and manifest: C:\Users\joaqu\AppData\Local\Temp\tmpkyltmwcl
+2025-05-02 13:09:16,615 - flet_web.fastapi - INFO - Web root: C:\Users\joaqu\Desktop\APP_PARA_SULPI\venv\Lib\site-packages\flet_web\web
+2025-05-02 13:09:16,617 - flet_web.fastapi - INFO - assets_dir does not exist: C:\Users\joaqu\Desktop\APP_PARA_SULPI\assets
+2025-05-02 13:09:16,618 - flet_web.fastapi - INFO - Assets dir: None
+2025-05-02 13:09:19,826 - flet_web.fastapi - INFO - New FletApp: 7L0QqTym
+2025-05-02 13:09:20,020 - flet_web.fastapi - INFO - New session created (1 total): _SaogjyoNyVI8FWf5_cd70dd7f3fadb8b1aecec11ec71b12314e0814be
+2025-05-02 13:09:20,025 - flet_web.fastapi - INFO - Start session: SaogjyoNyVI8FWf5
+2025-05-02 13:09:20,095 - __main__ - INFO - Base de datos inicializada correctamente
+2025-05-02 13:09:20,097 - __main__ - INFO - Base de datos inicializada correctamente
+2025-05-02 13:09:27,277 - __main__ - ERROR - Error al procesar el archivo CSV: 'Page' object has no attribute 'show_snack_bar'
+2025-05-02 13:09:27,280 - asyncio - ERROR - Future exception was never retrieved
+future: <Future finished exception=AttributeError("'Page' object has no attribute 'show_snack_bar'")>
+Traceback (most recent call last):
+  File "C:\Users\joaqu\Desktop\APP_PARA_SULPI\main.py", line 2667, in on_file_picked
+    self.show_message(f"Procesando archivo: {file_name}")
+    ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\joaqu\Desktop\APP_PARA_SULPI\main.py", line 2799, in show_message
+    self.page.show_snack_bar(
+    ^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'Page' object has no attribute 'show_snack_bar'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "E:\PYTHON\Lib\concurrent\futures\thread.py", line 58, in run
+    result = self.fn(*self.args, **self.kwargs)
+  File "C:\Users\joaqu\Desktop\APP_PARA_SULPI\venv\Lib\site-packages\flet\core\page.py", line 903, in wrapper
+    handler(*args)
+    ~~~~~~~^^^^^^^
+  File "C:\Users\joaqu\Desktop\APP_PARA_SULPI\main.py", line 2701, in on_file_picked
+    self.show_message(f"Error: {e}", is_error=True)
+    ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\joaqu\Desktop\APP_PARA_SULPI\main.py", line 2799, in show_message
+    self.page.show_snack_bar(
+    ^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'Page' object has no attribute 'show_snack_bar'
+2025-05-02 13:09:36,418 - asyncio - ERROR - Future exception was never retrieved
+future: <Future finished exception=AttributeError("'Page' object has no attribute 'show_snack_bar'")>
+Traceback (most recent call last):
+  File "E:\PYTHON\Lib\concurrent\futures\thread.py", line 58, in run
+    result = self.fn(*self.args, **self.kwargs)
+  File "C:\Users\joaqu\Desktop\APP_PARA_SULPI\venv\Lib\site-packages\flet\core\page.py", line 903, in wrapper
+    handler(*args)
+    ~~~~~~~^^^^^^^
+  File "C:\Users\joaqu\Desktop\APP_PARA_SULPI\main.py", line 1013, in registrar_pedido
+    self.show_message("Todos los campos son obligatorios")
+    ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\joaqu\Desktop\APP_PARA_SULPI\main.py", line 2799, in show_message
+    self.page.show_snack_bar(
+    ^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'Page' object has no attribute 'show_snack_bar'
+2025-05-02 13:09:38,987 - __main__ - ERROR - Error al registrar pedido: 'Page' object has no attribute 'show_snack_bar'
+2025-05-02 13:09:38,992 - asyncio - ERROR - Future exception was never retrieved
+future: <Future finished exception=AttributeError("'Page' object has no attribute 'show_snack_bar'")>
+Traceback (most recent call last):
+  File "C:\Users\joaqu\Desktop\APP_PARA_SULPI\main.py", line 1020, in registrar_pedido
+    self.show_message("El producto no existe")
+    ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\joaqu\Desktop\APP_PARA_SULPI\main.py", line 2799, in show_message
+    self.page.show_snack_bar(
+    ^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'Page' object has no attribute 'show_snack_bar'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "E:\PYTHON\Lib\concurrent\futures\thread.py", line 58, in run
+    result = self.fn(*self.args, **self.kwargs)
+  File "C:\Users\joaqu\Desktop\APP_PARA_SULPI\venv\Lib\site-packages\flet\core\page.py", line 903, in wrapper
+    handler(*args)
+    ~~~~~~~^^^^^^^
+  File "C:\Users\joaqu\Desktop\APP_PARA_SULPI\main.py", line 1075, in registrar_pedido
+    self.show_message(f"Error al registrar: {e}", is_error=True)
+    ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\joaqu\Desktop\APP_PARA_SULPI\main.py", line 2799, in show_message
+    self.page.show_snack_bar(
+    ^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'Page' object has no attribute 'show_snack_bar'
+2025-05-02 13:09:39,152 - __main__ - ERROR - Error al registrar pedido: 'Page' object has no attribute 'show_snack_bar'
+2025-05-02 13:09:39,157 - asyncio - ERROR - Future exception was never retrieved
+future: <Future finished exception=AttributeError("'Page' object has no attribute 'show_snack_bar'")>
+Traceback (most recent call last):
+  File "C:\Users\joaqu\Desktop\APP_PARA_SULPI\main.py", line 1020, in registrar_pedido
+    self.show_message("El producto no existe")
+    ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\joaqu\Desktop\APP_PARA_SULPI\main.py", line 2799, in show_message
+    self.page.show_snack_bar(
+    ^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'Page' object has no attribute 'show_snack_bar'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "E:\PYTHON\Lib\concurrent\futures\thread.py", line 58, in run
+    result = self.fn(*self.args, **self.kwargs)
+  File "C:\Users\joaqu\Desktop\APP_PARA_SULPI\venv\Lib\site-packages\flet\core\page.py", line 903, in wrapper
+    handler(*args)
+    ~~~~~~~^^^^^^^
+  File "C:\Users\joaqu\Desktop\APP_PARA_SULPI\main.py", line 1075, in registrar_pedido
+    self.show_message(f"Error al registrar: {e}", is_error=True)
+    ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\joaqu\Desktop\APP_PARA_SULPI\main.py", line 2799, in show_message
+    self.page.show_snack_bar(
+    ^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'Page' object has no attribute 'show_snack_bar'
+2025-05-02 13:09:39,276 - __main__ - ERROR - Error al registrar pedido: 'Page' object has no attribute 'show_snack_bar'
+2025-05-02 13:09:39,276 - asyncio - ERROR - Future exception was never retrieved
+future: <Future finished exception=AttributeError("'Page' object has no attribute 'show_snack_bar'")>
+Traceback (most recent call last):
+  File "C:\Users\joaqu\Desktop\APP_PARA_SULPI\main.py", line 1020, in registrar_pedido
+    self.show_message("El producto no existe")
+    ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\joaqu\Desktop\APP_PARA_SULPI\main.py", line 2799, in show_message
+    self.page.show_snack_bar(
+    ^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'Page' object has no attribute 'show_snack_bar'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "E:\PYTHON\Lib\concurrent\futures\thread.py", line 58, in run
+    result = self.fn(*self.args, **self.kwargs)
+  File "C:\Users\joaqu\Desktop\APP_PARA_SULPI\venv\Lib\site-packages\flet\core\page.py", line 903, in wrapper
+    handler(*args)
+    ~~~~~~~^^^^^^^
+  File "C:\Users\joaqu\Desktop\APP_PARA_SULPI\main.py", line 1075, in registrar_pedido
+    self.show_message(f"Error al registrar: {e}", is_error=True)
+    ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\joaqu\Desktop\APP_PARA_SULPI\main.py", line 2799, in show_message
+    self.page.show_snack_bar(
+    ^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'Page' object has no attribute 'show_snack_bar'
+2025-05-02 13:09:45,044 - __main__ - ERROR - Error al obtener estadísticas: 'Page' object has no attribute 'invoke_async'
+2025-05-02 13:09:45,774 - asyncio - ERROR - Future exception was never retrieved
+future: <Future finished exception=AttributeError("'Page' object has no attribute 'show_snack_bar'")>
+Traceback (most recent call last):
+  File "E:\PYTHON\Lib\concurrent\futures\thread.py", line 58, in run
+    result = self.fn(*self.args, **self.kwargs)
+  File "C:\Users\joaqu\Desktop\APP_PARA_SULPI\venv\Lib\site-packages\flet\core\page.py", line 903, in wrapper
+    handler(*args)
+    ~~~~~~~^^^^^^^
+  File "C:\Users\joaqu\Desktop\APP_PARA_SULPI\main.py", line 2145, in generar_productos_por_dia
+    self.show_message("Generando reporte de productos por día...")
+    ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\joaqu\Desktop\APP_PARA_SULPI\main.py", line 2799, in show_message
+    self.page.show_snack_bar(
+    ^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'Page' object has no attribute 'show_snack_bar'
+2025-05-02 13:09:46,317 - __main__ - ERROR - Error en predicción de ventas: 'Page' object has no attribute 'invoke_async'
+2025-05-02 13:09:46,804 - __main__ - ERROR - Error al obtener clientes: 'Page' object has no attribute 'invoke_async'
+2025-05-02 13:09:50,538 - __main__ - ERROR - Error al procesar el archivo CSV: 'Page' object has no attribute 'show_snack_bar'
+2025-05-02 13:09:50,539 - asyncio - ERROR - Future exception was never retrieved
+future: <Future finished exception=AttributeError("'Page' object has no attribute 'show_snack_bar'")>
+Traceback (most recent call last):
+  File "C:\Users\joaqu\Desktop\APP_PARA_SULPI\main.py", line 2667, in on_file_picked
+    self.show_message(f"Procesando archivo: {file_name}")
+    ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\joaqu\Desktop\APP_PARA_SULPI\main.py", line 2799, in show_message
+    self.page.show_snack_bar(
+    ^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'Page' object has no attribute 'show_snack_bar'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "E:\PYTHON\Lib\concurrent\futures\thread.py", line 58, in run
+    result = self.fn(*self.args, **self.kwargs)
+  File "C:\Users\joaqu\Desktop\APP_PARA_SULPI\venv\Lib\site-packages\flet\core\page.py", line 903, in wrapper
+    handler(*args)
+    ~~~~~~~^^^^^^^
+  File "C:\Users\joaqu\Desktop\APP_PARA_SULPI\main.py", line 2701, in on_file_picked
+    self.show_message(f"Error: {e}", is_error=True)
+    ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\joaqu\Desktop\APP_PARA_SULPI\main.py", line 2799, in show_message
+    self.page.show_snack_bar(
+    ^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'Page' object has no attribute 'show_snack_bar'
+2025-05-02 13:14:17,396 - flet_web.fastapi - INFO - Session disconnected: _SaogjyoNyVI8FWf5_cd70dd7f3fadb8b1aecec11ec71b12314e0814be
+2025-05-02 13:14:17,516 - flet_web.fastapi - INFO - Shutting down Flet App Manager
+2025-05-02 13:14:17,518 - flet_web.fastapi - INFO - Deleting temp dir: C:\Users\joaqu\AppData\Local\Temp\tmpkyltmwcl
+2025-05-02 13:14:17,523 - flet - INFO - Flet app has started...
+2025-05-02 13:14:17,525 - flet_web.fastapi - INFO - Closing Flet web server...
+2025-05-02 13:14:27,033 - flet - INFO - Assets path configured: C:\Users\joaqu\Desktop\APP_PARA_SULPI\assets
+2025-05-02 13:14:27,687 - flet - INFO - Starting Flet web server on port 61104...
+2025-05-02 13:14:27,689 - flet_web.fastapi - INFO - Web renderer configured: WebRenderer.CANVAS_KIT
+2025-05-02 13:14:27,689 - flet_web.fastapi - INFO - Use color emoji: False
+2025-05-02 13:14:27,690 - flet_web.fastapi - INFO - Route URL strategy configured: path
+2025-05-02 13:14:27,766 - flet_web.fastapi - INFO - Starting up Flet App Manager
+2025-05-02 13:14:27,766 - flet - INFO - App URL: http://127.0.0.1:61104
+2025-05-02 13:14:28,957 - flet_web.fastapi - INFO - Temp dir created for patched index and manifest: C:\Users\joaqu\AppData\Local\Temp\tmpvi_8nf_w
+2025-05-02 13:14:28,958 - flet_web.fastapi - INFO - Web root: C:\Users\joaqu\Desktop\APP_PARA_SULPI\venv\Lib\site-packages\flet_web\web
+2025-05-02 13:14:28,961 - flet_web.fastapi - INFO - assets_dir does not exist: C:\Users\joaqu\Desktop\APP_PARA_SULPI\assets
+2025-05-02 13:14:28,961 - flet_web.fastapi - INFO - Assets dir: None
+2025-05-02 13:14:32,585 - flet_web.fastapi - INFO - New FletApp: yweUxReQ
+2025-05-02 13:14:32,739 - flet_web.fastapi - INFO - New session created (1 total): _a86BWYpR4y2EQzhx_cd70dd7f3fadb8b1aecec11ec71b12314e0814be
+2025-05-02 13:14:32,740 - flet_web.fastapi - INFO - Start session: a86BWYpR4y2EQzhx
+2025-05-02 13:14:32,763 - __main__ - INFO - Base de datos inicializada correctamente
+2025-05-02 13:14:32,764 - __main__ - INFO - Base de datos inicializada correctamente
+2025-05-02 13:14:42,306 - __main__ - ERROR - Error importando CSV: Invalid file path or buffer object type: <class 'NoneType'>
+2025-05-02 13:14:42,348 - __main__ - ERROR - Error al procesar CSV: 'Page' object has no attribute 'invoke_async'
+2025-05-02 13:36:41,601 - flet_web.fastapi - INFO - Session disconnected: _a86BWYpR4y2EQzhx_cd70dd7f3fadb8b1aecec11ec71b12314e0814be
+2025-05-02 13:36:41,711 - flet_web.fastapi - INFO - Shutting down Flet App Manager
+2025-05-02 13:36:41,711 - flet_web.fastapi - INFO - Deleting temp dir: C:\Users\joaqu\AppData\Local\Temp\tmpvi_8nf_w
+2025-05-02 13:36:41,714 - flet - INFO - Flet app has started...
+2025-05-02 13:36:41,714 - flet_web.fastapi - INFO - Closing Flet web server...
+2025-05-02 13:36:49,523 - flet - INFO - Assets path configured: C:\Users\joaqu\Desktop\APP_PARA_SULPI\assets
+2025-05-02 13:36:49,793 - flet - INFO - Starting Flet web server on port 61699...
+2025-05-02 13:36:49,795 - flet_web.fastapi - INFO - Web renderer configured: WebRenderer.CANVAS_KIT
+2025-05-02 13:36:49,795 - flet_web.fastapi - INFO - Use color emoji: False
+2025-05-02 13:36:49,795 - flet_web.fastapi - INFO - Route URL strategy configured: path
+2025-05-02 13:36:49,856 - flet_web.fastapi - INFO - Starting up Flet App Manager
+2025-05-02 13:36:49,858 - flet - INFO - App URL: http://127.0.0.1:61699
+2025-05-02 13:36:50,447 - flet_web.fastapi - INFO - Temp dir created for patched index and manifest: C:\Users\joaqu\AppData\Local\Temp\tmpfzxc2h0h
+2025-05-02 13:36:50,457 - flet_web.fastapi - INFO - Web root: C:\Users\joaqu\Desktop\APP_PARA_SULPI\venv\Lib\site-packages\flet_web\web
+2025-05-02 13:36:50,475 - flet_web.fastapi - INFO - assets_dir does not exist: C:\Users\joaqu\Desktop\APP_PARA_SULPI\assets
+2025-05-02 13:36:50,476 - flet_web.fastapi - INFO - Assets dir: None
+2025-05-02 13:36:53,079 - flet_web.fastapi - INFO - New FletApp: G9VC3I1i
+2025-05-02 13:36:53,220 - flet_web.fastapi - INFO - New session created (1 total): _fiRw42uLU9ruc43C_cd70dd7f3fadb8b1aecec11ec71b12314e0814be
+2025-05-02 13:36:53,223 - flet_web.fastapi - INFO - Start session: fiRw42uLU9ruc43C
+2025-05-02 13:36:53,293 - __main__ - INFO - Base de datos inicializada correctamente
+2025-05-02 13:36:53,294 - __main__ - INFO - Base de datos inicializada correctamente
+2025-05-02 13:36:58,470 - __main__ - ERROR - Error al procesar CSV: Ruta de archivo inválida
+2025-05-02 13:37:10,525 - flet_web.fastapi - INFO - Session disconnected: _fiRw42uLU9ruc43C_cd70dd7f3fadb8b1aecec11ec71b12314e0814be
+2025-05-02 13:37:10,635 - flet_web.fastapi - INFO - Shutting down Flet App Manager
+2025-05-02 13:37:10,636 - flet_web.fastapi - INFO - Deleting temp dir: C:\Users\joaqu\AppData\Local\Temp\tmpfzxc2h0h
+2025-05-02 13:37:10,638 - flet - INFO - Flet app has started...
+2025-05-02 13:37:10,638 - flet_web.fastapi - INFO - Closing Flet web server...
+2025-05-02 13:37:25,663 - flet - INFO - Assets path configured: C:\Users\joaqu\Desktop\APP_PARA_SULPI\assets
+2025-05-02 13:37:26,487 - flet - INFO - Starting Flet web server on port 61730...
+2025-05-02 13:37:26,489 - flet_web.fastapi - INFO - Web renderer configured: WebRenderer.CANVAS_KIT
+2025-05-02 13:37:26,489 - flet_web.fastapi - INFO - Use color emoji: False
+2025-05-02 13:37:26,491 - flet_web.fastapi - INFO - Route URL strategy configured: path
+2025-05-02 13:37:26,565 - flet_web.fastapi - INFO - Starting up Flet App Manager
+2025-05-02 13:37:26,566 - flet - INFO - App URL: http://127.0.0.1:61730
+2025-05-02 13:37:27,020 - flet_web.fastapi - INFO - Temp dir created for patched index and manifest: C:\Users\joaqu\AppData\Local\Temp\tmp7z3543uk
+2025-05-02 13:37:27,030 - flet_web.fastapi - INFO - Web root: C:\Users\joaqu\Desktop\APP_PARA_SULPI\venv\Lib\site-packages\flet_web\web
+2025-05-02 13:37:27,031 - flet_web.fastapi - INFO - assets_dir does not exist: C:\Users\joaqu\Desktop\APP_PARA_SULPI\assets
+2025-05-02 13:37:27,045 - flet_web.fastapi - INFO - Assets dir: None
+2025-05-02 13:37:29,917 - flet_web.fastapi - INFO - Shutting down Flet App Manager
+2025-05-02 13:37:29,917 - flet_web.fastapi - INFO - Deleting temp dir: C:\Users\joaqu\AppData\Local\Temp\tmp7z3543uk
+2025-05-02 13:37:29,939 - flet - INFO - Flet app has started...
+2025-05-02 13:37:29,945 - flet_web.fastapi - INFO - Closing Flet web server...
+2025-05-02 13:37:37,088 - flet - INFO - Assets path configured: C:\Users\joaqu\Desktop\APP_PARA_SULPI\assets
+2025-05-02 13:37:37,331 - flet - INFO - Starting Flet web server on port 61945...
+2025-05-02 13:37:37,332 - flet_web.fastapi - INFO - Web renderer configured: WebRenderer.CANVAS_KIT
+2025-05-02 13:37:37,332 - flet_web.fastapi - INFO - Use color emoji: False
+2025-05-02 13:37:37,332 - flet_web.fastapi - INFO - Route URL strategy configured: path
+2025-05-02 13:37:37,398 - flet_web.fastapi - INFO - Starting up Flet App Manager
+2025-05-02 13:37:37,398 - flet - INFO - App URL: http://127.0.0.1:61945
+2025-05-02 13:37:39,356 - flet_web.fastapi - INFO - Temp dir created for patched index and manifest: C:\Users\joaqu\AppData\Local\Temp\tmpijvfpm8b
+2025-05-02 13:37:39,357 - flet_web.fastapi - INFO - Web root: C:\Users\joaqu\Desktop\APP_PARA_SULPI\venv\Lib\site-packages\flet_web\web
+2025-05-02 13:37:39,360 - flet_web.fastapi - INFO - assets_dir does not exist: C:\Users\joaqu\Desktop\APP_PARA_SULPI\assets
+2025-05-02 13:37:39,361 - flet_web.fastapi - INFO - Assets dir: None
+2025-05-02 13:37:43,725 - flet_web.fastapi - INFO - New FletApp: XxsJ43wb
+2025-05-02 13:37:43,884 - flet_web.fastapi - INFO - New session created (1 total): _teBRQgsaCP3LNpqy_cd70dd7f3fadb8b1aecec11ec71b12314e0814be
+2025-05-02 13:37:43,885 - flet_web.fastapi - INFO - Start session: teBRQgsaCP3LNpqy
+2025-05-02 13:37:43,906 - __main__ - INFO - Base de datos inicializada correctamente
+2025-05-02 13:37:43,906 - __main__ - INFO - Base de datos inicializada correctamente
+2025-05-02 13:37:47,521 - __main__ - ERROR - Error al procesar CSV: Ruta de archivo inválida
+2025-05-02 13:38:30,180 - flet_web.fastapi - INFO - Session disconnected: _teBRQgsaCP3LNpqy_cd70dd7f3fadb8b1aecec11ec71b12314e0814be
+2025-05-02 13:38:30,291 - flet_web.fastapi - INFO - Shutting down Flet App Manager
+2025-05-02 13:38:30,291 - flet_web.fastapi - INFO - Deleting temp dir: C:\Users\joaqu\AppData\Local\Temp\tmpijvfpm8b
+2025-05-02 13:38:30,298 - flet - INFO - Flet app has started...
+2025-05-02 13:38:30,299 - flet_web.fastapi - INFO - Closing Flet web server...
+2025-05-02 13:38:40,795 - flet - INFO - Assets path configured: C:\Users\joaqu\Desktop\APP_PARA_SULPI\assets
+2025-05-02 13:38:41,905 - flet - INFO - Starting Flet web server on port 61972...
+2025-05-02 13:38:41,909 - flet_web.fastapi - INFO - Web renderer configured: WebRenderer.CANVAS_KIT
+2025-05-02 13:38:41,909 - flet_web.fastapi - INFO - Use color emoji: False
+2025-05-02 13:38:41,910 - flet_web.fastapi - INFO - Route URL strategy configured: path
+2025-05-02 13:38:42,066 - flet_web.fastapi - INFO - Starting up Flet App Manager
+2025-05-02 13:38:42,067 - flet - INFO - App URL: http://127.0.0.1:61972
+2025-05-02 13:38:43,250 - flet_web.fastapi - INFO - Temp dir created for patched index and manifest: C:\Users\joaqu\AppData\Local\Temp\tmpsom0p46x
+2025-05-02 13:38:43,266 - flet_web.fastapi - INFO - Web root: C:\Users\joaqu\Desktop\APP_PARA_SULPI\venv\Lib\site-packages\flet_web\web
+2025-05-02 13:38:43,271 - flet_web.fastapi - INFO - assets_dir does not exist: C:\Users\joaqu\Desktop\APP_PARA_SULPI\assets
+2025-05-02 13:38:43,277 - flet_web.fastapi - INFO - Assets dir: None
+2025-05-02 13:38:46,988 - flet_web.fastapi - INFO - New FletApp: 1s305VVv
+2025-05-02 13:38:47,192 - flet_web.fastapi - INFO - New session created (1 total): _OmjHD33g0kn7r2AQ_cd70dd7f3fadb8b1aecec11ec71b12314e0814be
+2025-05-02 13:38:47,195 - flet_web.fastapi - INFO - Start session: OmjHD33g0kn7r2AQ
+2025-05-02 13:38:47,620 - __main__ - INFO - Base de datos inicializada correctamente
+2025-05-02 13:38:47,644 - __main__ - INFO - Base de datos inicializada correctamente
+2025-05-02 13:38:51,311 - __main__ - ERROR - Error al procesar CSV: Ruta de archivo inválida
+2025-05-02 13:39:25,608 - flet_web.fastapi - INFO - Session disconnected: _OmjHD33g0kn7r2AQ_cd70dd7f3fadb8b1aecec11ec71b12314e0814be
+2025-05-02 13:39:26,805 - flet_web.fastapi - INFO - Shutting down Flet App Manager
+2025-05-02 13:39:26,854 - flet_web.fastapi - INFO - Deleting temp dir: C:\Users\joaqu\AppData\Local\Temp\tmpsom0p46x
+2025-05-02 13:39:26,988 - flet - INFO - Flet app has started...
+2025-05-02 13:39:26,998 - flet_web.fastapi - INFO - Closing Flet web server...
+2025-05-02 13:41:01,694 - flet - INFO - Assets path configured: C:\Users\joaqu\Desktop\APP_PARA_SULPI\assets
+2025-05-02 13:41:02,043 - flet - INFO - Starting Flet web server on port 62009...
+2025-05-02 13:41:02,044 - flet_web.fastapi - INFO - Web renderer configured: WebRenderer.CANVAS_KIT
+2025-05-02 13:41:02,045 - flet_web.fastapi - INFO - Use color emoji: False
+2025-05-02 13:41:02,045 - flet_web.fastapi - INFO - Route URL strategy configured: path
+2025-05-02 13:41:02,101 - flet_web.fastapi - INFO - Starting up Flet App Manager
+2025-05-02 13:41:02,102 - flet - INFO - App URL: http://127.0.0.1:62009
+2025-05-02 13:41:02,728 - flet_web.fastapi - INFO - Temp dir created for patched index and manifest: C:\Users\joaqu\AppData\Local\Temp\tmpnle2_92g
+2025-05-02 13:41:02,729 - flet_web.fastapi - INFO - Web root: C:\Users\joaqu\Desktop\APP_PARA_SULPI\venv\Lib\site-packages\flet_web\web
+2025-05-02 13:41:02,730 - flet_web.fastapi - INFO - assets_dir does not exist: C:\Users\joaqu\Desktop\APP_PARA_SULPI\assets
+2025-05-02 13:41:02,731 - flet_web.fastapi - INFO - Assets dir: None
+2025-05-02 13:41:06,133 - flet_web.fastapi - INFO - New FletApp: 0XgEa3M5
+2025-05-02 13:41:06,342 - flet_web.fastapi - INFO - New session created (1 total): _lrEw2nQotd5kgMsI_cd70dd7f3fadb8b1aecec11ec71b12314e0814be
+2025-05-02 13:41:06,498 - flet_web.fastapi - INFO - Start session: lrEw2nQotd5kgMsI
+2025-05-02 13:41:06,981 - __main__ - INFO - Base de datos inicializada correctamente
+2025-05-02 13:41:06,991 - __main__ - INFO - Base de datos inicializada correctamente
+2025-05-02 13:41:10,026 - __main__ - ERROR - Error al procesar CSV: Ruta de archivo inválida
+2025-05-02 13:43:11,860 - flet_web.fastapi - INFO - Session disconnected: _lrEw2nQotd5kgMsI_cd70dd7f3fadb8b1aecec11ec71b12314e0814be
+2025-05-02 13:43:12,074 - flet_web.fastapi - INFO - Shutting down Flet App Manager
+2025-05-02 13:43:12,095 - flet_web.fastapi - INFO - Deleting temp dir: C:\Users\joaqu\AppData\Local\Temp\tmpnle2_92g
+2025-05-02 13:43:12,183 - flet - INFO - Flet app has started...
+2025-05-02 13:43:12,204 - flet_web.fastapi - INFO - Closing Flet web server...
+2025-05-02 13:43:19,891 - flet - INFO - Assets path configured: C:\Users\joaqu\Desktop\APP_PARA_SULPI\assets
+2025-05-02 13:43:20,230 - flet - INFO - Starting Flet web server on port 62153...
+2025-05-02 13:43:20,233 - flet_web.fastapi - INFO - Web renderer configured: WebRenderer.CANVAS_KIT
+2025-05-02 13:43:20,233 - flet_web.fastapi - INFO - Use color emoji: False
+2025-05-02 13:43:20,234 - flet_web.fastapi - INFO - Route URL strategy configured: path
+2025-05-02 13:43:20,353 - flet_web.fastapi - INFO - Starting up Flet App Manager
+2025-05-02 13:43:20,354 - flet - INFO - App URL: http://127.0.0.1:62153
+2025-05-02 13:43:20,819 - flet_web.fastapi - INFO - Temp dir created for patched index and manifest: C:\Users\joaqu\AppData\Local\Temp\tmpwxuzglam
+2025-05-02 13:43:20,820 - flet_web.fastapi - INFO - Web root: C:\Users\joaqu\Desktop\APP_PARA_SULPI\venv\Lib\site-packages\flet_web\web
+2025-05-02 13:43:20,822 - flet_web.fastapi - INFO - assets_dir does not exist: C:\Users\joaqu\Desktop\APP_PARA_SULPI\assets
+2025-05-02 13:43:20,824 - flet_web.fastapi - INFO - Assets dir: None
+2025-05-02 13:43:24,520 - flet_web.fastapi - INFO - New FletApp: WMPgA7kG
+2025-05-02 13:43:24,699 - flet_web.fastapi - INFO - New session created (1 total): _nikMEwPRwxn9Pn6E_cd70dd7f3fadb8b1aecec11ec71b12314e0814be
+2025-05-02 13:43:24,700 - flet_web.fastapi - INFO - Start session: nikMEwPRwxn9Pn6E
+2025-05-02 13:43:24,732 - __main__ - INFO - Base de datos inicializada correctamente
+2025-05-02 13:43:24,733 - __main__ - INFO - Base de datos inicializada correctamente
+2025-05-02 13:43:28,300 - asyncio - ERROR - Future exception was never retrieved
+future: <Future finished exception=NameError("cannot access free variable 'ex' where it is not associated with a value in enclosing scope")>
+Traceback (most recent call last):
+  File "E:\PYTHON\Lib\concurrent\futures\thread.py", line 58, in run
+    result = self.fn(*self.args, **self.kwargs)
+  File "C:\Users\joaqu\Desktop\APP_PARA_SULPI\venv\Lib\site-packages\flet\core\page.py", line 903, in wrapper
+    handler(*args)
+    ~~~~~~~^^^^^^^
+  File "C:\Users\joaqu\Desktop\APP_PARA_SULPI\main.py", line 2722, in show_error
+    self.show_message(f"Error al procesar archivo: {ex}", is_error=True)
+                                                    ^^
+NameError: cannot access free variable 'ex' where it is not associated with a value in enclosing scope
+2025-05-02 13:44:34,125 - flet_web.fastapi - INFO - Session disconnected: _nikMEwPRwxn9Pn6E_cd70dd7f3fadb8b1aecec11ec71b12314e0814be
+2025-05-02 13:44:35,176 - flet_web.fastapi - INFO - Shutting down Flet App Manager
+2025-05-02 13:44:35,195 - flet_web.fastapi - INFO - Deleting temp dir: C:\Users\joaqu\AppData\Local\Temp\tmpwxuzglam
+2025-05-02 13:44:35,228 - flet - INFO - Flet app has started...
+2025-05-02 13:44:35,245 - flet_web.fastapi - INFO - Closing Flet web server...
+2025-05-02 13:44:41,945 - flet - INFO - Assets path configured: C:\Users\joaqu\Desktop\APP_PARA_SULPI\assets
+2025-05-02 13:44:42,696 - flet - INFO - Starting Flet web server on port 62228...
+2025-05-02 13:44:42,697 - flet_web.fastapi - INFO - Web renderer configured: WebRenderer.CANVAS_KIT
+2025-05-02 13:44:42,697 - flet_web.fastapi - INFO - Use color emoji: False
+2025-05-02 13:44:42,698 - flet_web.fastapi - INFO - Route URL strategy configured: path
+2025-05-02 13:44:42,755 - flet_web.fastapi - INFO - Starting up Flet App Manager
+2025-05-02 13:44:42,756 - flet - INFO - App URL: http://127.0.0.1:62228
+2025-05-02 13:44:43,538 - flet_web.fastapi - INFO - Temp dir created for patched index and manifest: C:\Users\joaqu\AppData\Local\Temp\tmp693z1rfg
+2025-05-02 13:44:43,539 - flet_web.fastapi - INFO - Web root: C:\Users\joaqu\Desktop\APP_PARA_SULPI\venv\Lib\site-packages\flet_web\web
+2025-05-02 13:44:43,540 - flet_web.fastapi - INFO - assets_dir does not exist: C:\Users\joaqu\Desktop\APP_PARA_SULPI\assets
+2025-05-02 13:44:43,541 - flet_web.fastapi - INFO - Assets dir: None
+2025-05-02 13:44:49,687 - flet_web.fastapi - INFO - New FletApp: Qrq78mu3
+2025-05-02 13:44:50,814 - flet_web.fastapi - INFO - New session created (1 total): _bEvAPuqMMzeOfjBp_cd70dd7f3fadb8b1aecec11ec71b12314e0814be
+2025-05-02 13:44:50,818 - flet_web.fastapi - INFO - Start session: bEvAPuqMMzeOfjBp
+2025-05-02 13:44:50,872 - __main__ - INFO - Base de datos inicializada correctamente
+2025-05-02 13:44:50,874 - __main__ - INFO - Base de datos inicializada correctamente
+2025-05-02 13:51:04,328 - flet_web.fastapi - INFO - Session disconnected: _bEvAPuqMMzeOfjBp_cd70dd7f3fadb8b1aecec11ec71b12314e0814be
+2025-05-02 13:51:04,439 - flet_web.fastapi - INFO - Shutting down Flet App Manager
+2025-05-02 13:51:04,442 - flet_web.fastapi - INFO - Deleting temp dir: C:\Users\joaqu\AppData\Local\Temp\tmp693z1rfg
+2025-05-02 13:51:04,450 - flet - INFO - Flet app has started...
+2025-05-02 13:51:04,455 - flet_web.fastapi - INFO - Closing Flet web server...
+2025-05-02 13:51:13,597 - flet - INFO - Assets path configured: C:\Users\joaqu\Desktop\APP_PARA_SULPI\assets
+2025-05-02 13:51:13,884 - flet - INFO - Starting Flet web server on port 62507...
+2025-05-02 13:51:13,885 - flet_web.fastapi - INFO - Web renderer configured: WebRenderer.CANVAS_KIT
+2025-05-02 13:51:13,886 - flet_web.fastapi - INFO - Use color emoji: False
+2025-05-02 13:51:13,886 - flet_web.fastapi - INFO - Route URL strategy configured: path
+2025-05-02 13:51:13,955 - flet_web.fastapi - INFO - Starting up Flet App Manager
+2025-05-02 13:51:13,956 - flet - INFO - App URL: http://127.0.0.1:62507
+2025-05-02 13:51:14,427 - flet_web.fastapi - INFO - Temp dir created for patched index and manifest: C:\Users\joaqu\AppData\Local\Temp\tmp2ullb38s
+2025-05-02 13:51:14,428 - flet_web.fastapi - INFO - Web root: C:\Users\joaqu\Desktop\APP_PARA_SULPI\venv\Lib\site-packages\flet_web\web
+2025-05-02 13:51:14,429 - flet_web.fastapi - INFO - assets_dir does not exist: C:\Users\joaqu\Desktop\APP_PARA_SULPI\assets
+2025-05-02 13:51:14,430 - flet_web.fastapi - INFO - Assets dir: None
+2025-05-02 13:51:18,184 - flet_web.fastapi - INFO - New FletApp: L1cJCFp0
+2025-05-02 13:51:18,395 - flet_web.fastapi - INFO - New session created (1 total): _ePC6prC0f90orq6D_cd70dd7f3fadb8b1aecec11ec71b12314e0814be
+2025-05-02 13:51:18,466 - flet_web.fastapi - INFO - Start session: ePC6prC0f90orq6D
+2025-05-02 13:51:18,728 - __main__ - INFO - Base de datos inicializada correctamente
+2025-05-02 13:51:18,762 - __main__ - INFO - Base de datos inicializada correctamente
+2025-05-02 13:52:18,843 - __main__ - ERROR - Error al obtener clientes: 'Page' object has no attribute 'invoke_async'
+2025-05-02 13:52:24,907 - __main__ - ERROR - Error al obtener estadísticas: 'Page' object has no attribute 'invoke_async'
+2025-05-02 13:52:25,608 - __main__ - ERROR - Error al obtener clientes: 'Page' object has no attribute 'invoke_async'
+2025-05-02 13:52:29,406 - __main__ - ERROR - Error en predicción de ventas: 'Page' object has no attribute 'invoke_async'
+2025-05-02 13:58:02,227 - flet_web.fastapi - INFO - Session disconnected: _ePC6prC0f90orq6D_cd70dd7f3fadb8b1aecec11ec71b12314e0814be
+2025-05-02 13:58:02,335 - flet_web.fastapi - INFO - Shutting down Flet App Manager
+2025-05-02 13:58:02,336 - flet_web.fastapi - INFO - Deleting temp dir: C:\Users\joaqu\AppData\Local\Temp\tmp2ullb38s
+2025-05-02 13:58:02,338 - flet - INFO - Flet app has started...
+2025-05-02 13:58:02,338 - flet_web.fastapi - INFO - Closing Flet web server...
+2025-05-02 14:11:04,195 - flet - INFO - Assets path configured: C:\Users\joaqu\Desktop\APP_PARA_SULPI\assets
+2025-05-02 14:11:04,664 - flet - INFO - Starting Flet web server on port 62839...
+2025-05-02 14:11:04,667 - flet_web.fastapi - INFO - Web renderer configured: WebRenderer.CANVAS_KIT
+2025-05-02 14:11:04,667 - flet_web.fastapi - INFO - Use color emoji: False
+2025-05-02 14:11:04,668 - flet_web.fastapi - INFO - Route URL strategy configured: path
+2025-05-02 14:11:04,737 - flet_web.fastapi - INFO - Starting up Flet App Manager
+2025-05-02 14:11:04,738 - flet - INFO - App URL: http://127.0.0.1:62839
+2025-05-02 14:11:05,374 - flet_web.fastapi - INFO - Temp dir created for patched index and manifest: C:\Users\joaqu\AppData\Local\Temp\tmpaq7hb6ls
+2025-05-02 14:11:05,379 - flet_web.fastapi - INFO - Web root: C:\Users\joaqu\Desktop\APP_PARA_SULPI\venv\Lib\site-packages\flet_web\web
+2025-05-02 14:11:05,386 - flet_web.fastapi - INFO - assets_dir does not exist: C:\Users\joaqu\Desktop\APP_PARA_SULPI\assets
+2025-05-02 14:11:05,391 - flet_web.fastapi - INFO - Assets dir: None
+2025-05-02 14:11:10,017 - flet_web.fastapi - INFO - New FletApp: YCOzsbwJ
+2025-05-02 14:11:10,192 - flet_web.fastapi - INFO - New session created (1 total): _QmRuUQSRFSptefxB_cd70dd7f3fadb8b1aecec11ec71b12314e0814be
+2025-05-02 14:11:10,194 - flet_web.fastapi - INFO - Start session: QmRuUQSRFSptefxB
+2025-05-02 14:11:10,216 - __main__ - ERROR - Error de inicialización: 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '...)' at line 1
+2025-05-02 14:11:10,222 - __main__ - ERROR - Error de inicialización: 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '...)' at line 1
+2025-05-02 14:11:26,211 - flet_web.fastapi - INFO - Session disconnected: _QmRuUQSRFSptefxB_cd70dd7f3fadb8b1aecec11ec71b12314e0814be
+2025-05-02 14:11:26,324 - flet_web.fastapi - INFO - Shutting down Flet App Manager
+2025-05-02 14:11:26,325 - flet_web.fastapi - INFO - Deleting temp dir: C:\Users\joaqu\AppData\Local\Temp\tmpaq7hb6ls
+2025-05-02 14:11:26,337 - flet - INFO - Flet app has started...
+2025-05-02 14:11:26,338 - flet_web.fastapi - INFO - Closing Flet web server...
+2025-05-02 14:14:27,456 - flet - INFO - Assets path configured: C:\Users\joaqu\Desktop\APP_PARA_SULPI\assets
+2025-05-02 14:14:27,921 - flet - INFO - Starting Flet web server on port 62878...
+2025-05-02 14:14:27,922 - flet_web.fastapi - INFO - Web renderer configured: WebRenderer.CANVAS_KIT
+2025-05-02 14:14:27,923 - flet_web.fastapi - INFO - Use color emoji: False
+2025-05-02 14:14:27,924 - flet_web.fastapi - INFO - Route URL strategy configured: path
+2025-05-02 14:14:27,992 - flet_web.fastapi - INFO - Starting up Flet App Manager
+2025-05-02 14:14:27,993 - flet - INFO - App URL: http://127.0.0.1:62878
+2025-05-02 14:14:28,603 - flet_web.fastapi - INFO - Temp dir created for patched index and manifest: C:\Users\joaqu\AppData\Local\Temp\tmpxipxab6p
+2025-05-02 14:14:28,604 - flet_web.fastapi - INFO - Web root: C:\Users\joaqu\Desktop\APP_PARA_SULPI\venv\Lib\site-packages\flet_web\web
+2025-05-02 14:14:28,608 - flet_web.fastapi - INFO - assets_dir does not exist: C:\Users\joaqu\Desktop\APP_PARA_SULPI\assets
+2025-05-02 14:14:28,611 - flet_web.fastapi - INFO - Assets dir: None
+2025-05-02 14:14:33,197 - flet_web.fastapi - INFO - New FletApp: vbcJLOWz
+2025-05-02 14:14:33,382 - flet_web.fastapi - INFO - New session created (1 total): _s1MY9xtQIf5cOviv_cd70dd7f3fadb8b1aecec11ec71b12314e0814be
+2025-05-02 14:14:33,384 - flet_web.fastapi - INFO - Start session: s1MY9xtQIf5cOviv
+2025-05-02 14:14:33,417 - __main__ - ERROR - Error de inicialización: 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '...)' at line 1
+2025-05-02 14:14:33,424 - __main__ - ERROR - Error de inicialización: 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '...)' at line 1
+2025-05-02 14:28:34,761 - flet_web.fastapi - INFO - Session disconnected: _s1MY9xtQIf5cOviv_cd70dd7f3fadb8b1aecec11ec71b12314e0814be
+2025-05-02 14:28:34,872 - flet_web.fastapi - INFO - Shutting down Flet App Manager
+2025-05-02 14:28:34,878 - flet_web.fastapi - INFO - Deleting temp dir: C:\Users\joaqu\AppData\Local\Temp\tmpxipxab6p
+2025-05-02 14:28:34,889 - flet - INFO - Flet app has started...
+2025-05-02 14:28:34,892 - flet_web.fastapi - INFO - Closing Flet web server...
