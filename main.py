@@ -16,6 +16,14 @@ from reportlab.lib.styles import getSampleStyleSheet
 from sklearn.linear_model import LinearRegression
 from sklearn.model_selection import train_test_split
 from io import BytesIO
+import base64
+import tempfile
+import uuid
+import webbrowser
+import urllib.parse
+from datetime import date, timedelta
+
+PDF_DOWNLOADS = {}  # Diccionario para almacenar PDFs temporalmente
 
 # Configuración de la conexión a la base de datos
 DB_CONFIG = {
@@ -113,10 +121,8 @@ class DistriSulpiApp:
         """Devuelve las zonas disponibles"""
         return ["Bernal", "Avellaneda #1", "Avellaneda #2", "Quilmes", "Solano"]
 
-
-    # Necesitamos modificarla para que acepte un parámetro de fecha:
-    def guardar_pedido(self, cliente, zona, detalles, fecha=None):
-        """Guarda un pedido en la base de datos"""
+    def guardar_pedido(self, cliente, zona, detalles, fecha_personalizada=None):
+        """Guarda un pedido en la base de datos, con opción de fecha personalizada"""
         try:
             conn = self.get_db_connection()
             cursor = conn.cursor()
@@ -140,8 +146,8 @@ class DistriSulpiApp:
                 cursor.execute("ALTER TABLE pedidos ADD COLUMN total DECIMAL(10, 2) NOT NULL")
                 print("Columna 'total' agregada a la tabla 'pedidos'")
             
-            # Usar fecha proporcionada o la actual
-            fecha_pedido = fecha if fecha else datetime.datetime.now()
+            # Determinar la fecha a usar (personalizada o actual)
+            fecha_pedido = fecha_personalizada if fecha_personalizada else datetime.datetime.now()
             
             # Insertar el pedido
             cursor.execute(
@@ -159,7 +165,7 @@ class DistriSulpiApp:
                     (pedido_id, producto_id, cantidad, precio_unitario, subtotal) 
                     VALUES (%s, %s, %s, %s, %s)""",
                     (pedido_id, item["producto_id"], item["cantidad"], 
-                    item["precio_unitario"], item["subtotal"])
+                     item["precio_unitario"], item["subtotal"])
                 )
                 
                 # Actualizar el stock
@@ -212,12 +218,14 @@ class DistriSulpiApp:
         except Exception as e:
             return False, f"Error al importar CSV: {e}"
 
-    def get_ventas_diarias(self):
-        """Obtiene las ventas del día actual"""
+    def get_ventas_diarias(self, fecha_especifica=None):
+        """Obtiene las ventas del día actual o una fecha específica"""
         conn = self.get_db_connection()
         if conn:
             cursor = conn.cursor(dictionary=True)
-            today = datetime.datetime.now().strftime("%Y-%m-%d")
+            
+            # Usar fecha específica o la actual
+            fecha_consulta = fecha_especifica.strftime("%Y-%m-%d") if fecha_especifica else datetime.datetime.now().strftime("%Y-%m-%d")
             
             cursor.execute("""
             SELECT p.id, p.cliente, p.zona, p.fecha, p.total,
@@ -227,7 +235,7 @@ class DistriSulpiApp:
             JOIN productos pr ON dp.producto_id = pr.id
             WHERE DATE(p.fecha) = %s
             ORDER BY p.fecha DESC
-            """, (today,))
+            """, (fecha_consulta,))
             
             ventas = cursor.fetchall()
             cursor.close()
@@ -317,6 +325,7 @@ class DistriSulpiApp:
             }, "Predicción generada correctamente"
         except Exception as e:
             return None, f"Error al generar predicción: {e}"
+    
     ## ESTADISTICAS ##
     def get_productos_mas_vendidos(self, limit=5):
         """Obtiene los productos más vendidos de todos los tiempos"""
@@ -337,12 +346,14 @@ class DistriSulpiApp:
             return productos
         return []
 
-    def get_ganancia_diaria(self):
-        """Obtiene la ganancia del día actual"""
+    def get_ganancia_diaria(self, fecha_especifica=None):
+        """Obtiene la ganancia del día actual o una fecha específica"""
         conn = self.get_db_connection()
         if conn:
             cursor = conn.cursor(dictionary=True)
-            today = datetime.datetime.now().strftime("%Y-%m-%d")
+            
+            # Usar fecha específica o la actual
+            fecha_consulta = fecha_especifica.strftime("%Y-%m-%d") if fecha_especifica else datetime.datetime.now().strftime("%Y-%m-%d")
             
             cursor.execute("""
             SELECT SUM((dp.precio_unitario - p.costo) * dp.cantidad) as ganancia
@@ -350,7 +361,7 @@ class DistriSulpiApp:
             JOIN detalle_pedido dp ON ped.id = dp.pedido_id
             JOIN productos p ON dp.producto_id = p.id
             WHERE DATE(ped.fecha) = %s
-            """, (today,))
+            """, (fecha_consulta,))
             
             resultado = cursor.fetchone()
             cursor.close()
@@ -379,18 +390,20 @@ class DistriSulpiApp:
             return resultado['ganancia'] if resultado and resultado['ganancia'] is not None else 0
         return 0
 
-    def get_facturacion_diaria(self):
-        """Obtiene el total facturado del día actual"""
+    def get_facturacion_diaria(self, fecha_especifica=None):
+        """Obtiene el total facturado del día actual o una fecha específica"""
         conn = self.get_db_connection()
         if conn:
             cursor = conn.cursor(dictionary=True)
-            today = datetime.datetime.now().strftime("%Y-%m-%d")
+            
+            # Usar fecha específica o la actual
+            fecha_consulta = fecha_especifica.strftime("%Y-%m-%d") if fecha_especifica else datetime.datetime.now().strftime("%Y-%m-%d")
             
             cursor.execute("""
             SELECT SUM(total) as facturacion
             FROM pedidos
             WHERE DATE(fecha) = %s
-            """, (today,))
+            """, (fecha_consulta,))
             
             resultado = cursor.fetchone()
             cursor.close()
@@ -416,7 +429,7 @@ class DistriSulpiApp:
             conn.close()
             return resultado['facturacion'] if resultado and resultado['facturacion'] is not None else 0
         return 0
-    # 1. Añade este método a la clase DistriSulpiApp
+    
     def buscar_clientes(self, query):
         """Busca clientes por nombre similar"""
         conn = self.get_db_connection()
@@ -436,6 +449,7 @@ class DistriSulpiApp:
             conn.close()
             return [cliente["cliente"] for cliente in clientes]
         return []
+    
     def generar_pdf_factura(self, pedido_id):
         """Genera un PDF con la factura del pedido"""
         try:
@@ -565,17 +579,18 @@ class DistriSulpiApp:
         except Exception as e:
             return None, f"Error al generar factura: {e}"
 
-    def generar_pdf_pedidos_hoy(self):
-        """Genera un PDF con todos los pedidos del día"""
+    def generar_pdf_pedidos_hoy(self, fecha_especifica=None):
+        """Genera un PDF con todos los pedidos del día actual o una fecha específica"""
         try:
-            ventas_hoy = self.get_ventas_diarias()
+            # Obtener ventas del día específico o actual
+            ventas_dia = self.get_ventas_diarias(fecha_especifica)
             
-            if not ventas_hoy:
-                return None, "No hay ventas registradas hoy"
+            if not ventas_dia:
+                return None, "No hay ventas registradas en la fecha seleccionada"
             
             # Crear diccionario agrupado por producto
             productos_vendidos = {}
-            for venta in ventas_hoy:
+            for venta in ventas_dia:
                 if venta['producto'] in productos_vendidos:
                     productos_vendidos[venta['producto']] += venta['cantidad']
                 else:
@@ -590,8 +605,8 @@ class DistriSulpiApp:
             styles = getSampleStyleSheet()
             
             # Título
-            fecha_hoy = datetime.datetime.now().strftime("%d/%m/%Y")
-            elements.append(Paragraph(f"<b>DistriSulpi - Ventas del día {fecha_hoy}</b>", styles['Title']))
+            fecha_str = fecha_especifica.strftime("%d/%m/%Y") if fecha_especifica else datetime.datetime.now().strftime("%d/%m/%Y")
+            elements.append(Paragraph(f"<b>DistriSulpi - Ventas del día {fecha_str}</b>", styles['Title']))
             elements.append(Paragraph("<br/>", styles['Normal']))
             
             # Tabla de productos vendidos
@@ -629,22 +644,169 @@ class DistriSulpiApp:
         except Exception as e:
             return None, f"Error al generar reporte: {e}"
 
+    def get_pedidos_por_fecha(self, fecha):
+        """Obtiene todos los pedidos por fecha específica"""
+        conn = self.get_db_connection()
+        if conn:
+            cursor = conn.cursor(dictionary=True)
+            
+            cursor.execute("""
+            SELECT id, cliente, zona, fecha, total 
+            FROM pedidos 
+            WHERE DATE(fecha) = %s
+            ORDER BY fecha DESC
+            """, (fecha,))
+            
+            pedidos = cursor.fetchall()
+            cursor.close()
+            conn.close()
+            return pedidos
+        return []
+
+    def generar_pdf_multiple_pedidos(self, pedidos_ids):
+        """Genera un único PDF con múltiples pedidos"""
+        try:
+            # Crear directorio para PDFs si no existe
+            os.makedirs("temp", exist_ok=True)
+            
+            # Crear PDF en memoria
+            buffer = BytesIO()
+            doc = SimpleDocTemplate(buffer, pagesize=letter)
+            elements = []
+            
+            # Estilos
+            styles = getSampleStyleSheet()
+            
+            # Título
+            elements.append(Paragraph(f"<b>DistriSulpi - Resumen de Pedidos</b>", styles['Title']))
+            elements.append(Paragraph(f"Fecha: {datetime.datetime.now().strftime('%d/%m/%Y')}", styles['Normal']))
+            elements.append(Paragraph("<br/>", styles['Normal']))
+            
+            # Procesar cada pedido
+            conn = self.get_db_connection()
+            cursor = conn.cursor(dictionary=True)
+            
+            for pedido_id in pedidos_ids:
+                # Obtener información del pedido
+                cursor.execute("""
+                SELECT p.id, p.cliente, p.zona, p.fecha, p.total
+                FROM pedidos p
+                WHERE p.id = %s
+                """, (pedido_id,))
+                
+                pedido = cursor.fetchone()
+                if not pedido:
+                    continue
+                
+                # Obtener detalles del pedido
+                cursor.execute("""
+                SELECT dp.*, pr.nombre as producto_nombre
+                FROM detalle_pedido dp
+                JOIN productos pr ON dp.producto_id = pr.id
+                WHERE dp.pedido_id = %s
+                """, (pedido_id,))
+                
+                detalles = cursor.fetchall()
+                
+                # Información del pedido
+                elements.append(Paragraph(f"<b>Pedido #{pedido_id}</b>", styles['Heading2']))
+                
+                # Información del cliente
+                data_cliente = [
+                    [Paragraph("<b>Cliente:</b>", styles['Normal']), pedido['cliente']],
+                    [Paragraph("<b>Zona:</b>", styles['Normal']), pedido['zona']],
+                    [Paragraph("<b>Fecha:</b>", styles['Normal']), pedido['fecha'].strftime('%d/%m/%Y %H:%M')]
+                ]
+                
+                tabla_cliente = Table(data_cliente, colWidths=[doc.width*0.2, doc.width*0.8])
+                tabla_cliente.setStyle(TableStyle([
+                    ('BACKGROUND', (0, 0), (0, -1), colors.lavender),
+                    ('TEXTCOLOR', (0, 0), (0, -1), colors.black),
+                    ('ALIGN', (0, 0), (0, -1), 'LEFT'),
+                    ('FONTNAME', (0, 0), (0, -1), 'Helvetica-Bold'),
+                    ('FONTSIZE', (0, 0), (-1, -1), 10),
+                    ('BOTTOMPADDING', (0, 0), (-1, -1), 6),
+                    ('BACKGROUND', (1, 0), (1, -1), colors.white),
+                    ('GRID', (0, 0), (-1, -1), 0.5, colors.grey),
+                ]))
+                
+                elements.append(tabla_cliente)
+                elements.append(Paragraph("<br/>", styles['Normal']))
+                
+                # Detalles del pedido
+                data = [["Producto", "Cantidad", "Precio Unit.", "Subtotal"]]
+                
+                for detalle in detalles:
+                    nombre_producto = detalle['producto_nombre']
+                    if len(nombre_producto) > 30:
+                        nombre_producto = nombre_producto[:27] + "..."
+                    
+                    data.append([
+                        nombre_producto,
+                        str(detalle['cantidad']),
+                        f"${float(detalle['precio_unitario']):.2f}",
+                        f"${float(detalle['subtotal']):.2f}"
+                    ])
+                
+                # Fila de total
+                data.append(["", "", "TOTAL", f"${float(pedido['total']):.2f}"])
+                
+                # Crear tabla de detalles
+                col_widths = [doc.width*0.5, doc.width*0.1, doc.width*0.2, doc.width*0.2]
+                table = Table(data, colWidths=col_widths)
+                
+                table.setStyle(TableStyle([
+                    ('BACKGROUND', (0, 0), (-1, 0), colors.purple),
+                    ('TEXTCOLOR', (0, 0), (-1, 0), colors.whitesmoke),
+                    ('ALIGN', (0, 0), (-1, 0), 'CENTER'),
+                    ('FONTNAME', (0, 0), (-1, 0), 'Helvetica-Bold'),
+                    ('FONTSIZE', (0, 0), (-1, 0), 12),
+                    ('BOTTOMPADDING', (0, 0), (-1, 0), 12),
+                    ('BACKGROUND', (0, 1), (-1, -2), colors.beige),
+                    ('TEXTCOLOR', (0, 1), (-1, -1), colors.black),
+                    ('ALIGN', (0, 0), (0, -1), 'LEFT'),
+                    ('ALIGN', (1, 0), (1, -1), 'CENTER'),
+                    ('ALIGN', (2, 0), (3, -1), 'RIGHT'),
+                    ('VALIGN', (0, 0), (-1, -1), 'MIDDLE'),
+                    ('FONTNAME', (2, -1), (-1, -1), 'Helvetica-Bold'),
+                    ('GRID', (0, 0), (-1, -2), 1, colors.black),
+                    ('LINEABOVE', (0, -1), (-1, -1), 1, colors.black),
+                    ('GRID', (2, -1), (-1, -1), 1, colors.black),
+                ]))
+                
+                elements.append(table)
+                elements.append(Paragraph("<br/><br/>", styles['Normal']))
+                
+                # Separador entre pedidos
+                if pedido_id != pedidos_ids[-1]:
+                    elements.append(Paragraph("<hr/>", styles['Normal']))
+                    elements.append(Paragraph("<br/>", styles['Normal']))
+            
+            cursor.close()
+            conn.close()
+            
+            # Generar PDF
+            doc.build(elements)
+            
+            # Obtener el contenido del PDF
+            pdf_content = buffer.getvalue()
+            buffer.close()
+            
+            return pdf_content, "Reporte múltiple generado correctamente"
+        except Exception as e:
+            return None, f"Error al generar reporte múltiple: {e}"
+
 # Implementación de la interfaz de usuario con Flet
 def main(page: ft.Page):
     # Instancia de la aplicación
     app = DistriSulpiApp()
-    fecha_pedido = datetime.datetime.now()
+    
     # Configuración de la página con tema personalizado
     page.title = "DistriSulpi 📦"
     page.theme_mode = ft.ThemeMode.DARK
     page.padding = 10
     page.scroll = ft.ScrollMode.AUTO
-    # Variable para almacenar la fecha actual del pedido
-    fecha_actual = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-    # Variables para el pedido actual
-    current_order = []
-    cliente_actual = ""
-    zona_actual = ""
+    
     # Tema personalizado con colores más atractivos
     page.theme = ft.Theme(
         color_scheme_seed=ft.Colors.PURPLE,
@@ -670,9 +832,13 @@ def main(page: ft.Page):
     current_order = []
     cliente_actual = ""
     zona_actual = ""
+    fecha_pedido = datetime.datetime.now()  # Nueva variable para la fecha personalizada
     
     # Para prevenir la carga múltiple de componentes
     components_loaded = False
+    
+    # Referencia a la página principal para menú lateral
+    principal_view = None
     
     # ---------- COMPONENTES DE LA INTERFAZ ----------
     
@@ -693,101 +859,6 @@ def main(page: ft.Page):
             bottom_right=5
         ),
         padding=5
-    )
-    # Selector de fecha
-    fecha_picker = ft.DatePicker(
-        on_change=lambda e: actualizar_fecha(e.control.value),
-        first_date=datetime.datetime(2020, 1, 1),
-        last_date=datetime.datetime(2030, 12, 31)
-    )
-    page.overlay.append(fecha_picker)
-
-    fecha_field = ft.TextField(
-        label="Fecha (DD/MM/AAAA)",
-        value=datetime.datetime.now().strftime("%d/%m/%Y"),
-        width=page.width - 20 if page.width < 600 else 250,
-        hint_text="Ej: 15/05/2025",
-        helper_text="Ingresa la fecha en formato DD/MM/AAAA"
-    )
-
-    hora_field = ft.TextField(
-        label="Hora (HH:MM)",
-        value=datetime.datetime.now().strftime("%H:%M"),
-        width=page.width - 20 if page.width < 600 else 150,
-        keyboard_type=ft.KeyboardType.NUMBER,
-        hint_text="Ej: 14:30",
-        helper_text="Ingresa la hora en formato HH:MM"
-    )
-
-    # Botón para actualizar la fecha/hora de forma explícita
-    actualizar_fecha_btn = ft.ElevatedButton(
-        text="Actualizar fecha/hora",
-        icon=ft.Icons.UPDATE,
-        on_click=lambda _: actualizar_fecha_hora()
-    )
-    def actualizar_fecha_hora():
-        nonlocal fecha_pedido
-        try:
-            # Obtener valores de los campos
-            fecha_str = fecha_field.value
-            hora_str = hora_field.value
-            
-            # Validar que ambos campos tengan valores
-            if not fecha_str or not hora_str:
-                return
-            
-            # Completar la hora con segundos si es necesario
-            if len(hora_str) == 5:  # formato HH:MM
-                hora_str += ":00"
-                
-            # Intentar convertir a datetime
-            nueva_fecha = datetime.datetime.strptime(f"{fecha_str} {hora_str}", "%d/%m/%Y %H:%M:%S")
-            
-            # Si la conversión fue exitosa, actualizar la variable
-            fecha_pedido = nueva_fecha
-            
-            # Mostrar confirmación al usuario
-            page.snack_bar = ft.SnackBar(
-                content=ft.Text(f"Fecha del pedido actualizada: {fecha_str} {hora_str}")
-            )
-            page.snack_bar.open = True
-            page.update()
-            
-        except ValueError:
-            # Si hay un error en el formato, mostrar mensaje
-            page.snack_bar = ft.SnackBar(
-                content=ft.Text("Error: Formato de fecha u hora inválido. Use DD/MM/AAAA para fecha y HH:MM para hora.")
-            )
-            page.snack_bar.open = True
-            page.update()
-
-    # Eventos para los campos
-    def on_fecha_change(e):
-        actualizar_fecha_hora()
-
-    def on_hora_change(e):
-        actualizar_fecha_hora()
-
-    # Configurar los eventos
-    fecha_field.on_blur = on_fecha_change
-    fecha_field.on_submit = on_fecha_change
-    hora_field.on_blur = on_hora_change
-    hora_field.on_submit = on_hora_change
-
-    fecha_btn = ft.IconButton(
-        icon=ft.Icons.CALENDAR_MONTH,
-        tooltip="Seleccionar fecha",
-        # Método correcto según la versión de Flet
-        on_click=lambda _: setattr(fecha_picker, 'open', True),  # Usa .open = True en lugar de .pick_date()
-        icon_color=ft.Colors.PURPLE_400,
-        icon_size=30
-    )
-
-    # Botón para abrir el selector de fecha
-    abrir_fecha_btn = ft.IconButton(
-        icon=ft.Icons.CALENDAR_MONTH,
-        tooltip="Seleccionar fecha",
-        on_click=lambda _: fecha_picker.pick_date(),
     )
     
     # Dropdown para seleccionar zona
@@ -810,7 +881,8 @@ def main(page: ft.Page):
         height=300,
         spacing=10,
         padding=10,
-        auto_scroll=True
+        auto_scroll=True,
+        visible=False  # Inicialmente oculta
     )
     
     # Cantidad de producto
@@ -827,6 +899,30 @@ def main(page: ft.Page):
         width=150,
         keyboard_type=ft.KeyboardType.NUMBER,
         read_only=True
+    )
+    
+    # Contenedor para fecha de pedido
+    fecha_pedido_container = ft.Container(
+        content=ft.Row([
+            ft.Text("Fecha del pedido:", size=14),
+            ft.IconButton(
+                icon=ft.Icons.CALENDAR_TODAY,
+                icon_color=ft.Colors.BLUE,
+                tooltip="Cambiar fecha",
+                on_click=lambda _: mostrar_calendario()
+            ),
+            ft.Text(
+                datetime.datetime.now().strftime('%d/%m/%Y'),
+                size=16,
+                weight=ft.FontWeight.BOLD,
+                color=ft.Colors.BLUE
+            )
+        ]),
+        padding=10,
+        border=ft.border.all(1, ft.Colors.BLUE_100),
+        border_radius=10,
+        margin=5,
+        visible=False  # Inicialmente oculto
     )
     
     # Tabla para mostrar el pedido actual
@@ -901,7 +997,7 @@ def main(page: ft.Page):
     page.overlay.append(csv_upload)
     
     csv_upload_btn = ft.ElevatedButton(
-        "Cargar Productos desde CSV",
+        "Cargar Productos",
         icon=ft.Icons.UPLOAD_FILE,
         on_click=lambda _: csv_upload.pick_files(
             allow_multiple=False,
@@ -920,7 +1016,7 @@ def main(page: ft.Page):
     
     # Botón para mostrar estadísticas
     estadisticas_btn = ft.ElevatedButton(
-        "Estadísticas de Ventas",
+        "Estadísticas",
         icon=ft.Icons.BAR_CHART,
         on_click=lambda _: toggle_estadisticas()
     )
@@ -936,7 +1032,7 @@ def main(page: ft.Page):
     
     # Botón para mostrar predicción
     prediccion_btn = ft.ElevatedButton(
-        "Predicción de Ventas (BETA)",
+        "Predicción",
         icon=ft.Icons.TRENDING_UP,
         on_click=lambda _: toggle_prediccion()
     )
@@ -961,100 +1057,29 @@ def main(page: ft.Page):
     
     # Botón para mostrar todos los pedidos
     ver_pedidos_btn = ft.ElevatedButton(
-        "Ver Todos los Pedidos",
+        "Ver Pedidos",
         icon=ft.Icons.LIST_ALT,
         on_click=lambda _: toggle_ver_pedidos()
     )
-    # ---------- ACTUALIZACIÓN DE FECHA Y HORA ---------
-    # Función para actualizar la fecha cuando cambia el DatePicker
-    def actualizar_fecha_manual(e):
-        fecha_valor = e.control.value
-        
-        # Validar formato de fecha
-        try:
-            # Intentar convertir la fecha ingresada
-            fecha_dt = datetime.datetime.strptime(fecha_valor, "%d/%m/%Y")
-            
-            # Si es válida, actualizar
-            hora_valor = hora_field.value
-            fecha_hora = f"{fecha_dt.strftime('%Y-%m-%d')} {hora_valor}:00"
-            
-            global fecha_actual
-            fecha_actual = datetime.datetime.strptime(fecha_hora, "%Y-%m-%d %H:%M:%S")
-            
-            # Notificar al usuario
-            page.snack_bar = ft.SnackBar(content=ft.Text(f"Fecha cambiada: {fecha_valor}"))
-            page.snack_bar.open = True
-            page.update()
-        except ValueError:
-            page.snack_bar = ft.SnackBar(content=ft.Text("Formato de fecha inválido. Use DD/MM/AAAA"))
-            page.snack_bar.open = True
-            page.update()
-    def actualizar_fecha(date_obj):
-        if date_obj:
-            # La fecha viene como string ISO (YYYY-MM-DD)
-            fecha_iso = date_obj.split('T')[0] if 'T' in date_obj else date_obj
-            
-            try:
-                # Convertir a datetime
-                fecha_dt = datetime.datetime.strptime(fecha_iso, "%Y-%m-%d")
-                
-                # Actualizar el campo visible con formato DD/MM/YYYY
-                fecha_field.value = fecha_dt.strftime("%d/%m/%Y")
-                fecha_field.update()
-                
-                # Obtener la hora actual del campo
-                hora_actual = hora_field.value
-                
-                # Combinar fecha y hora para tener datetime completo
-                fecha_hora = f"{fecha_iso} {hora_actual}:00"
-                global fecha_actual
-                fecha_actual = datetime.datetime.strptime(fecha_hora, "%Y-%m-%d %H:%M:%S")
-                
-                # Notificar al usuario
-                page.snack_bar = ft.SnackBar(content=ft.Text(f"Fecha cambiada: {fecha_field.value}"))
-                page.snack_bar.open = True
-                page.update()
-            except Exception as e:
-                page.snack_bar = ft.SnackBar(content=ft.Text(f"Error al procesar fecha: {e}"))
-                page.snack_bar.open = True
-                page.update()
-
-    def actualizar_hora(e):
-        hora_valor = e.control.value
-        
-        # Validar formato de hora
-        if hora_valor and len(hora_valor) == 5 and ":" in hora_valor:
-            try:
-                # Obtener la fecha seleccionada actualmente
-                fecha_seleccionada = fecha_field.value
-                
-                # Convertir al formato datetime
-                fecha_dt = datetime.datetime.strptime(f"{fecha_seleccionada} {hora_valor}", "%d/%m/%Y %H:%M")
-                
-                # Guardar el valor completo
-                global fecha_actual
-                fecha_actual = fecha_dt
-                
-                # Notificar al usuario
-                page.snack_bar = ft.SnackBar(content=ft.Text(f"Hora cambiada: {hora_valor}"))
-                page.snack_bar.open = True
-                page.update()
-            except ValueError:
-                page.snack_bar = ft.SnackBar(content=ft.Text("Formato de hora inválido. Use HH:MM"))
-                page.snack_bar.open = True
-                page.update()
-
-    def setup_hora_field_events():
-        hora_field.on_submit = actualizar_hora
-        hora_field.on_blur = actualizar_hora
-        
-    def configurar_eventos_fecha():
-        # Añadir eventos para procesamiento manual
-        hora_field.on_submit = actualizar_hora
-        hora_field.on_blur = actualizar_hora
-        fecha_field.on_submit = actualizar_fecha_manual
-        fecha_field.on_blur = actualizar_fecha_manual
+    
+    # Botón para compartir pedidos
+    compartir_pedidos_btn = ft.ElevatedButton(
+        "Compartir",
+        icon=ft.Icons.SHARE,
+        on_click=lambda _: seleccionar_pedidos_para_compartir()
+    )
+    
+    # Botón para borrar todos los productos del pedido
+    borrar_productos_btn = ft.ElevatedButton(
+        "Borrar todo",
+        icon=ft.Icons.DELETE_SWEEP,
+        style=ft.ButtonStyle(
+            color=ft.Colors.WHITE,
+            bgcolor=ft.Colors.RED
+        ),
+        on_click=lambda _: confirmar_borrar_todos_productos()
+    )
+    
     # ---------- FUNCIONES DE LA INTERFAZ ----------
     
     def set_cliente(value):
@@ -1068,6 +1093,7 @@ def main(page: ft.Page):
         else:
             sugerencias_clientes_container.visible = False
             sugerencias_clientes_container.update()
+    
     def seleccionar_cliente(e):
         # Obtener el nombre del cliente seleccionado
         nombre_cliente = e.control.content.value
@@ -1079,7 +1105,8 @@ def main(page: ft.Page):
         # Ocultar sugerencias
         sugerencias_clientes_container.visible = False
         sugerencias_clientes_container.update()
-        # Función para mostrar las sugerencias
+    
+    # Función para mostrar las sugerencias
     def mostrar_sugerencias_cliente(sugerencias):
         # Limpiar contenedor de sugerencias
         contenido = ft.Column([], tight=True)
@@ -1106,8 +1133,33 @@ def main(page: ft.Page):
     def set_zona(value):
         nonlocal zona_actual
         zona_actual = value
-        producto_seleccionado = None
+    
+    # Nueva función para mostrar el calendario y seleccionar fecha
+    def mostrar_calendario():
+        """Muestra el calendario personalizado para seleccionar fecha del pedido"""
+        def on_fecha_seleccionada(fecha_seleccionada):
+            nonlocal fecha_pedido
+            # Preservar la hora actual
+            fecha_actual = fecha_pedido if isinstance(fecha_pedido, datetime.datetime) else datetime.datetime.now()
+            nueva_fecha = datetime.datetime.combine(fecha_seleccionada.date(), fecha_actual.time())
+            fecha_pedido = nueva_fecha
+            
+            # Actualizar el texto de la fecha
+            fecha_label = fecha_pedido_container.content.controls[2]
+            fecha_label.value = fecha_pedido.strftime('%d/%m/%Y')
+            fecha_pedido_container.update()
+            
+            # Mostrar confirmación
+            page.snack_bar = ft.SnackBar(
+                content=ft.Text(f"Fecha cambiada a: {fecha_pedido.strftime('%d/%m/%Y')}"),
+                bgcolor=ft.Colors.GREEN
+            )
+            page.snack_bar.open = True
+            page.update()
         
+        mostrar_calendario_personalizado(on_fecha_seleccionada, fecha_pedido)
+
+    
     def aplicar_mejoras_movil():
         """Aplica todas las mejoras para dispositivos móviles"""
         # Detectar si estamos en móvil
@@ -1133,7 +1185,14 @@ def main(page: ft.Page):
             else:
                 page.panel_flotante.visible = False
                 page.panel_flotante.update()
-    # MODIFICACIÓN: Ahora la función add_product_to_list incluye la lógica para agregar al tocar
+        
+        # Mostrar u ocultar contenedor de fecha
+        if current_order:
+            fecha_pedido_container.visible = True
+        else:
+            fecha_pedido_container.visible = False
+        fecha_pedido_container.update()
+    
     def add_product_to_list(producto):
         # Función interna para manejar el clic en el producto
         def on_producto_click(e):
@@ -1191,70 +1250,163 @@ def main(page: ft.Page):
                 page.snack_bar.open = True
                 
                 # Actualizar tabla de pedidos
-                actualizar_tabla_pedido()
+                try:
+                    actualizar_tabla_pedido()
+                    pedido_actual_table.update()
+                except Exception as e:
+                    print(f"Error actualizando tabla: {e}")
                 
                 # Mostrar panel flotante con la información actualizada
                 total = sum(item["subtotal"] for item in current_order)
                 actualizar_panel_flotante(total)
                 
+                # Mostrar el contenedor de fecha si es el primer producto
+                if len(current_order) == 1:
+                    fecha_pedido_container.visible = True
+                    fecha_pedido_container.update()
+                
                 # Restablecer cantidad a 1 para el próximo producto
                 cantidad_field.value = "1"
                 cantidad_field.update()
+                
+                # Ocultar lista de productos después de agregar (solo en móvil)
+                is_mobile = page.width < 800
+                if is_mobile:
+                    productos_list.visible = False
+                    productos_list.update()
                 
             except Exception as e:
                 page.snack_bar = ft.SnackBar(content=ft.Text(f"Error: {str(e)}"))
                 page.snack_bar.open = True
                 page.update()
         
-        # Crear el elemento visual mejorado para móviles
-        productos_list.controls.append(
-            ft.Container(
-                content=ft.ListTile(
-                    leading=ft.Icon(ft.Icons.INVENTORY_2, 
-                                color=ft.Colors.GREEN if producto["stock"] > 10 
-                                else ft.Colors.ORANGE if producto["stock"] > 0 
-                                else ft.Colors.RED),
-                    title=ft.Text(
-                        producto["nombre"], 
-                        size=16, 
-                        weight=ft.FontWeight.BOLD,
-                        overflow=ft.TextOverflow.ELLIPSIS,
-                    ),
-                    subtitle=ft.Column([
-                        ft.Text(f"${producto['precio_venta']:.2f}", 
-                            color=ft.Colors.BLUE),
-                        ft.Text(f"Stock: {producto['stock']}", 
+        # Detectar si estamos en móvil
+        is_mobile = page.width < 800
+        
+        if is_mobile:
+            # VERSIÓN MÓVIL COMPACTA - Elementos más pequeños
+            productos_list.controls.append(
+                ft.Container(
+                    content=ft.Row([
+                        # Icono más pequeño
+                        ft.Icon(
+                            ft.Icons.INVENTORY_2, 
                             color=ft.Colors.GREEN if producto["stock"] > 10 
                             else ft.Colors.ORANGE if producto["stock"] > 0 
-                            else ft.Colors.RED)
-                    ]),
-                    # Usar la función local para manejar el clic
-                    on_click=on_producto_click
-                ),
-                border=ft.border.all(1, ft.Colors.BLACK26),
-                border_radius=10,
-                margin=5,
-                padding=10
+                            else ft.Colors.RED,
+                            size=16  # Icono más pequeño
+                        ),
+                        # Información del producto en una columna compacta
+                        ft.Column([
+                            # Nombre del producto (más pequeño)
+                            ft.Text(
+                                producto["nombre"][:20] + ('...' if len(producto["nombre"]) > 20 else ''),
+                                size=12,  # Texto más pequeño
+                                weight=ft.FontWeight.BOLD,
+                                overflow=ft.TextOverflow.ELLIPSIS,
+                                max_lines=1
+                            ),
+                            # Precio y stock en una fila horizontal para ahorrar espacio
+                            ft.Row([
+                                ft.Text(f"${producto['precio_venta']:.1f}", 
+                                    color=ft.Colors.BLUE,
+                                    size=11),  # Texto más pequeño
+                                ft.Text(" | ", color=ft.Colors.GREY, size=10),
+                                ft.Text(f"Stock: {producto['stock']}", 
+                                    color=ft.Colors.GREEN if producto["stock"] > 10 
+                                    else ft.Colors.ORANGE if producto["stock"] > 0 
+                                    else ft.Colors.RED,
+                                    size=10)  # Texto más pequeño
+                            ], spacing=2)
+                        ], 
+                        spacing=2,  # Reducir espaciado
+                        expand=True),
+                        # Botón + para agregar (más pequeño)
+                        ft.IconButton(
+                            icon=ft.Icons.ADD_CIRCLE,
+                            icon_color=ft.Colors.GREEN,
+                            icon_size=18,  # Botón más pequeño
+                            tooltip="Agregar",
+                            on_click=on_producto_click
+                        )
+                    ], 
+                    alignment=ft.MainAxisAlignment.SPACE_BETWEEN,
+                    spacing=5),  # Reducir espaciado
+                    
+                    # Contenedor más compacto
+                    border=ft.border.all(0.5, ft.Colors.BLACK26),  # Borde más fino
+                    border_radius=5,  # Esquinas menos redondeadas
+                    margin=2,  # Margen más pequeño
+                    padding=ft.padding.symmetric(horizontal=8, vertical=4),  # Padding más pequeño
+                    bgcolor=ft.Colors.with_opacity(0.02, ft.Colors.BLUE_GREY),
+                    height=45,  # Altura fija más pequeña
+                    on_click=on_producto_click  # También permite hacer clic en todo el contenedor
+                )
             )
-        )
+        else:
+            # VERSIÓN ESCRITORIO - Sin cambios (mantener el diseño original)
+            productos_list.controls.append(
+                ft.Container(
+                    content=ft.ListTile(
+                        leading=ft.Icon(ft.Icons.INVENTORY_2, 
+                                    color=ft.Colors.GREEN if producto["stock"] > 10 
+                                    else ft.Colors.ORANGE if producto["stock"] > 0 
+                                    else ft.Colors.RED),
+                        title=ft.Text(
+                            producto["nombre"], 
+                            size=16, 
+                            weight=ft.FontWeight.BOLD,
+                            overflow=ft.TextOverflow.ELLIPSIS,
+                        ),
+                        subtitle=ft.Column([
+                            ft.Text(f"${producto['precio_venta']:.2f}", 
+                                color=ft.Colors.BLUE),
+                            ft.Text(f"Stock: {producto['stock']}", 
+                                color=ft.Colors.GREEN if producto["stock"] > 10 
+                                else ft.Colors.ORANGE if producto["stock"] > 0 
+                                else ft.Colors.RED)
+                        ]),
+                        on_click=on_producto_click
+                    ),
+                    border=ft.border.all(1, ft.Colors.BLACK26),
+                    border_radius=10,
+                    margin=5,
+                    padding=10
+                )
+            )
 
-
-    
+    # También necesitas modificar la función filtrar_productos para aumentar ligeramente la altura en móvil
     def filtrar_productos(query):
+        try:
+            productos_list.controls.clear()
+            productos_list.update()  # Actualizar la lista primero
+        except:
+            pass  # Ignorar errores de limpieza
+        
+        # Resto del código igual...
+        is_mobile = page.width < 800
+        if is_mobile:
+            if query:
+                productos_list.visible = True
+                productos_list.height = 500
+            else:
+                productos_list.visible = False
+        
+        # Mostrar la lista solo si hay texto para filtrar (en móvil)
+        productos_list.controls = []  # Usar esto en su lugar
         productos = app.get_productos()
-        productos_list.controls.clear()
         
         if not query:
-            for producto in productos:
-                add_product_to_list(producto)
+            if not is_mobile:  # En escritorio siempre mostramos productos
+                for producto in productos:
+                    add_product_to_list(producto)
         else:
             query = query.lower()
             for producto in productos:
                 if query in producto["nombre"].lower():
                     add_product_to_list(producto)
         
-        # En lugar de actualizar solo el ListView, actualizar la página completa
-        # Esto soluciona el problema del AssertionError
+        # Actualizar la página
         page.update()
     
     # MODIFICACIÓN: Nueva función para actualizar cantidad directa desde la tabla
@@ -1283,6 +1435,7 @@ def main(page: ft.Page):
             # Revertir al valor anterior
             actualizar_tabla_pedido()
             page.update()
+    
     def actualizar_panel_flotante(total=0):
         """Actualiza la información del panel flotante"""
         if not hasattr(page, 'panel_flotante') or page.panel_flotante is None:
@@ -1300,6 +1453,7 @@ def main(page: ft.Page):
                 page.panel_flotante.visible = False
                 
             page.panel_flotante.update()
+    
     def finalizar_pedido_desde_dialogo(dlg):
         """Cierra el diálogo y llama a finalizar pedido"""
         close_dlg(dlg)
@@ -1459,34 +1613,73 @@ def main(page: ft.Page):
                 color=ft.Colors.BLACK54,
                 offset=ft.Offset(0, 2)
             ),
-            animate=ft.animation.Animation(500, ft.AnimationCurve.DECELERATE),
+            # CORRECCIÓN: Sintaxis correcta para animación en Flet actual
+            # Eliminamos la animación que causa problemas
             visible=False,  # Inicialmente oculto hasta que haya productos
         )
         
         return panel
 
-
-
+    def crear_enlace_descarga_pdf(pdf_content, filename):
+        """
+        Crea un enlace de descarga para PDF que funciona en móvil
+        """
+        try:
+            # Generar ID único para el archivo
+            file_id = str(uuid.uuid4())
+            
+            # Almacenar el PDF en memoria temporalmente
+            PDF_DOWNLOADS[file_id] = {
+                'content': pdf_content,
+                'filename': filename,
+                'timestamp': datetime.datetime.now()
+            }
+            
+            # Limpiar archivos antiguos (más de 1 hora)
+            current_time = datetime.datetime.now()
+            expired_ids = [
+                fid for fid, data in PDF_DOWNLOADS.items() 
+                if (current_time - data['timestamp']).seconds > 3600
+            ]
+            for fid in expired_ids:
+                del PDF_DOWNLOADS[fid]
+            
+            return file_id
+        except Exception as e:
+            print(f"Error creando enlace de descarga: {e}")
+            return None
     
     # MODIFICACIÓN: Actualizar tabla de pedidos con edición directa de cantidad
     def actualizar_tabla_pedido():
         """Actualiza la tabla de pedidos con mejor visualización para móviles"""
-        pedido_actual_table.rows.clear()
+        try:
+            pedido_actual_table.rows.clear()
+        except:
+            pedido_actual_table.rows = []
         
         # Detectar si estamos en móvil
         is_mobile = page.width < 800
         
         for i, item in enumerate(current_order):
-            # Cantidad para editar
+            # Cantidad para editar - hacer más compacto
             cantidad_campo = ft.TextField(
                 value=str(item["cantidad"]),
-                width=50 if is_mobile else 60,
+                width=40 if is_mobile else 60,  # Reducir ancho en móvil
                 height=30 if is_mobile else None,
                 text_align=ft.TextAlign.CENTER,
                 border_color=ft.Colors.BLUE_200,
                 keyboard_type=ft.KeyboardType.NUMBER,
                 on_submit=lambda e, idx=i: actualizar_cantidad_directa(e.control.value, idx),
-                text_size=13 if is_mobile else None
+                text_size=12 if is_mobile else None  # Texto más pequeño
+            )
+            
+            # Botón de eliminar más pequeño en móvil
+            boton_eliminar = ft.IconButton(
+                icon=ft.Icons.DELETE,
+                tooltip="Eliminar",
+                on_click=lambda _, idx=i: eliminar_item_pedido(idx),
+                icon_color=ft.Colors.RED,
+                icon_size=16 if is_mobile else 20  # Tamaño más pequeño en móvil
             )
             
             if is_mobile:
@@ -1497,38 +1690,23 @@ def main(page: ft.Page):
                             # Nombre producto (más estrecho)
                             ft.DataCell(
                                 ft.Text(
-                                    item["producto_nombre"][:15] + ('...' if len(item["producto_nombre"]) > 15 else ''),
+                                    item["producto_nombre"][:12] + ('...' if len(item["producto_nombre"]) > 12 else ''),  # Acortar más
                                     overflow=ft.TextOverflow.ELLIPSIS,
                                     max_lines=1,
-                                    size=12
+                                    size=11  # Texto más pequeño
                                 )
                             ),
                             # Cantidad
                             ft.DataCell(cantidad_campo),
-                            # Precio unitario
+                            # Precio unitario - ahora con texto más pequeño
                             ft.DataCell(
                                 ft.Text(
-                                    f"${item['precio_unitario']:.2f}",
-                                    size=12
+                                    f"${item['precio_unitario']:.1f}",  # Reducir a 1 decimal
+                                    size=11
                                 )
                             ),
-                            # Subtotal con botón eliminar
-                            ft.DataCell(
-                                ft.Row([
-                                    ft.Text(
-                                        f"${item['subtotal']:.2f}", 
-                                        size=12,
-                                        weight=ft.FontWeight.BOLD
-                                    ),
-                                    ft.IconButton(
-                                        icon=ft.Icons.DELETE,
-                                        tooltip="Eliminar",
-                                        on_click=lambda _, idx=i: eliminar_item_pedido(idx),
-                                        icon_color=ft.Colors.RED,
-                                        icon_size=16
-                                    )
-                                ], spacing=2, alignment=ft.MainAxisAlignment.END)
-                            )
+                            # Botón eliminar separado para asegurar que sea visible
+                            ft.DataCell(boton_eliminar)
                         ],
                         # Alternar colores para mejor visibilidad
                         color=ft.Colors.with_opacity(0.03, ft.Colors.BLUE_100) if i % 2 == 0 else None
@@ -1543,14 +1721,7 @@ def main(page: ft.Page):
                             ft.DataCell(cantidad_campo),
                             ft.DataCell(ft.Text(f"${item['precio_unitario']:.2f}")),
                             ft.DataCell(ft.Text(f"${item['subtotal']:.2f}")),
-                            ft.DataCell(
-                                ft.IconButton(
-                                    icon=ft.Icons.DELETE,
-                                    tooltip="Eliminar",
-                                    on_click=lambda _, idx=i: eliminar_item_pedido(idx),
-                                    icon_color=ft.Colors.RED
-                                )
-                            )
+                            ft.DataCell(boton_eliminar)
                         ]
                     )
                 )
@@ -1563,14 +1734,14 @@ def main(page: ft.Page):
                 pedido_actual_table.rows.append(
                     ft.DataRow(
                         cells=[
-                            ft.DataCell(ft.Text("TOTAL", weight=ft.FontWeight.BOLD, size=13)),
-                            ft.DataCell(ft.Text(f"{len(current_order)} items", size=12)),
+                            ft.DataCell(ft.Text("TOTAL", weight=ft.FontWeight.BOLD, size=12)),
+                            ft.DataCell(ft.Text(f"{len(current_order)}", size=12)),  # Más compacto
                             ft.DataCell(ft.Text("")),
                             ft.DataCell(
                                 ft.Text(
-                                    f"${total:.2f}", 
+                                    f"${total:.1f}",  # Reducir a 1 decimal
                                     weight=ft.FontWeight.BOLD, 
-                                    size=15,
+                                    size=12,
                                     color=ft.Colors.GREEN_700
                                 )
                             )
@@ -1599,8 +1770,14 @@ def main(page: ft.Page):
         # Actualizar contador de productos en el panel flotante si existe
         if hasattr(page, 'panel_flotante') and page.panel_flotante is not None:
             actualizar_panel_flotante(total)
-
-    
+        
+        # Actualizar visibilidad del botón para borrar productos
+        if current_order:
+            borrar_productos_btn.visible = True
+        else:
+            borrar_productos_btn.visible = False
+        borrar_productos_btn.update()
+        
     def editar_item_pedido(index):
         item = current_order[index]
         
@@ -1690,45 +1867,59 @@ def main(page: ft.Page):
         # Actualizar panel flotante
         total = sum(item["subtotal"] for item in current_order) if current_order else 0
         actualizar_panel_flotante(total)
+        
+        # Ocultar contenedor de fecha si no hay productos
+        if not current_order:
+            fecha_pedido_container.visible = False
+            fecha_pedido_container.update()
 
     def close_dlg(dlg):
         dlg.open = False
         page.update()
     
-    # Nueva función para reiniciar los campos
-    def reset_campos_pedido():
-        """Reinicia todos los campos del pedido y variables relacionadas"""
-        global cliente_actual, zona_actual
+    # Nueva función para confirmar antes de borrar todos los productos
+    def confirmar_borrar_todos_productos():
+        if not current_order:
+            return
+            
+        dlg = ft.AlertDialog(
+            title=ft.Text("Confirmar eliminación"),
+            content=ft.Text("¿Está seguro de eliminar todos los productos del pedido actual?"),
+            actions=[
+                ft.TextButton("Cancelar", on_click=lambda _: close_dlg(dlg)),
+                ft.ElevatedButton(
+                    "Eliminar Todo", 
+                    icon=ft.Icons.DELETE_FOREVER,
+                    on_click=lambda _: borrar_todos_productos(dlg),
+                    style=ft.ButtonStyle(
+                        color=ft.Colors.WHITE,
+                        bgcolor=ft.Colors.RED
+                    )
+                )
+            ],
+            modal=True
+        )
         
-        # Limpiar variables globales
-        cliente_actual = ""
-        zona_actual = ""
-        
-        # Limpiar pedido actual
+        page.dialog = dlg
+        dlg.open = True
+        page.update()
+    
+    def borrar_todos_productos(dlg):
+        """Borra todos los productos del pedido actual"""
         current_order.clear()
         actualizar_tabla_pedido()
+        fecha_pedido_container.visible = False
+        fecha_pedido_container.update()
+        close_dlg(dlg)
         
-        # Limpiar campos del formulario
-        cliente_field.value = ""
-        zona_dropdown.value = None
-        producto_search.value = ""
-        cantidad_field.value = "1"
-        precio_field.value = ""
-        
-        # NO resetear la fecha para facilitar múltiples ventas en la misma fecha
-        # fecha_field y hora_field se mantienen con sus valores actuales
-        
-        # Actualizar los controles
-        cliente_field.update()
-        zona_dropdown.update()
-        producto_search.update()
-        cantidad_field.update()
-        precio_field.update()
-        
-        # Actualizar el panel flotante si existe
-        if hasattr(page, 'panel_flotante') and page.panel_flotante is not None:
-            actualizar_panel_flotante(0)
-        
+        # Notificar
+        page.snack_bar = ft.SnackBar(
+            content=ft.Text("Se han eliminado todos los productos"),
+            bgcolor=ft.Colors.RED_400
+        )
+        page.snack_bar.open = True
+        page.update()
+    
     # MODIFICACIÓN: Agregar opción para ver pedidos después de finalizar
     def finalizar_pedido():
         if not current_order:
@@ -1749,17 +1940,9 @@ def main(page: ft.Page):
             page.update()
             return
         
+        # Guardar pedido en la base de datos con la fecha personalizada
+        pedido_id = app.guardar_pedido(cliente_actual, zona_actual, current_order, fecha_pedido)
         
-        
-        
-        # Convertir fecha_actual a objeto datetime
-        try:
-            fecha_obj = datetime.datetime.strptime(fecha_actual, "%Y-%m-%d %H:%M:%S")
-            # Guardar pedido en la base de datos con la fecha personalizada
-            pedido_id = app.guardar_pedido(cliente_actual, zona_actual, current_order, fecha_obj)
-        except ValueError:
-            # Si hay un error con la fecha, usar la fecha actual del sistema | Usar la fecha personalizada
-            pedido_id = app.guardar_pedido(cliente_actual, zona_actual, current_order, fecha_pedido)
         if pedido_id:
             # Generar PDF de factura
             pdf_content, mensaje = app.generar_pdf_factura(pedido_id)
@@ -1773,15 +1956,21 @@ def main(page: ft.Page):
                 with open(temp_file, "wb") as f:
                     f.write(pdf_content)
                 
-                # Mostrar mensaje de éxito
+                # Mostrar mensaje de éxito con opciones
                 dlg_success = ft.AlertDialog(
                     title=ft.Text("Pedido Completado"),
                     content=ft.Column([
                         ft.Text(f"Pedido #{pedido_id} guardado correctamente"),
                         ft.Row([
-                            ft.TextButton(
+                            ft.ElevatedButton(
                                 "Descargar Factura",
+                                icon=ft.Icons.DOWNLOAD,
                                 on_click=lambda _: download_file(temp_file, f"factura_{pedido_id}.pdf")
+                            ),
+                            ft.ElevatedButton(
+                                "Compartir por WhatsApp",
+                                icon=ft.Icons.WHATSAPP,
+                                on_click=lambda _: compartir_por_whatsapp(pedido_id, cliente_actual)
                             )
                         ], alignment=ft.MainAxisAlignment.CENTER)
                     ], tight=True, spacing=20),
@@ -1794,11 +1983,6 @@ def main(page: ft.Page):
                     modal=True
                 )
                 
-                # Limpiar los campos y el pedido INMEDIATAMENTE después de guardar
-                # (independientemente de la acción del usuario en el diálogo)
-                reset_campos_pedido()
-                
-                # Mostrar el diálogo de éxito
                 page.dialog = dlg_success
                 dlg_success.open = True
                 page.update()
@@ -1811,39 +1995,254 @@ def main(page: ft.Page):
             page.snack_bar.open = True
             page.update()
     
-    # Nueva función para cerrar diálogo y ver pedidos
-    def close_dlg_and_ver_pedidos(dlg):
-        # Cerrar diálogo
-        dlg.open = False
-        page.update()
-        
-        # Ya no necesitamos resetear aquí porque lo hacemos inmediatamente después de guardar
-        # Pero lo mantenemos por consistencia
-        reset_campos_pedido()
-        
-        # Mostrar todos los pedidos
-        toggle_ver_pedidos()
-    
-    def close_dlg_and_reset(dlg):
-        # Cerrar diálogo
-        dlg.open = False
-        
-        # Ya no necesitamos resetear aquí porque lo hacemos inmediatamente después de guardar
-        # Pero por si acaso, lo llamamos de nuevo
-        reset_campos_pedido()
-        
-        # Actualizar pantalla
-        page.update()
-    
-    # 1. Mejorar la función download_file para que funcione en dispositivos móviles
-    def download_file(path, filename):
-        """Función mejorada para descargar archivos que funciona en móviles y web"""
+    # Nueva función para compartir pedido por WhatsApp
+    def compartir_por_whatsapp(pedido_id, cliente):
         try:
+            # Obtener información del pedido
+            conn = app.get_db_connection()
+            cursor = conn.cursor(dictionary=True)
+            
+            cursor.execute("""
+            SELECT p.*, DATE_FORMAT(p.fecha, '%d/%m/%Y') as fecha_formateada
+            FROM pedidos p
+            WHERE p.id = %s
+            """, (pedido_id,))
+            
+            pedido = cursor.fetchone()
+            
+            if not pedido:
+                page.snack_bar = ft.SnackBar(content=ft.Text("No se pudo obtener información del pedido"))
+                page.snack_bar.open = True
+                page.update()
+                return
+            
+            # Obtener detalles del pedido
+            cursor.execute("""
+            SELECT dp.*, p.nombre as producto_nombre
+            FROM detalle_pedido dp
+            JOIN productos p ON dp.producto_id = p.id
+            WHERE dp.pedido_id = %s
+            """, (pedido_id,))
+            
+            detalles = cursor.fetchall()
+            cursor.close()
+            conn.close()
+            
+            # Crear mensaje con formato para WhatsApp
+            mensaje = f"*PEDIDO #{pedido_id} - DistriSulpi*\n"
+            mensaje += f"*Cliente:* {cliente}\n"
+            mensaje += f"*Zona:* {pedido['zona']}\n"
+            mensaje += f"*Fecha:* {pedido['fecha_formateada']}\n\n"
+            
+            mensaje += "*Detalles del pedido:*\n"
+            for detalle in detalles:
+                mensaje += f"• {detalle['cantidad']} x {detalle['producto_nombre']} - ${float(detalle['precio_unitario']):.2f} c/u = ${float(detalle['subtotal']):.2f}\n"
+            
+            mensaje += f"\n*TOTAL: ${float(pedido['total']):.2f}*"
+            
+            # Codificar mensaje para URL
+            mensaje_codificado = urllib.parse.quote(mensaje)
+            
+            # Crear URL de WhatsApp
+            url_whatsapp = f"https://wa.me/?text={mensaje_codificado}"
+            
+            # Abrir en el navegador predeterminado
+            webbrowser.open(url_whatsapp)
+            
+        except Exception as e:
+            page.snack_bar = ft.SnackBar(content=ft.Text(f"Error al compartir: {str(e)}"))
+            page.snack_bar.open = True
+            page.update()
+    
+    # Nueva función para seleccionar pedidos y compartirlos juntos
+    def seleccionar_pedidos_para_compartir():
+        """Permite seleccionar varios pedidos para compartir o descargar"""
+        # Obtener todos los pedidos del día
+        conn = app.get_db_connection()
+        cursor = conn.cursor(dictionary=True)
+        today = datetime.datetime.now().strftime("%Y-%m-%d")
+        
+        cursor.execute("""
+        SELECT id, cliente, zona, fecha, total
+        FROM pedidos
+        WHERE DATE(fecha) = %s
+        ORDER BY fecha DESC
+        """, (today,))
+        
+        pedidos_hoy = cursor.fetchall()
+        cursor.close()
+        conn.close()
+        
+        if not pedidos_hoy:
+            page.snack_bar = ft.SnackBar(content=ft.Text("No hay pedidos para compartir hoy"))
+            page.snack_bar.open = True
+            page.update()
+            return
+        
+        # Crear checkboxes para seleccionar pedidos
+        lista_seleccion = ft.ListView(
+            spacing=5,
+            padding=10,
+            auto_scroll=True,
+            height=400
+        )
+        
+        # Mapa para asociar checkboxes con pedidos
+        mapa_checkboxes = {}
+        
+        for pedido in pedidos_hoy:
+            checkbox = ft.Checkbox(
+                label=f"#{pedido['id']} - {pedido['cliente']} - ${float(pedido['total']):.2f}",
+                value=False
+            )
+            mapa_checkboxes[checkbox] = pedido['id']
+            
+            lista_seleccion.controls.append(ft.Container(
+                content=checkbox,
+                border=ft.border.all(1, ft.Colors.GREY_400),
+                border_radius=5,
+                padding=10,
+                margin=5
+            ))
+        
+        # Función para manejar la selección
+        def confirmar_seleccion():
+            # Recopilar pedidos seleccionados
+            pedidos_seleccionados = []
+            for checkbox, pedido_id in mapa_checkboxes.items():
+                if checkbox.value:
+                    pedidos_seleccionados.append(pedido_id)
+            
+            if not pedidos_seleccionados:
+                page.snack_bar = ft.SnackBar(content=ft.Text("Selecciona al menos un pedido"))
+                page.snack_bar.open = True
+                page.update()
+                return
+            
+            # Cerrar diálogo de selección
+            close_dlg(dlg_seleccion)
+            
+            # Mostrar opciones: WhatsApp o Descargar PDF
+            dlg_opciones = ft.AlertDialog(
+                title=ft.Text("¿Qué deseas hacer con los pedidos seleccionados?"),
+                content=ft.Column([
+                    ft.ElevatedButton(
+                        "Enviar por WhatsApp",
+                        icon=ft.Icons.WHATSAPP,
+                        on_click=lambda _: compartir_multiple_pedidos_whatsapp(pedidos_seleccionados, dlg_opciones)
+                    ),
+                    ft.ElevatedButton(
+                        "Descargar PDF",
+                        icon=ft.Icons.PICTURE_AS_PDF,
+                        on_click=lambda _: descargar_multiple_pedidos_pdf(pedidos_seleccionados, dlg_opciones)
+                    ),
+                    ft.TextButton("Cancelar", on_click=lambda _: close_dlg(dlg_opciones))
+                ], alignment=ft.MainAxisAlignment.CENTER, spacing=10),
+                modal=True
+            )
+            
+            page.dialog = dlg_opciones
+            dlg_opciones.open = True
+            page.update()
+        
+        # Diálogo para selección de pedidos
+        dlg_seleccion = ft.AlertDialog(
+            title=ft.Text("Selecciona pedidos para compartir"),
+            content=ft.Column([
+                ft.Text("Selecciona los pedidos que deseas compartir:"),
+                lista_seleccion
+            ]),
+            actions=[
+                ft.TextButton("Cancelar", on_click=lambda _: close_dlg(dlg_seleccion)),
+                ft.ElevatedButton(
+                    "Continuar",
+                    on_click=lambda _: confirmar_seleccion()
+                )
+            ],
+            modal=True
+        )
+        
+        page.dialog = dlg_seleccion
+        dlg_seleccion.open = True
+        page.update()
+    
+    # Función para compartir múltiples pedidos por WhatsApp
+    def compartir_multiple_pedidos_whatsapp(pedidos_ids, dlg):
+        try:
+            close_dlg(dlg)
+            
+            # Obtener información de los pedidos
+            conn = app.get_db_connection()
+            cursor = conn.cursor(dictionary=True)
+            
+            # Crear mensaje con formato para WhatsApp
+            mensaje = f"*RESUMEN DE PEDIDOS - DistriSulpi*\n"
+            mensaje += f"*Fecha:* {datetime.datetime.now().strftime('%d/%m/%Y')}\n\n"
+            
+            # Procesar cada pedido
+            total_general = 0
+            
+            for pedido_id in pedidos_ids:
+                cursor.execute("""
+                SELECT p.*, DATE_FORMAT(p.fecha, '%d/%m/%Y') as fecha_formateada, c.cliente
+                FROM pedidos p
+                JOIN (SELECT id, cliente FROM pedidos WHERE id = %s) c ON p.id = c.id
+                WHERE p.id = %s
+                """, (pedido_id, pedido_id))
+                
+                pedido = cursor.fetchone()
+                
+                if not pedido:
+                    continue
+                
+                mensaje += f"*PEDIDO #{pedido_id} - {pedido['cliente']}*\n"
+                mensaje += f"*Zona:* {pedido['zona']}\n"
+                
+                # Obtener detalles del pedido
+                cursor.execute("""
+                SELECT dp.cantidad, dp.precio_unitario, dp.subtotal, p.nombre as producto_nombre
+                FROM detalle_pedido dp
+                JOIN productos p ON dp.producto_id = p.id
+                WHERE dp.pedido_id = %s
+                """, (pedido_id,))
+                
+                detalles = cursor.fetchall()
+                
+                for detalle in detalles:
+                    mensaje += f"• {detalle['cantidad']} x {detalle['producto_nombre']} - ${float(detalle['subtotal']):.2f}\n"
+                
+                mensaje += f"*Subtotal: ${float(pedido['total']):.2f}*\n\n"
+                total_general += float(pedido['total'])
+            
+            cursor.close()
+            conn.close()
+            
+            mensaje += f"*TOTAL GENERAL: ${total_general:.2f}*"
+            
+            # Codificar mensaje para URL
+            mensaje_codificado = urllib.parse.quote(mensaje)
+            
+            # Crear URL de WhatsApp
+            url_whatsapp = f"https://wa.me/?text={mensaje_codificado}"
+            
+            # Abrir en el navegador predeterminado
+            webbrowser.open(url_whatsapp)
+            
+        except Exception as e:
+            page.snack_bar = ft.SnackBar(content=ft.Text(f"Error al compartir: {str(e)}"))
+            page.snack_bar.open = True
+            page.update()
+    
+    # Función para descargar múltiples pedidos como PDF
+    def descargar_multiple_pedidos_pdf(pedidos_ids, dlg):
+        try:
+            close_dlg(dlg)
+            
             # Mostrar diálogo de progreso
             progress_dlg = ft.AlertDialog(
-                title=ft.Text("Preparando archivo"),
+                title=ft.Text("Generando PDF"),
                 content=ft.Column([
-                    ft.Text("Preparando descarga..."),
+                    ft.Text("Preparando documento..."),
                     ft.ProgressBar(width=300)
                 ], tight=True, spacing=20),
                 modal=True
@@ -1853,106 +2252,171 @@ def main(page: ft.Page):
             progress_dlg.open = True
             page.update()
             
-            # Leer el archivo como bytes
-            with open(path, "rb") as f:
-                content = f.read()
+            # Generar PDF
+            pdf_content, mensaje = app.generar_pdf_multiple_pedidos(pedidos_ids)
             
             # Cerrar diálogo de progreso
             progress_dlg.open = False
             page.update()
             
-            # Crear un control FilePicker para descargar
-            save_file_dialog = ft.FilePicker()
-            
-            # Añadir el picker a los overlays si no está ya
-            if save_file_dialog not in page.overlay:
-                page.overlay.append(save_file_dialog)
+            if pdf_content:
+                # Crear directorio para PDFs si no existe
+                os.makedirs("temp", exist_ok=True)
+                
+                # Guardar PDF temporalmente
+                temp_file = os.path.join("temp", f"pedidos_multiples_{datetime.datetime.now().strftime('%Y%m%d%H%M%S')}.pdf")
+                with open(temp_file, "wb") as f:
+                    f.write(pdf_content)
+                
+                # Descargar archivo
+                download_file(temp_file, f"pedidos_multiples.pdf")
+            else:
+                page.snack_bar = ft.SnackBar(content=ft.Text(mensaje))
+                page.snack_bar.open = True
                 page.update()
             
-            # Iniciar la descarga
-            save_file_dialog.save_file(
-                dialog_title="Guardar archivo",
-                file_name=filename,
-                allowed_extensions=["pdf"],
-                data=content
-            )
-            
-            # Mostrar información sobre la descarga
-            info_dlg = ft.AlertDialog(
-                title=ft.Text("Descarga iniciada"),
-                content=ft.Column([
-                    ft.Text("El archivo se está descargando."),
-                    ft.Text("En dispositivos móviles, el archivo se guardará en:", weight=ft.FontWeight.BOLD),
-                    ft.Text("• Android: Carpeta 'Descargas' o 'Download'"),
-                    ft.Text("• iOS: En la app 'Archivos' o 'Files'")
-                ]),
-                actions=[
-                    ft.TextButton("Entendido", on_click=lambda _: close_dlg(info_dlg))
-                ],
-                modal=True
-            )
-            
-            page.dialog = info_dlg
-            info_dlg.open = True
-            page.update()
-            
         except Exception as e:
-            print(f"Error al descargar: {e}")
-            page.snack_bar = ft.SnackBar(content=ft.Text(f"Error al descargar: {str(e)}"))
+            # Cerrar diálogo de progreso si sigue abierto
+            if 'progress_dlg' in locals() and progress_dlg.open:
+                progress_dlg.open = False
+                page.update()
+                
+            page.snack_bar = ft.SnackBar(content=ft.Text(f"Error al generar PDF: {str(e)}"))
             page.snack_bar.open = True
             page.update()
+    
+    # Nueva función para cerrar diálogo y ver pedidos
+    def close_dlg_and_ver_pedidos(dlg):
+        # Cerrar diálogo
+        dlg.open = False
+        page.update()
+        
+        # Resetear pedido actual
+        current_order.clear()
+        actualizar_tabla_pedido()
+        
+        # Limpiar campos
+        cliente_field.value = ""
+        zona_dropdown.value = None
+        producto_search.value = ""
+        cantidad_field.value = "1"
+        precio_field.value = ""
+        
+        # Ocultar contenedor de fecha
+        fecha_pedido_container.visible = False
+        fecha_pedido_container.update()
+        
+        # Actualizar pantalla
+        page.update()
+        
+        # Mostrar todos los pedidos
+        toggle_ver_pedidos()
+    
+    def close_dlg_and_reset(dlg):
+        # Cerrar diálogo
+        dlg.open = False
+        
+        # Limpiar pedido actual
+        current_order.clear()
+        actualizar_tabla_pedido()
+        
+        # Limpiar campos
+        cliente_field.value = ""
+        zona_dropdown.value = None
+        producto_search.value = ""
+        cantidad_field.value = "1"
+        precio_field.value = ""
+        
+        # Ocultar contenedor de fecha
+        fecha_pedido_container.visible = False
+        fecha_pedido_container.update()
+        
+        # Actualizar pantalla
+        page.update()
+    
+    # 1. Mejorar la función download_file para que funcione en dispositivos móviles
+    
+    def download_file(path, filename):
+        """Función actualizada que usa el nuevo sistema móvil"""
+        download_file_mobile(path, filename)
             
     def configurar_tabla_pedido_responsivo():
-        """Configura la estructura de la tabla de pedidos para dispositivos móviles"""
-        # Verificar si estamos en móvil
-        is_mobile = page.width < 800
-        
-        # Limpiar las columnas existentes
-        pedido_actual_table.columns.clear()
-        
-        if is_mobile:
-            # Configuración de columnas para móvil (4 columnas compactas)
-            pedido_actual_table.columns = [
-                # Producto (más estrecho)
-                ft.DataColumn(ft.Text("Producto", 
-                                    weight=ft.FontWeight.BOLD, 
-                                    size=12),
-                            numeric=False),
-                # Cantidad
-                ft.DataColumn(ft.Text("Cant", 
-                                    weight=ft.FontWeight.BOLD, 
-                                    size=12),
-                            numeric=True),
-                # Precio unitario
-                ft.DataColumn(ft.Text("Precio", 
-                                    weight=ft.FontWeight.BOLD, 
-                                    size=12),
-                            numeric=True),
-                # Subtotal
-                ft.DataColumn(ft.Text("Total", 
-                                    weight=ft.FontWeight.BOLD, 
-                                    size=12),
-                            numeric=True)
-            ]
-        else:
-            # Configuración original para escritorio (5 columnas)
-            pedido_actual_table.columns = [
-                ft.DataColumn(ft.Text("Producto", weight=ft.FontWeight.BOLD)),
-                ft.DataColumn(ft.Text("Cant.", weight=ft.FontWeight.BOLD)),
-                ft.DataColumn(ft.Text("Precio", weight=ft.FontWeight.BOLD)),
-                ft.DataColumn(ft.Text("Subtotal", weight=ft.FontWeight.BOLD)),
-                ft.DataColumn(ft.Text("", weight=ft.FontWeight.BOLD))
-            ]
-        
-        # Ajustar el ancho de la tabla según el dispositivo
-        pedido_actual_table.width = page.width - 20
-        
-        # Configurar el estilo de la tabla para mejor visualización
-        pedido_actual_table.bgcolor = ft.Colors.with_opacity(0.03, ft.Colors.BLACK)
-        pedido_actual_table.border = ft.border.all(0.5, ft.Colors.GREY_400)
-        pedido_actual_table.border_radius = 5
-        pedido_actual_table.horizontal_lines = ft.border.BorderSide(0.5, ft.Colors.GREY_300)
-
+            """Configura la estructura de la tabla de pedidos para dispositivos móviles"""
+            # Verificar si estamos en móvil
+            is_mobile = page.width < 800
+            
+            # Limpiar las columnas existentes
+            try:
+                pedido_actual_table.rows.clear()
+            except:
+                pedido_actual_table.rows = []
+            # ✅ NO limpiar columnas, solo ajustar ancho
+            pedido_actual_table.width = min(page.width - 40, 600)
+            # ✅ Asegurar que las columnas existan
+            if not pedido_actual_table.columns:
+                pedido_actual_table.columns = [
+                    ft.DataColumn(ft.Text("Producto", weight=ft.FontWeight.BOLD)),
+                    ft.DataColumn(ft.Text("Cant.", weight=ft.FontWeight.BOLD)),
+                    ft.DataColumn(ft.Text("Precio", weight=ft.FontWeight.BOLD)),
+                    ft.DataColumn(ft.Text("Subtotal", weight=ft.FontWeight.BOLD)),
+                    ft.DataColumn(ft.Text("", weight=ft.FontWeight.BOLD))
+                ]
+            if is_mobile:
+                # Configuración de columnas para móvil (4 columnas compactas)
+                pedido_actual_table.columns = [
+                    # Producto (más estrecho)
+                    ft.DataColumn(ft.Text("Producto", 
+                                        weight=ft.FontWeight.BOLD, 
+                                        size=12),
+                                numeric=False),
+                    # Cantidad
+                    ft.DataColumn(ft.Text("Cant", 
+                                        weight=ft.FontWeight.BOLD, 
+                                        size=12),
+                                numeric=True),
+                    # Precio unitario
+                    ft.DataColumn(ft.Text("Precio", 
+                                        weight=ft.FontWeight.BOLD, 
+                                        size=12),
+                                numeric=True),
+                    # Acciones (eliminar)
+                    ft.DataColumn(ft.Text("", 
+                                        weight=ft.FontWeight.BOLD, 
+                                        size=12),
+                                numeric=False)
+                ]
+            else:
+                # Configuración original para escritorio (5 columnas)
+                pedido_actual_table.columns = [
+                    ft.DataColumn(
+                        ft.Text("Producto", weight=ft.FontWeight.BOLD)
+                    ),
+                    ft.DataColumn(
+                        ft.Text("Cant.", weight=ft.FontWeight.BOLD),
+                        numeric=True
+                    ),
+                    ft.DataColumn(
+                        ft.Text("Precio", weight=ft.FontWeight.BOLD),
+                        numeric=True
+                    ),
+                    ft.DataColumn(
+                        ft.Text("Subtotal", weight=ft.FontWeight.BOLD),
+                        numeric=True
+                    ),
+                    ft.DataColumn(
+                        ft.Text("", weight=ft.FontWeight.BOLD)
+                    )
+                ]
+            
+            # Ajustar el ancho de la tabla según el dispositivo pero no demasiado
+            # Limitar para evitar que se extienda fuera de la pantalla
+            pedido_actual_table.width = min(page.width - 40, 600)
+            
+            # Configurar el estilo de la tabla para mejor visualización
+            pedido_actual_table.bgcolor = ft.Colors.with_opacity(0.03, ft.Colors.BLACK)
+            pedido_actual_table.border = ft.border.all(0.5, ft.Colors.GREY_400)
+            pedido_actual_table.border_radius = 5
+            pedido_actual_table.horizontal_lines = ft.border.BorderSide(0.5, ft.Colors.GREY_300)
 
     # 2. Función para abrir archivos PDF
     def open_pdf_file(path, dlg=None):
@@ -2001,7 +2465,6 @@ def main(page: ft.Page):
     # 3. Mejorar la función para descargar facturas
     def descargar_factura_pedido(pedido_id):
         """Función mejorada para descargar facturas"""
-        # Mostrar diálogo de progreso
         progress_dlg = ft.AlertDialog(
             title=ft.Text("Generando factura"),
             content=ft.Column([
@@ -2014,56 +2477,267 @@ def main(page: ft.Page):
         page.dialog = progress_dlg
         progress_dlg.open = True
         page.update()
-        
         try:
-            # Generar factura
             pdf_content, mensaje = app.generar_pdf_factura(pedido_id)
-            
-            # Cerrar diálogo de progreso
             progress_dlg.open = False
             page.update()
             
             if pdf_content:
-                # Crear directorio para PDFs si no existe
                 os.makedirs("temp", exist_ok=True)
-                
-                # Guardar PDF temporalmente
                 temp_file = os.path.join("temp", f"factura_{pedido_id}.pdf")
                 with open(temp_file, "wb") as f:
                     f.write(pdf_content)
                 
-                # Preguntar al usuario cómo quiere recibir la factura - simplificado para móviles
-                options_dlg = ft.AlertDialog(
-                    title=ft.Text("Factura lista"),
-                    content=ft.Text("La factura está lista para descargar"),
-                    actions=[
-                        ft.ElevatedButton(
-                            "Descargar",
-                            icon=ft.Icons.DOWNLOAD,
-                            on_click=lambda _: handle_download_choice(temp_file, f"factura_{pedido_id}.pdf", options_dlg)
-                        ),
-                        ft.TextButton("Cancelar", on_click=lambda _: close_dlg(options_dlg))
-                    ],
-                    modal=True
-                )
-                
-                page.dialog = options_dlg
-                options_dlg.open = True
-                page.update()
+                download_file_mobile(temp_file, f"factura_{pedido_id}.pdf")
             else:
-                # Mostrar mensaje de error
                 page.snack_bar = ft.SnackBar(content=ft.Text(mensaje))
                 page.snack_bar.open = True
                 page.update()
         except Exception as e:
-            # Cerrar diálogo de progreso
             progress_dlg.open = False
             page.update()
-            
-            # Mostrar error
             page.snack_bar = ft.SnackBar(content=ft.Text(f"Error: {e}"))
             page.snack_bar.open = True
             page.update()
+        
+    def compartir_pdf_base64(content, filename, dlg=None):
+        """
+        Comparte el PDF usando base64 (funciona en móvil)
+        """
+        try:
+            if dlg:
+                close_dlg(dlg)
+            
+            # Convertir PDF a base64
+            pdf_base64 = base64.b64encode(content).decode('utf-8')
+            
+            # Crear HTML con enlace de descarga
+            html_content = f"""
+            <!DOCTYPE html>
+            <html>
+            <head>
+                <title>Descargar PDF</title>
+                <meta name="viewport" content="width=device-width, initial-scale=1">
+                <style>
+                    body {{
+                        font-family: Arial, sans-serif;
+                        text-align: center;
+                        padding: 50px;
+                        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+                        color: white;
+                    }}
+                    .container {{
+                        background: white;
+                        color: black;
+                        padding: 30px;
+                        border-radius: 10px;
+                        box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+                        max-width: 400px;
+                        margin: 0 auto;
+                    }}
+                    .download-btn {{
+                        background: #4CAF50;
+                        color: white;
+                        padding: 15px 30px;
+                        border: none;
+                        border-radius: 5px;
+                        font-size: 18px;
+                        cursor: pointer;
+                        text-decoration: none;
+                        display: inline-block;
+                        margin: 20px 0;
+                    }}
+                    .download-btn:hover {{
+                        background: #45a049;
+                    }}
+                    .info {{
+                        font-size: 14px;
+                        color: #666;
+                        margin-top: 20px;
+                    }}
+                </style>
+            </head>
+            <body>
+                <div class="container">
+                    <h2>📄 PDF Listo para Descargar</h2>
+                    <p>Archivo: <strong>{filename}</strong></p>
+                    <a href="data:application/pdf;base64,{pdf_base64}" 
+                    download="{filename}" 
+                    class="download-btn">
+                        ⬇️ Descargar PDF
+                    </a>
+                    <div class="info">
+                        <p>• En Android: Se guardará en 'Descargas'</p>
+                        <p>• En iPhone: Se abrirá para compartir</p>
+                        <p>• Puedes cerrar esta página después de descargar</p>
+                    </div>
+                </div>
+                <script>
+                    // Auto-click en móvil
+                    if(/Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {{
+                        setTimeout(function() {{
+                            document.querySelector('.download-btn').click();
+                        }}, 1000);
+                    }}
+                </script>
+            </body>
+            </html>
+            """
+            
+            # Crear archivo HTML temporal
+            temp_dir = tempfile.gettempdir()
+            html_file = os.path.join(temp_dir, f"download_{uuid.uuid4().hex[:8]}.html")
+            
+            with open(html_file, 'w', encoding='utf-8') as f:
+                f.write(html_content)
+            
+            # Abrir en navegador
+            import webbrowser
+            webbrowser.open(f"file://{html_file}")
+            
+            # Mostrar confirmación
+            page.snack_bar = ft.SnackBar(
+                content=ft.Text("PDF preparado para descarga - Se abrió en tu navegador"),
+                bgcolor=ft.Colors.GREEN
+            )
+            page.snack_bar.open = True
+            page.update()
+            
+        except Exception as e:
+            print(f"Error compartiendo PDF: {e}")
+            page.snack_bar = ft.SnackBar(
+                content=ft.Text(f"Error al preparar PDF: {str(e)}"),
+                bgcolor=ft.Colors.RED
+            )
+            page.snack_bar.open = True
+            page.update()
+        def abrir_url_descarga(url, dlg):
+            """Abre la URL de descarga en el navegador"""
+            try:
+                import webbrowser
+                webbrowser.open(url)
+                close_dlg(dlg)
+                
+                page.snack_bar = ft.SnackBar(
+                    content=ft.Text("Se ha abierto la descarga en tu navegador"),
+                    bgcolor=ft.Colors.GREEN
+                )
+                page.snack_bar.open = True
+                page.update()
+            except Exception as e:
+                print(f"Error abriendo URL: {e}")
+                close_dlg(dlg)
+    def abrir_url_descarga(url, dlg):
+        """Abre la URL de descarga en el navegador"""
+        try:
+            import webbrowser
+            webbrowser.open(url)
+            close_dlg(dlg)
+            
+            page.snack_bar = ft.SnackBar(
+                content=ft.Text("Se ha abierto la descarga en tu navegador"),
+                bgcolor=ft.Colors.GREEN
+            )
+            page.snack_bar.open = True
+            page.update()
+        except Exception as e:
+            print(f"Error abriendo URL: {e}")
+            close_dlg(dlg)
+    def download_file_mobile(file_path, filename):
+        """
+        Función mejorada para descargar archivos en móvil
+        """
+        try:
+            # Leer el archivo
+            with open(file_path, "rb") as f:
+                content = f.read()
+            
+            # Detectar si estamos en móvil
+            is_mobile = page.width < 800
+            
+            if is_mobile:
+                # SOLUCIÓN MÓVIL: Crear enlace de descarga
+                file_id = crear_enlace_descarga_pdf(content, filename)
+                
+                if file_id:
+                    # Crear URL de descarga (ajustar según tu configuración)
+                    # Esto asume que tu app corre en el puerto 8550
+                    download_url = f"http://localhost:8550/download/{file_id}"
+                    
+                    # Mostrar diálogo con opciones de descarga
+                    dlg_descarga = ft.AlertDialog(
+                        title=ft.Text("Descargar PDF", size=18),
+                        content=ft.Column([
+                            ft.Text("Elige cómo descargar el archivo:", size=14),
+                            ft.ElevatedButton(
+                                "Descargar directamente",
+                                icon=ft.Icons.DOWNLOAD,
+                                on_click=lambda _: abrir_url_descarga(download_url, dlg_descarga),
+                                width=250,
+                                style=ft.ButtonStyle(
+                                    color=ft.Colors.WHITE,
+                                    bgcolor=ft.Colors.GREEN
+                                )
+                            ),
+                            ft.ElevatedButton(
+                                "Compartir PDF",
+                                icon=ft.Icons.SHARE,
+                                on_click=lambda _: compartir_pdf_base64(content, filename, dlg_descarga),
+                                width=250,
+                                style=ft.ButtonStyle(
+                                    color=ft.Colors.WHITE,
+                                    bgcolor=ft.Colors.BLUE
+                                )
+                            ),
+                            ft.Text("Nota: Si la descarga no funciona, usa 'Compartir PDF'", 
+                                size=11, italic=True, color=ft.Colors.GREY)
+                        ], spacing=15),
+                        actions=[
+                            ft.TextButton("Cancelar", on_click=lambda _: close_dlg(dlg_descarga))
+                        ],
+                        modal=True
+                    )
+                    
+                    page.dialog = dlg_descarga
+                    dlg_descarga.open = True
+                    page.update()
+                else:
+                    # Fallback: mostrar error
+                    page.snack_bar = ft.SnackBar(
+                        content=ft.Text("Error al preparar descarga"),
+                        bgcolor=ft.Colors.RED
+                    )
+                    page.snack_bar.open = True
+                    page.update()
+            else:
+                # SOLUCIÓN ESCRITORIO: Usar el método original
+                try:
+                    save_file_dialog = ft.FilePicker()
+                    if save_file_dialog not in page.overlay:
+                        page.overlay.append(save_file_dialog)
+                        page.update()
+                    
+                    save_file_dialog.save_file(
+                        dialog_title="Guardar archivo",
+                        file_name=filename,
+                        allowed_extensions=["pdf"],
+                        data=content
+                    )
+                except Exception as e:
+                    print(f"Error en descarga escritorio: {e}")
+                    # Fallback para escritorio
+                    compartir_pdf_base64(content, filename)
+                    
+        except Exception as e:
+            print(f"Error general en descarga: {e}")
+            page.snack_bar = ft.SnackBar(
+                content=ft.Text(f"Error al descargar: {str(e)}"),
+                bgcolor=ft.Colors.RED
+            )
+            page.snack_bar.open = True
+            page.update()
+
+    
     # 4. Funciones auxiliares para manejar opciones de factura
     def handle_download_choice(file_path, file_name, dlg):
         """Descarga un archivo"""
@@ -2339,13 +3013,12 @@ def main(page: ft.Page):
     # ---------- FUNCIONES DE PEDIDOS HOY ----------
     
     def generar_pdf_pedidos_hoy():
-        """Genera un PDF con todos los pedidos del día"""
-        try:
-            # Mostrar diálogo de progreso
+        """PDF de pedidos con calendario personalizado"""
+        def on_fecha_seleccionada(fecha_seleccionada):
             progress_dlg = ft.AlertDialog(
                 title=ft.Text("Generando reporte"),
                 content=ft.Column([
-                    ft.Text("Preparando reporte de pedidos..."),
+                    ft.Text(f"Preparando reporte para {fecha_seleccionada.strftime('%d/%m/%Y')}..."),
                     ft.ProgressBar(width=300)
                 ], tight=True, spacing=20),
                 modal=True
@@ -2355,40 +3028,31 @@ def main(page: ft.Page):
             progress_dlg.open = True
             page.update()
             
-            # Generar PDF
-            pdf_content, mensaje = app.generar_pdf_pedidos_hoy()
-            
-            # Cerrar diálogo de progreso
-            progress_dlg.open = False
-            page.update()
-            
-            if pdf_content:
-                # Crear directorio para PDFs si no existe
-                os.makedirs("temp", exist_ok=True)
-                
-                # Guardar PDF temporalmente
-                temp_file = os.path.join("temp", "pedidos_hoy.pdf")
-                with open(temp_file, "wb") as f:
-                    f.write(pdf_content)
-                
-                # Llamar a la función mejorada de descarga
-                download_file(temp_file, "pedidos_hoy.pdf")
-            else:
-                # Mostrar mensaje de error
-                page.snack_bar = ft.SnackBar(content=ft.Text(mensaje))
-                page.snack_bar.open = True
-                page.update()
-        except Exception as e:
-            # Cerrar diálogo de progreso si sigue abierto
-            if 'progress_dlg' in locals() and progress_dlg.open:
+            try:
+                pdf_content, mensaje = app.generar_pdf_pedidos_hoy(fecha_seleccionada)
                 progress_dlg.open = False
                 page.update()
                 
-            # Mostrar error
-            page.snack_bar = ft.SnackBar(content=ft.Text(f"Error: {e}"))
-            page.snack_bar.open = True
-            page.update()
-
+                if pdf_content:
+                    os.makedirs("temp", exist_ok=True)
+                    temp_file = os.path.join("temp", f"pedidos_{fecha_seleccionada.strftime('%Y%m%d')}.pdf")
+                    with open(temp_file, "wb") as f:
+                        f.write(pdf_content)
+                    
+                    download_file_mobile(temp_file, f"pedidos_{fecha_seleccionada.strftime('%d_%m_%Y')}.pdf")
+                else:
+                    page.snack_bar = ft.SnackBar(content=ft.Text(mensaje))
+                    page.snack_bar.open = True
+                    page.update()
+                    
+            except Exception as e:
+                progress_dlg.open = False
+                page.update()
+                page.snack_bar = ft.SnackBar(content=ft.Text(f"Error: {e}"))
+                page.snack_bar.open = True
+                page.update()
+        
+        mostrar_calendario_personalizado(on_fecha_seleccionada)
     # ---------- FUNCIONES DE VER TODOS LOS PEDIDOS ----------
     
     def toggle_ver_pedidos():
@@ -2407,6 +3071,13 @@ def main(page: ft.Page):
             fecha_filtro = ft.TextField(
                 label="Filtrar por fecha (YYYY-MM-DD)",
                 width=page.width - 40 if page.width < 600 else 300
+            )
+            
+            # Botón de calendario para fecha
+            fecha_btn = ft.IconButton(
+                icon=ft.Icons.CALENDAR_TODAY,
+                tooltip="Seleccionar fecha",
+                on_click=lambda _: mostrar_calendario_filtro(fecha_filtro)
             )
             
             # Crear botón de filtro
@@ -2435,6 +3106,7 @@ def main(page: ft.Page):
                 ft.Text("Todos los Pedidos", size=20, weight=ft.FontWeight.BOLD),
                 ft.Row([
                     fecha_filtro,
+                    fecha_btn,
                     filtrar_btn
                 ]),
                 contenedor_lista  # Añadir el contenedor con la lista
@@ -2475,6 +3147,187 @@ def main(page: ft.Page):
         # Actualizar la página
         page.update()
     
+    # Función para mostrar calendario para el filtro de fecha
+    def mostrar_calendario_filtro(campo_fecha):
+        """Muestra el calendario personalizado para filtrar pedidos"""
+        def on_fecha_seleccionada(fecha_seleccionada):
+            fecha_str = fecha_seleccionada.strftime("%Y-%m-%d")
+            campo_fecha.value = fecha_str
+            campo_fecha.update()
+            
+            # Cargar pedidos de la fecha seleccionada
+            cargar_pedidos(fecha_str)
+        
+        mostrar_calendario_personalizado(on_fecha_seleccionada)
+    
+    def mostrar_calendario_personalizado(callback_function, fecha_actual=None):
+        """
+        Muestra un calendario personalizado que funciona en móvil
+        callback_function: función que se llama cuando se selecciona una fecha
+        fecha_actual: fecha inicial a mostrar
+        """
+        if fecha_actual is None:
+            fecha_actual = datetime.datetime.now()
+        
+        # Variables para el calendario
+        año_actual = fecha_actual.year
+        mes_actual = fecha_actual.month
+        
+        # Crear controles para año y mes
+        año_dropdown = ft.Dropdown(
+            label="Año",
+            width=100,
+            options=[
+                ft.dropdown.Option(str(año)) 
+                for año in range(2023, 2031)
+            ],
+            value=str(año_actual)
+        )
+        
+        meses = [
+            "Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio",
+            "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"
+        ]
+        
+        mes_dropdown = ft.Dropdown(
+            label="Mes",
+            width=150,
+            options=[
+                ft.dropdown.Option(str(i+1), meses[i]) 
+                for i in range(12)
+            ],
+            value=str(mes_actual)
+        )
+        
+        # Contenedor para los días
+        dias_container = ft.Container(
+            content=ft.Column([]),
+            height=200,
+            width=300
+        )
+        
+        def generar_dias():
+            """Genera los botones de días para el mes seleccionado"""
+            try:
+                año = int(año_dropdown.value)
+                mes = int(mes_dropdown.value)
+                
+                # Limpiar días anteriores
+                dias_container.content.controls.clear()
+                
+                # Obtener primer día del mes y número de días
+                primer_dia = datetime.datetime(año, mes, 1)
+                if mes == 12:
+                    ultimo_dia = datetime.datetime(año + 1, 1, 1) - datetime.timedelta(days=1)
+                else:
+                    ultimo_dia = datetime.datetime(año, mes + 1, 1) - datetime.timedelta(days=1)
+                
+                días_del_mes = ultimo_dia.day
+                día_semana_inicio = primer_dia.weekday()  # 0 = lunes, 6 = domingo
+                
+                # Crear encabezados de días de la semana
+                encabezados = ft.Row([
+                    ft.Container(ft.Text("L", size=12, weight=ft.FontWeight.BOLD), width=35, alignment=ft.alignment.center),
+                    ft.Container(ft.Text("M", size=12, weight=ft.FontWeight.BOLD), width=35, alignment=ft.alignment.center),
+                    ft.Container(ft.Text("M", size=12, weight=ft.FontWeight.BOLD), width=35, alignment=ft.alignment.center),
+                    ft.Container(ft.Text("J", size=12, weight=ft.FontWeight.BOLD), width=35, alignment=ft.alignment.center),
+                    ft.Container(ft.Text("V", size=12, weight=ft.FontWeight.BOLD), width=35, alignment=ft.alignment.center),
+                    ft.Container(ft.Text("S", size=12, weight=ft.FontWeight.BOLD), width=35, alignment=ft.alignment.center),
+                    ft.Container(ft.Text("D", size=12, weight=ft.FontWeight.BOLD), width=35, alignment=ft.alignment.center),
+                ], alignment=ft.MainAxisAlignment.CENTER)
+                
+                dias_container.content.controls.append(encabezados)
+                
+                # Generar semanas
+                día_actual = 1
+                while día_actual <= días_del_mes:
+                    semana = ft.Row([], alignment=ft.MainAxisAlignment.CENTER)
+                    
+                    # Llenar la semana
+                    for día_semana in range(7):
+                        if (día_actual == 1 and día_semana < día_semana_inicio) or día_actual > días_del_mes:
+                            # Día vacío
+                            semana.controls.append(
+                                ft.Container(width=35, height=35)
+                            )
+                        else:
+                            # Día con número
+                            día_btn = ft.Container(
+                                content=ft.Text(str(día_actual), size=14, text_align=ft.TextAlign.CENTER),
+                                width=35,
+                                height=35,
+                                border=ft.border.all(1, ft.Colors.GREY_400),
+                                border_radius=5,
+                                alignment=ft.alignment.center,
+                                bgcolor=ft.Colors.BLUE_100 if día_actual == fecha_actual.day and mes == fecha_actual.month and año == fecha_actual.year else None,
+                                on_click=lambda e, d=día_actual: seleccionar_dia(d)
+                            )
+                            día_btn.data = día_actual  # Guardar el día en los datos del contenedor
+                            semana.controls.append(día_btn)
+                            día_actual += 1
+                    
+                    dias_container.content.controls.append(semana)
+                
+                dias_container.update()
+                
+            except Exception as e:
+                print(f"Error generando días: {e}")
+        
+        def seleccionar_dia(dia):
+            """Maneja la selección de un día"""
+            try:
+                año = int(año_dropdown.value)
+                mes = int(mes_dropdown.value)
+                fecha_seleccionada = datetime.datetime(año, mes, dia)
+                
+                # Llamar al callback con la fecha seleccionada
+                callback_function(fecha_seleccionada)
+                
+                # Cerrar el diálogo
+                close_dlg(dlg_calendario)
+                
+            except Exception as e:
+                print(f"Error seleccionando día: {e}")
+        
+        def actualizar_calendario(e):
+            """Actualiza el calendario cuando cambia el año o mes"""
+            generar_dias()
+        
+        # Asignar eventos a los dropdowns
+        año_dropdown.on_change = actualizar_calendario
+        mes_dropdown.on_change = actualizar_calendario
+        
+        # Crear el diálogo
+        dlg_calendario = ft.AlertDialog(
+            title=ft.Text("Seleccionar Fecha", size=18),
+            content=ft.Container(
+                content=ft.Column([
+                    ft.Row([
+                        año_dropdown,
+                        mes_dropdown
+                    ], alignment=ft.MainAxisAlignment.CENTER),
+                    ft.Divider(),
+                    dias_container
+                ]),
+                width=320,
+                height=280
+            ),
+            actions=[
+                ft.TextButton("Hoy", on_click=lambda _: callback_function(datetime.datetime.now()) or close_dlg(dlg_calendario)),
+                ft.TextButton("Cancelar", on_click=lambda _: close_dlg(dlg_calendario))
+            ],
+            actions_alignment=ft.MainAxisAlignment.END,
+            modal=True
+        )
+        
+        # Generar días iniciales
+        generar_dias()
+        
+        # Mostrar diálogo
+        page.dialog = dlg_calendario
+        dlg_calendario.open = True
+        page.update()
+        
     def cargar_pedidos(fecha_str=None):
         # Buscar la lista de pedidos en la estructura
         lista_pedidos = None
@@ -2495,18 +3348,13 @@ def main(page: ft.Page):
         conn = app.get_db_connection()
         cursor = conn.cursor(dictionary=True)
         
-        # Consulta base sin filtro de fecha - ordenando por fecha descendente (más recientes primero)
-        query_base = """
-        SELECT id, cliente, zona, fecha, total 
-        FROM pedidos 
-        """
+        query_base = "SELECT id, cliente, zona, fecha, total FROM pedidos "
         
-        # Verificar si hay filtro de fecha
         if fecha_str:
             query_base += " WHERE DATE(fecha) = %s"
-            cursor.execute(query_base + " ORDER BY fecha DESC", (fecha_str,))  # DESC para invertir orden
+            cursor.execute(query_base + " ORDER BY fecha DESC", (fecha_str,))
         else:
-            cursor.execute(query_base + " ORDER BY fecha DESC")  # DESC para invertir orden
+            cursor.execute(query_base + " ORDER BY fecha DESC")
         
         pedidos = cursor.fetchall()
         cursor.close()
@@ -2519,96 +3367,128 @@ def main(page: ft.Page):
                 ft.Container(
                     content=ft.Column([
                         ft.Row([
-                            ft.Icon(ft.Icons.INFO_OUTLINE, color=ft.Colors.BLUE_200),
-                            ft.Text("No hay pedidos para mostrar", size=16)
+                            ft.Icon(ft.Icons.INFO_OUTLINE, color=ft.Colors.BLUE_200, size=32),
+                            ft.Text("No hay pedidos para mostrar", size=18)
                         ], alignment=ft.MainAxisAlignment.CENTER),
                         ft.Text("Prueba con otra fecha o crea un nuevo pedido", 
-                            size=14, color=ft.Colors.GREY_400)
-                    ], horizontal_alignment=ft.CrossAxisAlignment.CENTER),
-                    padding=20,
-                    border=ft.border.all(1, ft.Colors.BLUE_200),
-                    border_radius=10,
-                    margin=10
+                            size=14, color=ft.Colors.GREY_400, text_align=ft.TextAlign.CENTER)
+                    ], horizontal_alignment=ft.CrossAxisAlignment.CENTER, spacing=10),
+                    padding=30,
+                    border=ft.border.all(2, ft.Colors.BLUE_200),
+                    border_radius=15,
+                    margin=15
                 )
             )
         else:
             # Agrupar pedidos por fecha
             pedidos_por_fecha = {}
-            for pedido in pedidos:  # Pedidos ya vienen ordenados por fecha DESC
+            for pedido in pedidos:
                 fecha_str = pedido['fecha'].strftime('%d/%m/%Y')
                 if fecha_str not in pedidos_por_fecha:
                     pedidos_por_fecha[fecha_str] = []
                 pedidos_por_fecha[fecha_str].append(pedido)
             
             # Mostrar pedidos agrupados por fecha
-            for fecha in pedidos_por_fecha.keys():  # No necesitamos ordenar, ya vienen en orden descendente
+            for fecha in pedidos_por_fecha.keys():
                 lista = pedidos_por_fecha[fecha]
                 
-                # Cabecera de fecha
+                # Cabecera de fecha más visible
                 lista_pedidos.controls.append(
                     ft.Container(
                         content=ft.Row([
-                            ft.Icon(ft.Icons.CALENDAR_TODAY, color=ft.Colors.PURPLE_200),
-                            ft.Text(fecha, weight=ft.FontWeight.BOLD, size=16)
-                        ]),
-                        padding=10,
-                        bgcolor=ft.Colors.with_opacity(0.2, ft.Colors.PURPLE_200),
-                        border_radius=5,
-                        margin=ft.margin.only(top=10, bottom=5)
+                            ft.Icon(ft.Icons.CALENDAR_TODAY, color=ft.Colors.WHITE, size=20),
+                            ft.Text(fecha, weight=ft.FontWeight.BOLD, size=18, color=ft.Colors.WHITE)
+                        ], alignment=ft.MainAxisAlignment.CENTER),
+                        padding=15,
+                        bgcolor=ft.Colors.PURPLE,
+                        border_radius=10,
+                        margin=ft.margin.only(top=15, bottom=10, left=5, right=5)
                     )
                 )
                 
-                # Mostrar pedidos de esa fecha
+                # ✅ PEDIDOS CON ÁREA TÁCTIL MEJORADA
                 for pedido in lista:
-                    # Capturar el ID en una variable local para asegurar su correcto uso en la lambda
                     pedido_id = pedido['id']
                     
                     lista_pedidos.controls.append(
                         ft.Container(
                             content=ft.Column([
+                                # Información principal más grande
                                 ft.Row([
-                                    ft.Text(f"📋 Pedido #{pedido_id}", 
-                                        weight=ft.FontWeight.BOLD, size=16),
-                                    ft.Text(pedido['fecha'].strftime('%H:%M'), 
-                                        color=ft.Colors.GREY_400)
-                                ], alignment=ft.MainAxisAlignment.SPACE_BETWEEN),
+                                    ft.Icon(ft.Icons.RECEIPT, color=ft.Colors.PURPLE, size=24),
+                                    ft.Column([
+                                        ft.Text(f"Pedido #{pedido_id}", 
+                                            weight=ft.FontWeight.BOLD, size=18),
+                                        ft.Text(pedido['fecha'].strftime('%H:%M'), 
+                                            color=ft.Colors.GREY_600, size=14)
+                                    ], spacing=2),
+                                    ft.Container(expand=True),
+                                    ft.Text(f"${float(pedido['total']):.2f}", 
+                                        size=18, weight=ft.FontWeight.BOLD,
+                                        color=ft.Colors.GREEN)
+                                ], alignment=ft.MainAxisAlignment.START),
+                                
+                                ft.Container(height=8),  # Espacio
+                                
+                                # Información del cliente más legible
+                                ft.Row([
+                                    ft.Icon(ft.Icons.PERSON, color=ft.Colors.BLUE, size=18),
+                                    ft.Text(f"{pedido['cliente']}", size=16),
+                                    ft.Container(expand=True),
+                                    ft.Icon(ft.Icons.LOCATION_ON, color=ft.Colors.RED, size=18),
+                                    ft.Text(f"{pedido['zona']}", size=16)
+                                ]),
+                                
+                                ft.Container(height=10),  # Espacio
+                                
+                                # ✅ BOTONES MÁS GRANDES Y TÁCTILES
                                 ft.Row([
                                     ft.Container(
-                                        content=ft.Column([
-                                            ft.Text(f"👤 {pedido['cliente']}", size=14),
-                                            ft.Text(f"📍 {pedido['zona']}", size=14),
-                                            ft.Text(f"💰 ${float(pedido['total']):.2f}", 
-                                                size=16, weight=ft.FontWeight.BOLD,
-                                                color=ft.Colors.PINK_200)
-                                        ]),
+                                        content=ft.ElevatedButton(
+                                            "Ver Detalles",
+                                            icon=ft.Icons.VISIBILITY,
+                                            on_click=lambda e, pid=pedido_id: ver_detalles_pedido(pid),
+                                            style=ft.ButtonStyle(
+                                                color=ft.Colors.WHITE,
+                                                bgcolor=ft.Colors.PURPLE_400,
+                                                shape=ft.RoundedRectangleBorder(radius=8)
+                                            )
+                                        ),
+                                        # ✅ Área táctil más grande
+                                        padding=ft.padding.all(5),
                                         expand=True
                                     ),
-                                    # Contenedor de botones con ID capturado correctamente
+                                    ft.Container(width=10),  # Espacio entre botones
                                     ft.Container(
-                                        content=ft.Column([
-                                            ft.ElevatedButton(
-                                                "Ver Detalles",
-                                                icon=ft.Icons.VISIBILITY,
-                                                on_click=lambda e, pid=pedido_id: ver_detalles_pedido(pid),
-                                                style=ft.ButtonStyle(
-                                                    color=ft.Colors.WHITE,
-                                                    bgcolor=ft.Colors.PURPLE_400
-                                                )
-                                            ),
-                                            ft.OutlinedButton(
-                                                "Descargar Factura",
-                                                icon=ft.Icons.DOWNLOAD,
-                                                on_click=lambda e, pid=pedido_id: descargar_factura_pedido(pid)
+                                        content=ft.OutlinedButton(
+                                            "Descargar",
+                                            icon=ft.Icons.DOWNLOAD,
+                                            on_click=lambda e, pid=pedido_id: descargar_factura_pedido(pid),
+                                            style=ft.ButtonStyle(
+                                                shape=ft.RoundedRectangleBorder(radius=8)
                                             )
-                                        ]),
-                                        alignment=ft.alignment.center_right
+                                        ),
+                                        # ✅ Área táctil más grande
+                                        padding=ft.padding.all(5),
+                                        expand=True
                                     )
-                                ])
+                                ], spacing=0)
                             ]),
-                            border=ft.border.all(1, ft.Colors.GREY_400),
-                            border_radius=8,
-                            padding=10,
-                            margin=5
+                            # ✅ CONTENEDOR CON ÁREA TÁCTIL GRANDE
+                            border=ft.border.all(2, ft.Colors.GREY_300),
+                            border_radius=12,
+                            padding=20,  # ✅ Padding generoso
+                            margin=ft.margin.symmetric(vertical=8, horizontal=5),
+                            bgcolor=ft.Colors.WHITE,
+                            # ✅ Sombra para mejor visibilidad
+                            shadow=ft.BoxShadow(
+                                spread_radius=1,
+                                blur_radius=3,
+                                color=ft.Colors.BLACK26,
+                                offset=ft.Offset(0, 2)
+                            ),
+                            # ✅ HACER TODO EL CONTENEDOR CLICKEABLE (OPCIONAL)
+                            # on_click=lambda e, pid=pedido_id: ver_detalles_pedido(pid)
                         )
                     )
         
@@ -3216,8 +4096,8 @@ def main(page: ft.Page):
         # Configurar la tabla del pedido adecuadamente
         configurar_tabla_pedido_responsivo()
         
-        # Aquí configuramos los eventos para el campo de hora
-        setup_hora_field_events()
+        # Inicialmente el botón para borrar productos está oculto
+        borrar_productos_btn.visible = False
         
         # Si estamos en móvil, creamos un layout específico
         if is_mobile:
@@ -3226,280 +4106,367 @@ def main(page: ft.Page):
             # Guardar referencia al panel flotante
             page.panel_flotante = panel_flotante
             
-            # VERSIÓN MÓVIL
-            contenido_principal = ft.Column([
-                # Panel flotante fijo en la parte superior
-                panel_flotante if panel_flotante else ft.Container(height=0),
-                
-                # Título
-                ft.Container(
-                    content=ft.Row([
-                        ft.Text("DistriSulpi", size=28, weight=ft.FontWeight.BOLD),
-                        ft.Text("Sistema de Gestión", size=16, italic=True)
-                    ], alignment=ft.MainAxisAlignment.CENTER),
-                    margin=ft.margin.only(bottom=10)
+            # Crear botones de menú
+            menu_btn = ft.Container(
+                content=ft.IconButton(
+                    icon=ft.Icons.MENU,
+                    icon_size=32,  # ✅ Icono más grande
+                    icon_color=ft.Colors.WHITE,
+                    tooltip="Menú Principal",
+                    on_click=lambda e: toggle_menu_drawer()
                 ),
-                
-                # PRIMERO: Sección de datos del cliente
-                # Para versión móvil:
-                ft.Container(
-                    content=ft.Column([
-                        ft.Text("Datos del Cliente", size=18, weight=ft.FontWeight.BOLD),
-                        cliente_field,
-                        sugerencias_clientes_container,
-                        zona_dropdown,
-                        # Añadir la sección de fecha
-                        ft.Container(
-                            content=ft.Column([
-                                ft.Text("Fecha del pedido", size=16, weight=ft.FontWeight.BOLD),
-                                fecha_field,
-                                hora_field,
-                                actualizar_fecha_btn
-                            ]),
-                            margin=ft.margin.only(top=10)
-                        )
-                    ]),
-                    padding=10,
-                    border=ft.border.all(1, ft.Colors.BLACK26),
-                    border_radius=5,
-                    margin=ft.margin.only(bottom=10)
-                ),
-                
-                # SEGUNDO: Pedido actual (visible pero no tan prominente)
-                ft.Container(
-                    content=ft.Column([
-                        # Cabecera destacada
-                        ft.Container(
-                            content=ft.Row([
-                                ft.Icon(ft.Icons.SHOPPING_CART, color=ft.Colors.WHITE),
-                                ft.Text("Pedido Actual", 
-                                    size=20, 
-                                    weight=ft.FontWeight.BOLD,
-                                    color=ft.Colors.WHITE)
-                            ], alignment=ft.MainAxisAlignment.CENTER),
-                            bgcolor=ft.Colors.PURPLE,
-                            padding=10,
-                            border_radius=ft.border_radius.only(top_left=5, top_right=5)
-                        ),
-                        # Tabla de pedidos con scroll
-                        ft.Container(
-                            content=ft.Column(
-                                [pedido_actual_table],
-                                scroll=ft.ScrollMode.AUTO,
-                                expand=True,
-                                spacing=0
-                            ),
-                            height=150,  # Altura reducida
-                            padding=5
-                        ),
-                        # Botón de finalizar
-                        ft.Container(
-                            content=finalizar_pedido_btn,
-                            alignment=ft.alignment.center,
-                            margin=ft.margin.only(bottom=5, top=5),
-                            width=page.width
-                        )
-                    ]),
-                    padding=0,
-                    border=ft.border.all(2, ft.Colors.PURPLE),
-                    border_radius=5,
-                    bgcolor=ft.Colors.with_opacity(0.05, ft.Colors.PURPLE),
-                    width=page.width,
-                    margin=ft.margin.only(bottom=10),
-                    expand=False
-                ),
-                
-                # TERCERO: Sección de productos
-                ft.Container(
-                    content=ft.Column([
-                        ft.Text("Selección de Productos (toca para agregar)", 
-                            size=18, weight=ft.FontWeight.BOLD),
-                        producto_search,
-                        ft.Container(content=productos_list, margin=ft.margin.only(top=10, bottom=10)),
-                        ft.Row([
-                            ft.Text("Cantidad:"),
-                            cantidad_field,
-                            precio_field
-                        ], alignment=ft.MainAxisAlignment.START)
-                    ]),
-                    padding=10,
-                    border=ft.border.all(1, ft.Colors.BLACK26),
-                    border_radius=5,
-                    margin=ft.margin.only(bottom=10)
-                ),
-                
-                # CUARTO: Sección de herramientas
-                ft.Container(
-                    content=ft.Column([
-                        ft.Text("Herramientas", size=18, weight=ft.FontWeight.BOLD),
-                        ft.Row([
-                            csv_upload_btn,
-                            estadisticas_btn,
-                            prediccion_btn,
-                            pedidos_hoy_btn,
-                            ver_pedidos_btn
-                        ], wrap=True, spacing=10)
-                    ]),
-                    padding=10,
-                    border=ft.border.all(1, ft.Colors.BLACK26),
-                    border_radius=5,
-                    margin=ft.margin.only(bottom=10)
-                ),
-                
-                # Contenedores para funciones especiales
-                estadisticas_container,
-                prediccion_container,
-                pedidos_container,
-            ])
+                # ✅ Área táctil más grande
+                width=60,
+                height=50,
+                bgcolor=ft.Colors.PURPLE,
+                border_radius=10,
+                alignment=ft.alignment.center,
+                # ✅ Padding generoso para fácil acceso
+                margin=ft.margin.only(left=15, right=10, top=5, bottom=5)
+            )
             
-            # Añadir el contenido principal a la página
-            page.add(contenido_principal)
-        else:
-            # VERSIÓN ESCRITORIO - Layout original
-            page.add(
-                ft.Column([
-                    # Título
+            # Crear drawer para menú en móvil
+            drawer = ft.NavigationDrawer(
+                bgcolor=ft.Colors.BLUE_GREY_900,
+                selected_index=0,
+                controls=[
+                    # Cabecera más atractiva
                     ft.Container(
-                        content=ft.Row([
-                            ft.Text("DistriSulpi", size=28, weight=ft.FontWeight.BOLD),
-                            ft.Text("Sistema de Gestión", size=16, italic=True)
-                        ], alignment=ft.MainAxisAlignment.CENTER),
-                        margin=ft.margin.only(bottom=20)
+                        content=ft.Column([
+                            ft.Icon(ft.Icons.STORE, size=40, color=ft.Colors.WHITE),
+                            ft.Text("DistriSulpi", size=24, weight=ft.FontWeight.BOLD, color=ft.Colors.WHITE),
+                            ft.Text("Sistema de Gestión", size=14, italic=True, color=ft.Colors.WHITE70)
+                        ], alignment=ft.MainAxisAlignment.CENTER, spacing=5),
+                        padding=20,
+                        bgcolor=ft.Colors.PURPLE,
+                        border_radius=ft.border_radius.only(bottom_left=15, bottom_right=15),
+                        margin=ft.margin.only(bottom=15)
                     ),
                     
-                    # Estructura con 2 columnas para escritorio
-                    ft.Row([
-                        # Columna izquierda (datos cliente y productos)
-                        ft.Column([
-                            # Sección de datos del cliente
-                            # Para versión escritorio:
-                            ft.Container(
-                                content=ft.Column([
-                                    ft.Text("Datos del Cliente", size=18, weight=ft.FontWeight.BOLD),
-                                    cliente_field,
-                                    sugerencias_clientes_container,
-                                    zona_dropdown,
-                                    # Añadir la sección de fecha
-                                    ft.Container(
-                                        content=ft.Column([
-                                            ft.Text("Fecha del pedido", size=16, weight=ft.FontWeight.BOLD),
-                                            fecha_field,
-                                            hora_field,
-                                            actualizar_fecha_btn
-                                        ]),
-                                        margin=ft.margin.only(top=10)
-                                    )
-                                ]),
-                                padding=10,
-                                border=ft.border.all(1, ft.Colors.BLACK26),
-                                border_radius=5,
-                                margin=ft.margin.only(bottom=10)
-                            ),
-                            
-                            # Sección de productos
-                            ft.Container(
-                                content=ft.Column([
-                                    ft.Text("Selección de Productos (toca para agregar)", 
-                                        size=18, weight=ft.FontWeight.BOLD),
-                                    producto_search,
-                                    ft.Container(content=productos_list, margin=ft.margin.only(top=10, bottom=10)),
-                                    ft.Row([
-                                        ft.Text("Cantidad:"),
-                                        cantidad_field,
-                                        precio_field
-                                    ], alignment=ft.MainAxisAlignment.START)
-                                ]),
-                                padding=10,
-                                border=ft.border.all(1, ft.Colors.BLACK26),
-                                border_radius=5,
-                                margin=ft.margin.only(bottom=20)
-                            ),
-                            
-                            # Sección de herramientas
-                            ft.Container(
-                                content=ft.Column([
-                                    ft.Text("Herramientas", size=18, weight=ft.FontWeight.BOLD),
-                                    ft.Row([
-                                        csv_upload_btn,
-                                        estadisticas_btn,
-                                        prediccion_btn,
-                                        pedidos_hoy_btn,
-                                        ver_pedidos_btn
-                                    ], wrap=True, spacing=10)
-                                ]),
-                                padding=10,
-                                border=ft.border.all(1, ft.Colors.BLACK26),
-                                border_radius=5,
-                                margin=ft.margin.only(bottom=20)
-                            ),
-                        ], 
-                        width=page.width * 0.58),
-                        
-                        # Columna derecha (pedido actual)
-                        ft.Container(
-                            content=ft.Column([
-                                # Cabecera destacada
-                                ft.Container(
-                                    content=ft.Row([
-                                        ft.Icon(ft.Icons.SHOPPING_CART, color=ft.Colors.WHITE),
-                                        ft.Text("Pedido Actual", 
-                                            size=20, 
-                                            weight=ft.FontWeight.BOLD,
-                                            color=ft.Colors.WHITE)
-                                    ], alignment=ft.MainAxisAlignment.CENTER),
-                                    bgcolor=ft.Colors.PURPLE,
-                                    padding=10,
-                                    border_radius=ft.border_radius.only(top_left=5, top_right=5)
-                                ),
-                                # Texto explicativo
-                                ft.Text("Toca la cantidad para modificarla", 
-                                    size=12, italic=True, 
-                                    text_align=ft.TextAlign.CENTER),
-                                # Tabla de pedidos dentro de un Column con scroll
-                                ft.Column(
-                                    [pedido_actual_table],
-                                    scroll=ft.ScrollMode.AUTO,
-                                    expand=True,
-                                    spacing=0,
-                                    height=350
-                                ),
-                                # Botón de finalizar
-                                ft.Container(
-                                    content=finalizar_pedido_btn,
-                                    alignment=ft.alignment.center_right,
-                                    margin=ft.margin.only(bottom=10, right=10)
-                                )
-                            ]),
-                            padding=ft.padding.only(bottom=10),
-                            border=ft.border.all(2, ft.Colors.PURPLE),
-                            border_radius=5,
-                            bgcolor=ft.Colors.with_opacity(0.05, ft.Colors.PURPLE),
-                            width=page.width * 0.4,
-                            margin=ft.margin.only(left=10, top=0),
-                            expand=False
-                        )
-                    ], 
-                    wrap=False),
-                    
-                    # Contenedores para funciones especiales
-                    estadisticas_container,
-                    prediccion_container,
-                    pedidos_container,
-                ], 
-                scroll=ft.ScrollMode.AUTO,
-                expand=False)
+                    # Opciones del menú con mejor espaciado
+                    ft.NavigationDrawerDestination(icon=ft.Icons.SHOPPING_CART, label="Nuevo Pedido", selected_icon=ft.Icons.SHOPPING_CART_OUTLINED),
+                    ft.NavigationDrawerDestination(icon=ft.Icons.LIST_ALT, label="Ver Pedidos", selected_icon=ft.Icons.LIST_ALT_OUTLINED),
+                    ft.NavigationDrawerDestination(icon=ft.Icons.RECEIPT_LONG, label="Pedidos HOY", selected_icon=ft.Icons.RECEIPT_LONG_OUTLINED),
+                    ft.NavigationDrawerDestination(icon=ft.Icons.SHARE, label="Compartir Pedidos", selected_icon=ft.Icons.SHARE_OUTLINED),
+                    ft.Divider(color=ft.Colors.WHITE30),
+                    ft.NavigationDrawerDestination(icon=ft.Icons.UPLOAD_FILE, label="Cargar Productos", selected_icon=ft.Icons.UPLOAD_FILE_OUTLINED),
+                    ft.NavigationDrawerDestination(icon=ft.Icons.BAR_CHART, label="Estadísticas", selected_icon=ft.Icons.BAR_CHART_OUTLINED),
+                    ft.NavigationDrawerDestination(icon=ft.Icons.TRENDING_UP, label="Predicción", selected_icon=ft.Icons.TRENDING_UP_OUTLINED),
+                ],
+                on_change=lambda e: handle_drawer_change(e)
             )
+            
+            # Función para mostrar/ocultar el drawer
+            def toggle_menu_drawer():
+                page.drawer.open = not page.drawer.open
+                page.update()
+            
+            # Función para manejar la selección en el drawer
+            def handle_drawer_change(e):
+                    selected_index = e.control.selected_index
+                    page.drawer.open = False
+                    
+                    # Ocultar todos los contenedores especiales
+                    estadisticas_container.visible = False
+                    prediccion_container.visible = False
+                    pedidos_container.visible = False
+                    
+                    if selected_index == 0:  # Nuevo Pedido
+                        pass
+                    elif selected_index == 1:  # Ver Pedidos
+                        toggle_ver_pedidos()
+                    elif selected_index == 2:  # Pedidos HOY
+                        generar_pdf_pedidos_hoy()
+                    elif selected_index == 3:  # Compartir Pedidos
+                        seleccionar_pedidos_para_compartir()
+                    elif selected_index == 5:  # Cargar Productos
+                        csv_upload.pick_files(allow_multiple=False, allowed_extensions=["csv"])
+                    elif selected_index == 6:  # Estadísticas
+                        toggle_estadisticas()
+                    elif selected_index == 7:  # Predicción
+                        toggle_prediccion()
+                    
+                    page.update()
+        
+            page.drawer = drawer
+            
+            # VERSIÓN MÓVIL
+            contenido_principal = ft.Column([
+            # ✅ ESPACIO SUPERIOR - Para comodidad
+            ft.Container(height=10),  # Espacio inicial
+            
+            # ✅ PANEL FLOTANTE en la parte superior (si hay productos)
+            panel_flotante if panel_flotante else ft.Container(height=0),
+            
+            # ✅ BARRA SUPERIOR con menú hamburguesa más accesible
+            ft.Container(
+                content=ft.Row([
+                    menu_btn,  # Botón más grande y accesible
+                        ft.Container(
+                        content=ft.Text(
+                            "DistriSulpi", 
+                            size=20, 
+                            weight=ft.FontWeight.BOLD,
+                            text_align=ft.TextAlign.CENTER
+                        ),
+                        expand=True  # ✅ Usar expand=True en lugar de ft.Expanded
+                    ),
+                    # Espacio para balance visual
+                    ft.Container(width=60)
+                ], alignment=ft.MainAxisAlignment.SPACE_BETWEEN),
+                margin=ft.margin.only(bottom=15),  # Más espacio debajo
+                padding=ft.padding.symmetric(horizontal=5)
+            ),
+            
+            # ✅ CONTENEDOR FECHA - Mejor espaciado
+            ft.Container(
+                content=fecha_pedido_container,
+                margin=ft.margin.only(bottom=10)
+            ),
+            
+            # ✅ PEDIDO ACTUAL - Más compacto pero visible
+            ft.Container(
+                content=ft.Column([
+                    # Cabecera más pequeña pero visible
+                    ft.Container(
+                        content=ft.Row([
+                            ft.Icon(ft.Icons.SHOPPING_CART, color=ft.Colors.WHITE, size=18),
+                            ft.Text("Pedido Actual", 
+                                size=16, 
+                                weight=ft.FontWeight.BOLD,
+                                color=ft.Colors.WHITE)
+                        ], alignment=ft.MainAxisAlignment.CENTER),
+                        bgcolor=ft.Colors.PURPLE,
+                        padding=ft.padding.symmetric(vertical=8, horizontal=10),
+                        border_radius=ft.border_radius.only(top_left=8, top_right=8)
+                    ),
+                    # Tabla de pedidos compacta
+                    ft.Container(
+                        content=ft.Column(
+                            [pedido_actual_table],
+                            scroll=ft.ScrollMode.AUTO,
+                            spacing=0
+                        ),
+                        height=120,  # Más compacto
+                        padding=5,
+                        bgcolor=ft.Colors.with_opacity(0.02, ft.Colors.PURPLE)
+                    ),
+                    # Botones de control
+                    ft.Container(
+                        content=ft.Row([
+                            borrar_productos_btn,
+                            finalizar_pedido_btn
+                        ], alignment=ft.MainAxisAlignment.SPACE_BETWEEN),
+                        padding=ft.padding.symmetric(horizontal=10, vertical=5)
+                    ),
+                ]),
+                border=ft.border.all(2, ft.Colors.PURPLE),
+                border_radius=8,
+                margin=ft.margin.only(bottom=15),
+                width=page.width - 20
+            ),
+            
+            # ✅ DATOS DEL CLIENTE - Más compacto
+            ft.Container(
+                content=ft.Column([
+                    ft.Row([
+                        ft.Icon(ft.Icons.PERSON, color=ft.Colors.BLUE, size=18),
+                        ft.Text("Cliente y Zona", size=14, weight=ft.FontWeight.BOLD)
+                    ], spacing=5),
+                    ft.Container(height=5),  # Pequeño espacio
+                    ft.Row([
+                        ft.Container(cliente_field, expand=True),
+                        ft.Container(zona_dropdown, width=100)
+                    ], spacing=10),
+                    sugerencias_clientes_container,
+                ]),
+                padding=12,
+                border=ft.border.all(1, ft.Colors.BLUE_200),
+                border_radius=8,
+                bgcolor=ft.Colors.with_opacity(0.02, ft.Colors.BLUE),
+                margin=ft.margin.only(bottom=15)
+            ),
+            
+            # ✅ BÚSQUEDA DE PRODUCTOS - Expandido y cómodo
+            ft.Container(
+                content=ft.Column([
+                    ft.Row([
+                        ft.Icon(ft.Icons.SEARCH, color=ft.Colors.GREEN, size=20),
+                        ft.Text("Buscar Productos", size=16, weight=ft.FontWeight.BOLD)
+                    ], spacing=5),
+                    ft.Container(height=8),
+                    producto_search,
+                    ft.Container(height=5),
+                    # ✅ LISTA DE PRODUCTOS - Más grande y cómoda
+                    ft.Container(
+                        content=productos_list, 
+                        margin=ft.margin.symmetric(vertical=5),
+                        expand=True  # Se expande para usar todo el espacio disponible
+                    ),
+                    ft.Row([
+                        ft.Text("Cantidad:", size=14),
+                        cantidad_field
+                    ], alignment=ft.MainAxisAlignment.START, spacing=10)
+                ]),
+                padding=12,
+                border=ft.border.all(1, ft.Colors.GREEN_200),
+                border_radius=8,
+                bgcolor=ft.Colors.with_opacity(0.02, ft.Colors.GREEN),
+                margin=ft.margin.only(bottom=15),
+                expand=True  # ✅ IMPORTANTE: Se expande para usar espacio disponible
+            ),
+            
+            # Contenedores para funciones especiales
+            estadisticas_container,
+            prediccion_container,
+            pedidos_container,
+            
+            # ✅ ESPACIO INFERIOR - Para comodidad
+            ft.Container(height=20),
+        ], 
+        expand=True,  # ✅ IMPORTANTE: Permite que la columna use todo el espacio
+        spacing=0)  # Sin espaciado extra entre elementos principales
+        
+        # Añadir el contenido principal a la página
+            page.add(contenido_principal)
+        
+        else:
+            # VERSIÓN ESCRITORIO - Layout original con mejoras
+            page.add(
+                    ft.Column([
+                        # Título
+                        ft.Container(
+                            content=ft.Row([
+                                ft.Text("DistriSulpi", size=28, weight=ft.FontWeight.BOLD),
+                                ft.Text("Sistema de Gestión", size=16, italic=True)
+                            ], alignment=ft.MainAxisAlignment.CENTER),
+                            margin=ft.margin.only(bottom=20)
+                        ),
+                        
+                        # Barra de herramientas
+                        ft.Container(
+                            content=ft.Row([
+                                csv_upload_btn,
+                                estadisticas_btn,
+                                prediccion_btn,
+                                pedidos_hoy_btn,
+                                ver_pedidos_btn,
+                                compartir_pedidos_btn
+                            ], wrap=True, spacing=10, alignment=ft.MainAxisAlignment.CENTER),
+                            padding=10,
+                            border=ft.border.all(1, ft.Colors.GREY_400),
+                            border_radius=10,
+                            margin=ft.margin.only(bottom=20),
+                            bgcolor=ft.Colors.with_opacity(0.05, ft.Colors.GREY)
+                        ),
+                        
+                        # Contenedor para la fecha del pedido (inicialmente oculto)
+                        fecha_pedido_container,
+                        
+                        # Estructura con 2 columnas para escritorio
+                        ft.Row([
+                            # Columna izquierda
+                            ft.Column([
+                                # Sección de búsqueda de productos
+                                ft.Container(
+                                    content=ft.Column([
+                                        ft.Text("Selección de Productos", 
+                                            size=18, weight=ft.FontWeight.BOLD),
+                                        producto_search,
+                                        ft.Container(content=productos_list, margin=ft.margin.only(top=10, bottom=10)),
+                                        ft.Row([
+                                            ft.Text("Cantidad:"),
+                                            cantidad_field,
+                                            precio_field
+                                        ], alignment=ft.MainAxisAlignment.START)
+                                    ]),
+                                    padding=10,
+                                    border=ft.border.all(1, ft.Colors.BLACK26),
+                                    border_radius=5,
+                                    margin=ft.margin.only(bottom=20)
+                                ),
+                                
+                                # Sección de datos del cliente
+                                ft.Container(
+                                    content=ft.Column([
+                                        ft.Text("Datos del Cliente", size=18, weight=ft.FontWeight.BOLD),
+                                        cliente_field,
+                                        sugerencias_clientes_container,
+                                        zona_dropdown
+                                    ]),
+                                    padding=10,
+                                    border=ft.border.all(1, ft.Colors.BLACK26),
+                                    border_radius=5,
+                                    margin=ft.margin.only(bottom=20)
+                                ),
+                                
+                            ], 
+                            width=page.width * 0.45),
+                            
+                            # Columna derecha (pedido actual)
+                            ft.Container(
+                                content=ft.Column([
+                                    # Cabecera destacada
+                                    ft.Container(
+                                        content=ft.Row([
+                                            ft.Icon(ft.Icons.SHOPPING_CART, color=ft.Colors.WHITE),
+                                            ft.Text("Pedido Actual", 
+                                                size=20, 
+                                                weight=ft.FontWeight.BOLD,
+                                                color=ft.Colors.WHITE)
+                                        ], alignment=ft.MainAxisAlignment.CENTER),
+                                        bgcolor=ft.Colors.PURPLE,
+                                        padding=10,
+                                        border_radius=ft.border_radius.only(top_left=5, top_right=5)
+                                    ),
+                                    # Texto explicativo
+                                    ft.Text("Toca la cantidad para modificarla", 
+                                        size=12, italic=True, 
+                                        text_align=ft.TextAlign.CENTER),
+                                    # Tabla de pedidos dentro de un Column con scroll
+                                    ft.Column(
+                                        [pedido_actual_table],
+                                        scroll=ft.ScrollMode.AUTO,
+                                        expand=True,
+                                        spacing=0,
+                                        height=350
+                                    ),
+                                    # Botones de acciones
+                                    ft.Row([
+                                        borrar_productos_btn,
+                                        finalizar_pedido_btn
+                                    ], alignment=ft.MainAxisAlignment.SPACE_BETWEEN, spacing=10)
+                                ]),
+                                padding=ft.padding.only(bottom=10),
+                                border=ft.border.all(2, ft.Colors.PURPLE),
+                                border_radius=5,
+                                bgcolor=ft.Colors.with_opacity(0.05, ft.Colors.PURPLE),
+                                width=page.width * 0.53,
+                                margin=ft.margin.only(left=10, top=0),
+                                expand=False
+                            )
+                        ], 
+                        wrap=False),
+                        
+                        # Contenedores para funciones especiales
+                        estadisticas_container,
+                        prediccion_container,
+                        pedidos_container,
+                    ], 
+                    scroll=ft.ScrollMode.AUTO,
+                    expand=False)
+                )
         
         components_loaded = True
+        
+        # Actualizar si hay productos en el pedido
+        if current_order:
+            actualizar_tabla_pedido()
+            aplicar_mejoras_movil()
 
-    # Actualizar si hay productos en el pedido
-    if current_order:
-        actualizar_tabla_pedido()
-
-        aplicar_mejoras_movil()
     # Inicializar la interfaz
     page.on_route_change = lambda _: load_components()
     load_components()
 
 # Ejecutar la aplicación
-ft.app(target=main, view=ft.AppView.FLET_APP)
+ft.app(target=main, port=8550, view=ft.AppView.FLET_APP)
